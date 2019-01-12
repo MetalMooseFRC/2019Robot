@@ -26,8 +26,8 @@ public class RobotMap {
 
 	/**DRIVETRAIN */
 	//Drivetrain motor ports
-	public static final int rightDriveMotorPort = 0;
-	public static final int leftDriveMotorPort = 1;
+	public static final int rightDriveCANID = 0;
+	public static final int leftDriveCANID = 1;
 
   // If you are using multiple modules, make sure to define both the port
   // number and the module. For example you with a rangefinder:

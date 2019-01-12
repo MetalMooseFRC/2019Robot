@@ -7,7 +7,10 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Spark;
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.ControlType;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.RobotMap;
@@ -19,9 +22,10 @@ import frc.robot.commands.DrivetrainManualDrive;
 public class Drivetrain extends Subsystem {
 	
 	//Motor controllers
-	private Spark rightDriveMotor = new Spark(RobotMap.rightDriveMotorPort);
-	private Spark leftDriveMotor = new Spark(RobotMap.leftDriveMotorPort);
+	public CANSparkMax rightDriveMotor = new CANSparkMax(RobotMap.rightDriveCANID, MotorType.kBrushless);
+	private CANSparkMax leftDriveMotor = new CANSparkMax(RobotMap.leftDriveCANID, MotorType.kBrushless);
 
+	private CANEncoder rightSparkMaxEncoder = new CANEncoder(rightDriveMotor);
 	private DifferentialDrive myDifferentialDrive = new DifferentialDrive(leftDriveMotor, rightDriveMotor);
 
 
@@ -35,4 +39,6 @@ public class Drivetrain extends Subsystem {
 	public void arcadeDrive(double speed, double turn) {
 		myDifferentialDrive.arcadeDrive(speed, turn);
 	}
-}
+	public double getEncoderCount() {
+		return rightSparkMaxEncoder.getPosition();
+	}
