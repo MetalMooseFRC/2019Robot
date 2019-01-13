@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drivetrain;
+import edu.wpi.first.cameraserver.CameraServer;
 
 
 /**
@@ -37,9 +38,13 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		myOI = new OI();
+		
+		CameraServer.getInstance().addAxisCamera("10.13.91.14");
+	
+		CameraServer.getInstance().startAutomaticCapture();
 		//myChooser.addDefault("Default Auto", new ExampleCommand());
 		//myChooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", myChooser);
+		//SmartDashboard.putData("Auto mode", myChooser);
 	}
 
 	/**

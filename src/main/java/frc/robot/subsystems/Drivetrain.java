@@ -42,3 +42,4 @@ public class Drivetrain extends Subsystem {
 	public double getEncoderCount() {
 		return rightSparkMaxEncoder.getPosition();
 	}
+}
