@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.cameraserver.CameraServer;
+import frc.robot.subsystems.*;
 
 
 /**
@@ -24,8 +25,8 @@ import edu.wpi.first.cameraserver.CameraServer;
  * project.
  */
 public class Robot extends TimedRobot {
-	public static final Drivetrain myDrivetrain
-			= new Drivetrain();
+	public static final Drivetrain myDrivetrain = new Drivetrain();
+	public static final Elevator myElevator = new Elevator();
 	public static OI myOI;
 
 	Command myAutonomousCommand;
