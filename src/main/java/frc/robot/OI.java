@@ -24,7 +24,7 @@ public class OI {
 
   //Driver Logitech joystick
 	public static final Joystick driverStick = new Joystick(RobotMap.driveStickPort);
-
+  public static final Joystick controller = new Joystick(RobotMap.operatorPort);
 
   // There are a few additional built in buttons you can use. Additionally,
   // by subclassing Button you can create custom triggers and bind those to

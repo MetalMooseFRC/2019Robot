@@ -22,9 +22,9 @@ public class RobotMap {
   	/**JOYSTICKS */
   public static final int driveStickPort = 0;
 
-  	/**Operators */
-  public static final int operatorXPort = 0;
-  public static final int operatorYPort = 1;
+    /**Operators */
+  public static final int operatorPort = 1;
+
 	//twist axis
 	public static final int driveStickZAxisPort = 2;
 
