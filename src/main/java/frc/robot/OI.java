@@ -8,6 +8,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -23,8 +26,10 @@ public class OI {
   // Button button = new JoystickButton(stick, buttonNumber);
 
   //Driver Logitech joystick
-	public static final Joystick driverStick = new Joystick(RobotMap.driveStickPort);
-  public static final Joystick controller = new Joystick(RobotMap.operatorPort);
+  public static final Joystick driverStick = new Joystick(RobotMap.driveStickPort);
+  
+  //Button to drive a specific distance, this is temporary
+  public static final Button distButton = new JoystickButton(driverStick, 2);
 
   // There are a few additional built in buttons you can use. Additionally,
   // by subclassing Button you can create custom triggers and bind those to
@@ -45,4 +50,7 @@ public class OI {
   // Start the command when the button is released and let it run the command
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
+  public OI() {
+    distButton.whenPressed(new DrivetrainDriveDistance(10));
+  }
 }
