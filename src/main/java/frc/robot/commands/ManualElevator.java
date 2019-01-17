@@ -28,7 +28,7 @@ public class ManualElevator extends Command {
   @Override
   protected void execute() {
     // speed of elevator ascending/descending depends on the joystick's y value.
-    Robot.myElevator.setSpeed(-OI.controller.getY());
+    Robot.myElevator.setSpeed(-OI.operatorStick.getY());
   }
 
   // Make this return true when this Command no longer needs to run execute()

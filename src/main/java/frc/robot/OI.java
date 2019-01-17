@@ -31,6 +31,8 @@ public class OI {
   //Button to drive a specific distance, this is temporary
   public static final Button distButton = new JoystickButton(driverStick, 2);
 
+
+  public static final Joystick operatorStick = new Joystick(RobotMap.operatorPort);
   // There are a few additional built in buttons you can use. Additionally,
   // by subclassing Button you can create custom triggers and bind those to
   // commands the same as any other Button.

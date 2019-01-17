@@ -19,7 +19,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
  */
 public class Elevator extends Subsystem {
   //create motor controller for elevator
-  public CANSparkMax elevatorMotor = new CANSparkMax(RobotMap.elevatorPort, MotorType.kBrushless);
+  public CANSparkMax elevatorMotor = new CANSparkMax(RobotMap.elevatorMotorCANID, MotorType.kBrushless);
 
   //create encoder for elevator
   public CANEncoder elevatorEncoder = new CANEncoder(elevatorMotor);
