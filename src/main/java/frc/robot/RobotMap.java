@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -37,6 +38,11 @@ public class RobotMap {
   public static final int leftFrontDriveCANID = 3;
   public static final int leftMiddleDriveCANID = 4;
   public static final int leftBackDriveCANID = 5;
+
+  //Reflectance sensor
+  public static final int reflectivePowerPort = 9;
+  public static final int reflectiveLeftSensorPort = 1;
+  public static final int reflectiveRightSensorPort = 0;
 
   /**ELEVATOR */
   public static final int elevatorMotorCANID = 6;

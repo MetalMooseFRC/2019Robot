@@ -13,6 +13,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants;
@@ -37,6 +39,11 @@ public class Drivetrain extends Subsystem {
 	private CANEncoder leftSparkMaxEncoder = new CANEncoder(leftFrontDriveMotor);
 	CANPIDController rightPID = new CANPIDController(rightFrontDriveMotor);
 	CANPIDController leftPID = new CANPIDController(leftFrontDriveMotor);
+
+	//Reflective sensor
+	DigitalOutput reflectanceSensorPower = new DigitalOutput(RobotMap.reflectivePowerPort);
+	AnalogInput reflectanceLeftSensor = new AnalogInput(RobotMap.reflectiveLeftSensorPort);
+	AnalogInput reflectanceRightSensor = new AnalogInput(RobotMap.reflectiveRightSensorPort);
 	
 	public void initDefaultCommand() {
 		// Set the default command to manual driving
@@ -45,7 +52,7 @@ public class Drivetrain extends Subsystem {
 
 	//speed is forward or backwards speed
 	//turn is the turning speed
-			//We cannot have differential drive and autonomous SparkMax motors
+	//We cannot have differential drive and autonomous SparkMax motors
 	public void arcadeDrive(double speed, double turn) {
 		//Arcade drive algorithem
 		double leftPower = speed - turn;
@@ -56,6 +63,7 @@ public class Drivetrain extends Subsystem {
 		rightPower += skim(leftPower);
 
 		leftFrontDriveMotor.set(leftPower);
+		//Invert right motor
 		rightFrontDriveMotor.set(-rightPower);
 
 	}
@@ -94,6 +102,22 @@ public class Drivetrain extends Subsystem {
 		leftPID.setD(Constants.driveD);
 		leftPID.setOutputRange(-1, 1);
 		leftPID.setReference(pos, ControlType.kPosition);
+	}
+
+	public boolean getLeftReflectance() {
+		if (reflectanceLeftSensor.getVoltage() < Constants.reflectanceThreshHold) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public boolean getRightReflectance() {
+		if (reflectanceRightSensor.getVoltage() < Constants.reflectanceThreshHold) {
+			return true;
+		}
+
+		return false;
 	}
 
 }
