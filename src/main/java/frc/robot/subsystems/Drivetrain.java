@@ -50,6 +50,7 @@ public class Drivetrain extends Subsystem {
 		setDefaultCommand(new DrivetrainManualDrive());
 	}
 
+
 	//speed is forward or backwards speed
 	//turn is the turning speed
 	//We cannot have differential drive and autonomous SparkMax motors
@@ -86,6 +87,7 @@ public class Drivetrain extends Subsystem {
 		return 0;
 	}
 
+	//Set PID reference for right side
 	public void setRightPosition(double pos) {
 		
 		rightPID.setP(Constants.driveP);
@@ -95,6 +97,7 @@ public class Drivetrain extends Subsystem {
 		rightPID.setReference(pos, ControlType.kPosition);
 	}
 
+	//Set PID reference for left side
 	public void setLeftPosition(double pos) {
 		
 		leftPID.setP(Constants.driveP);
@@ -104,7 +107,9 @@ public class Drivetrain extends Subsystem {
 		leftPID.setReference(pos, ControlType.kPosition);
 	}
 
+	//Get voltage of reflectance sensor pin 15
 	public boolean getLeftReflectance() {
+		//convert to boolean by threshhold
 		if (reflectanceLeftSensor.getVoltage() < Constants.reflectanceThreshHold) {
 			return true;
 		}
@@ -112,7 +117,9 @@ public class Drivetrain extends Subsystem {
 		return false;
 	}
 
+	//Get voltage of reflectance sensor pin 1
 	public boolean getRightReflectance() {
+		//convert to boolean by threshhold
 		if (reflectanceRightSensor.getVoltage() < Constants.reflectanceThreshHold) {
 			return true;
 		}

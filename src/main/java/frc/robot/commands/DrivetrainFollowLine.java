@@ -31,13 +31,16 @@ public class DrivetrainFollowLine extends Command {
 		isLeftReflect = Robot.myDrivetrain.getLeftReflectance();
 		isRightReflect = Robot.myDrivetrain.getRightReflectance();
 
+		//If only the left is detecting reflectance, turn left
 		if (isLeftReflect && !isRightReflect) {
 			//turn left is positive
 			Robot.myDrivetrain.arcadeDrive(Constants.lineFollowSpeed, Constants.lineFollowSpeed);
-
+		
+		//If only the right is detecting refelctance, turn right
 		} else if (!isLeftReflect && isRightReflect) {
 			Robot.myDrivetrain.arcadeDrive(Constants.lineFollowSpeed, -Constants.lineFollowSpeed);
 
+		//If both are detecting reflectance, stay straight
 		} else if (isLeftReflect && isRightReflect) {
 			Robot.myDrivetrain.arcadeDrive(Constants.lineFollowSpeed, 0);
 
@@ -47,6 +50,7 @@ public class DrivetrainFollowLine extends Command {
        
 	}
 
+	//Don't know what to use to consider finished, to be determined
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
