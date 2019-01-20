@@ -17,49 +17,37 @@ import frc.robot.Robot;
 /**
  * An example command.  You can replace me with your own command.
  */
-public class DrivetrainDriveDistance extends Command {
+public class ElevatorToHeight extends Command {
 
-    double distance;
-    double encoderRightSetpoint;
-    double encoderLeftSetpoint;
+    double height;
 
 
-	public DrivetrainDriveDistance(double distance) {
+	public ElevatorToHeight(double height) {
 		// Use requires() here to declare subsystem dependencies
         requires(Robot.myDrivetrain);
 
-        this.distance = distance;
+        this.height = height;
 	}
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-         //no encoder reset so relative positioning must be used
-         double currentRightCount = Robot.myDrivetrain.getRightEncoderCount();
-         encoderRightSetpoint = currentRightCount + distance;
-
-         double currentLeftCount = Robot.myDrivetrain.getLeftEncoderCount();
-         encoderLeftSetpoint = currentLeftCount + distance;
-
-		//Set references
-         Robot.myDrivetrain.setRightPosition(encoderRightSetpoint);
-         //Robot.myDrivetrain.setLeftPosition(encoderLeftSetpoint);
+         //Set reference for elevator PID
+         Robot.myElevator.setPosition(height);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
 		//Continue to approach references
-        Robot.myDrivetrain.setRightPosition(encoderRightSetpoint);
-        //Robot.myDrivetrain.setLeftPosition(encoderLeftSetpoint);
+        Robot.myElevator.setPosition(height);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
 		//Finish once within a margin of error of the setpoint
-        return Math.abs(encoderRightSetpoint - Robot.myDrivetrain.getRightEncoderCount()) < Constants.PIDDriveErrorMargin; 
-        //&& Math.abs(encoderLeftSetpoint - Robot.myDrivetrain.getLeftEncoderCount()) < Constants.PIDErrorMargin;
+        return Math.abs(height - Robot.myElevator.getEncoderCount()) < Constants.PIDElevatorErrorMargin; 
 	}
 
 	// Called once after isFinished returns true

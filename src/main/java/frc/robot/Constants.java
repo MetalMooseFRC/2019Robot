@@ -12,11 +12,18 @@ public class Constants {
     public static double driveP = 0.05; 
     public static double driveI = 0.00001; 
     public static double driveD = 0; 
-    public static double PIDErrorMargin = 0.1; 
+    public static double PIDDriveErrorMargin = 0.1; 
 
     //Reflectance threshhold
     public static double reflectanceThreshHold = 2.5;
 
     //Line follow speed
     public static double lineFollowSpeed = 0.3;
+
+    /**ELEVATOR */
+    //Elevator PID
+    public static double elevatorP = 0.01;
+    public static double elevatorI = 0.00001;
+    public static double elevatorD = 0;
+    public static double PIDElevatorErrorMargin = 0.1;
 }

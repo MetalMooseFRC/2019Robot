@@ -8,10 +8,13 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.ControlType;
 import com.revrobotics.CANEncoder;
+import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 /**
@@ -23,6 +26,9 @@ public class Elevator extends Subsystem {
 
   //create encoder for elevator
   public CANEncoder elevatorEncoder = new CANEncoder(elevatorMotor);
+
+  //PID controller
+  private CANPIDController elevatorPID = new CANPIDController(elevatorMotor);
 
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
@@ -38,4 +44,16 @@ public class Elevator extends Subsystem {
     elevatorMotor.set(speed);
   }
 
+  public double getEncoderCount() {
+    return elevatorEncoder.getPosition();
+  }
+
+  //set PID reference point
+  public void setPosition(double pos) {
+    elevatorPID.setP(Constants.elevatorP);
+    elevatorPID.setI(Constants.elevatorI);
+    elevatorPID.setD(Constants.elevatorD);
+    elevatorPID.setOutputRange(-1, 1);
+    elevatorPID.setReference(pos, ControlType.kPosition);
+  }
 }
