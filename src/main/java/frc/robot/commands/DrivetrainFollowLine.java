@@ -31,12 +31,13 @@ public class DrivetrainFollowLine extends Command {
 		isLeftReflect = Robot.myDrivetrain.getLeftReflectance();
 		isRightReflect = Robot.myDrivetrain.getRightReflectance();
 
+		//Test where we are on the line
 		if (isLeftReflect && !isRightReflect) {
 			//turn left is positive
-			Robot.myDrivetrain.arcadeDrive(Constants.lineFollowSpeed, Constants.lineFollowSpeed);
+			Robot.myDrivetrain.arcadeDrive(0, Constants.lineFollowSpeed);
 
 		} else if (!isLeftReflect && isRightReflect) {
-			Robot.myDrivetrain.arcadeDrive(Constants.lineFollowSpeed, -Constants.lineFollowSpeed);
+			Robot.myDrivetrain.arcadeDrive(0, -Constants.lineFollowSpeed);
 
 		} else if (isLeftReflect && isRightReflect) {
 			Robot.myDrivetrain.arcadeDrive(Constants.lineFollowSpeed, 0);
@@ -44,6 +45,7 @@ public class DrivetrainFollowLine extends Command {
 		} else {
 			Robot.myDrivetrain.arcadeDrive(0,0);
 		}
+	
        
 	}
 
