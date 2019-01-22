@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 public class angleDrive extends Command {
 
@@ -33,14 +34,18 @@ public class angleDrive extends Command {
   }
 
   // Called repeatedly when this Command is scheduled to run
+  //keep adjusting the motors, depending on the output of PID.
   @Override
   protected void execute() {
+    double xSpeed = Robot.myDrivetrain.gyroPID.get();
+    Robot.myDrivetrain.arcadeDrive(0, xSpeed);
   }
 
   // Make this return true when this Command no longer needs to run execute()
+  //check if gyro is on target or not.
   @Override
   protected boolean isFinished() {
-    return false;
+    return Robot.myDrivetrain.gyroPID.onTarget();
   }
 
   // Called once after isFinished returns true
