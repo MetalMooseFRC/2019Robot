@@ -7,19 +7,24 @@
 
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.SPI;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.commands.DrivetrainManualDrive;
+import frc.robot.BlankPIDOutput;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -45,6 +50,10 @@ public class Drivetrain extends Subsystem {
 	AnalogInput reflectanceLeftSensor = new AnalogInput(RobotMap.reflectiveLeftSensorPort);
 	AnalogInput reflectanceRightSensor = new AnalogInput(RobotMap.reflectiveRightSensorPort);
 	
+	//Gyro Sensors
+	public AHRS myAHRS = new AHRS(SPI.Port.kMXP);
+	public PIDController gyroPID = new PIDController(RobotMap.drivetrainGyroP, RobotMap.drivetrainGyroI, RobotMap.drivetrainGyroD, 0, myAHRS, new BlankPIDOutput());
+
 	public void initDefaultCommand() {
 		// Set the default command to manual driving
 		setDefaultCommand(new DrivetrainManualDrive());
