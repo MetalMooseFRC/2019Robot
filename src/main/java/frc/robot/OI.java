@@ -53,6 +53,6 @@ public class OI {
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
   public OI() {
-    distButton.whenPressed(new DrivetrainFollowLine());
+    //distButton.whenPressed(new DrivetrainFollowLine());
   }
 }

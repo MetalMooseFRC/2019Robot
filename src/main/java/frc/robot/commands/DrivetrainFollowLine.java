@@ -38,7 +38,7 @@ public class DrivetrainFollowLine extends Command {
 		
 		//If only the right is detecting refelctance, turn right
 		} else if (!isLeftReflect && isRightReflect) {
-			Robot.myDrivetrain.arcadeDrive(Constants.lineFollowSpeed, -Constants.lineFollowSpeed);
+			Robot.myDrivetrain.arcadeDrive(0, -Constants.lineFollowSpeed);
 
 		//If both are detecting reflectance, stay straight
 		} else if (isLeftReflect && isRightReflect) {
@@ -47,6 +47,7 @@ public class DrivetrainFollowLine extends Command {
 		} else {
 			Robot.myDrivetrain.arcadeDrive(0,0);
 		}
+	
        
 	}
 
