@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drivetrain;
@@ -18,6 +19,7 @@ import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoMode.PixelFormat;
 import edu.wpi.first.cameraserver.CameraServer;
+import frc.robot.commands.angleDrive;
 import frc.robot.subsystems.*;
 
 
@@ -47,8 +49,8 @@ public class Robot extends TimedRobot {
 		myOI = new OI();
 		
 		//Start stream for axis camera
-		//CameraServer.getInstance().addAxisCamera("10.13.91.14");
-		//CameraServer.getInstance().startAutomaticCapture();
+		CameraServer.getInstance().addAxisCamera("10.13.91.11");
+		CameraServer.getInstance().startAutomaticCapture();
 
 		//Start stream for jevois camera
 		UsbCamera jevoisCamera = new UsbCamera("VisionCam", 0);
@@ -56,7 +58,7 @@ public class Robot extends TimedRobot {
 		MjpegServer jevoisServer = new MjpegServer("VisionServer", 1180);
 		jevoisServer.setSource(jevoisCamera);
 		
-		
+
 
 	
 
@@ -133,8 +135,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-
-		System.out.println(jevoisTest.readString());
+		//System.out.println(jevoisTest.readString());
 
 	}
 

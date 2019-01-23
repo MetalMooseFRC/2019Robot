@@ -30,7 +30,7 @@ public class OI {
   
   //Button to drive a specific distance, this is temporary
   public static final Button distButton = new JoystickButton(driverStick, 2);
-
+  public static final Button gyroButton = new JoystickButton(driverStick, 1);
 
   public static final Joystick operatorStick = new Joystick(RobotMap.operatorPort);
   // There are a few additional built in buttons you can use. Additionally,
@@ -53,7 +53,7 @@ public class OI {
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
   public OI() {
-    //distButton.whenPressed(new DrivetrainFollowLine());
+    
   }
 }
 

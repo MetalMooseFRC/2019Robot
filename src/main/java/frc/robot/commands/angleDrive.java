@@ -38,6 +38,8 @@ public class angleDrive extends Command {
   @Override
   protected void execute() {
     double xSpeed = Robot.myDrivetrain.gyroPID.get();
+    System.out.println("PID Speed" + xSpeed);
+    System.out.println("Gyro" + Robot.myDrivetrain.myAHRS.getAngle());
     Robot.myDrivetrain.arcadeDrive(0, xSpeed);
   }
 

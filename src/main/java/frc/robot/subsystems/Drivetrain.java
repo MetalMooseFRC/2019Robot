@@ -52,11 +52,19 @@ public class Drivetrain extends Subsystem {
 	
 	//Gyro Sensors
 	public AHRS myAHRS = new AHRS(SPI.Port.kMXP);
-	public PIDController gyroPID = new PIDController(RobotMap.drivetrainGyroP, RobotMap.drivetrainGyroI, RobotMap.drivetrainGyroD, 0, myAHRS, new BlankPIDOutput());
+	public PIDController gyroPID = new PIDController(Constants.drivetrainGyroP, Constants.drivetrainGyroI, Constants.drivetrainGyroD, 0, myAHRS, new BlankPIDOutput());
 
 	public void initDefaultCommand() {
 		// Set the default command to manual driving
 		setDefaultCommand(new DrivetrainManualDrive());
+	}
+
+	public Drivetrain() {
+		//Set up gyro PID parameters
+		gyroPID.setInputRange(-180, 180);
+		gyroPID.setOutputRange(-0.5, 0.5);
+		gyroPID.setAbsoluteTolerance(Constants.drivetrainGyroPIDError);
+		gyroPID.setContinuous(true);
 	}
 
 

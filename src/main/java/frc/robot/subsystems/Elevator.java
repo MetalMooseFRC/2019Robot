@@ -22,13 +22,14 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
  */
 public class Elevator extends Subsystem {
   //create motor controller for elevator
-  public CANSparkMax elevatorMotor = new CANSparkMax(RobotMap.elevatorMotorCANID, MotorType.kBrushless);
+   public CANSparkMax elevatorMotor = new CANSparkMax(RobotMap.elevatorMotorCANID, MotorType.kBrushless);
 
   //create encoder for elevator
   public CANEncoder elevatorEncoder = new CANEncoder(elevatorMotor);
 
   //PID controller
   private CANPIDController elevatorPID = new CANPIDController(elevatorMotor);
+  
 
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
@@ -39,6 +40,7 @@ public class Elevator extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
   }
 
+   
   //set elevator speed at a constant
   public void setSpeed(double speed) {
     elevatorMotor.set(speed);
@@ -55,5 +57,5 @@ public class Elevator extends Subsystem {
     elevatorPID.setD(Constants.elevatorD);
     elevatorPID.setOutputRange(-1, 1);
     elevatorPID.setReference(pos, ControlType.kPosition);
-  }
+  } 
 }

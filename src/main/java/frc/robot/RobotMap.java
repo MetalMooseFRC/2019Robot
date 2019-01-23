@@ -39,12 +39,6 @@ public class RobotMap {
   public static final int leftMiddleDriveCANID = 4;
   public static final int leftBackDriveCANID = 5;
 
-  // Values and Error for the PID of gyro
-  public static double drivetrainGyroP = 0.1;
-  public static double drivetrainGyroI = 0.00001;
-  public static double drivetrainGyroD = 0;
-  public static double drivetrainGyroPIDError = 3.5;
-
   //Reflectance sensor
   public static final int reflectivePowerPort = 9;
   public static final int reflectiveLeftSensorPort = 1;

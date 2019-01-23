@@ -47,7 +47,7 @@ public class ElevatorToHeight extends Command {
 	@Override
 	protected boolean isFinished() {
 		//Finish once within a margin of error of the setpoint
-        return Math.abs(height - Robot.myElevator.getEncoderCount()) < Constants.PIDElevatorErrorMargin; 
+	    return Math.abs(height - Robot.myElevator.getEncoderCount()) < Constants.PIDElevatorErrorMargin; 
 	}
 
 	// Called once after isFinished returns true
