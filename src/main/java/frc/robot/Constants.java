@@ -20,6 +20,12 @@ public class Constants {
     //Line follow speed
     public static double lineFollowSpeed = 0.3;
 
+    // Values and Error for the PID of gyro
+    public static double drivetrainGyroP = 0.1;
+    public static double drivetrainGyroI = 0.00001;
+    public static double drivetrainGyroD = 0;
+    public static double drivetrainGyroPIDError = 3.5;
+
     /**ELEVATOR */
     //Elevator PID
     public static double elevatorP = 0.01;

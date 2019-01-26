@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.robot.commands.ManualElevator;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANEncoder;
@@ -22,13 +24,13 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
  */
 public class Elevator extends Subsystem {
   //create motor controller for elevator
-   public CANSparkMax elevatorMotor = new CANSparkMax(RobotMap.elevatorMotorCANID, MotorType.kBrushless);
-
+   public CANSparkMax elevatorRightMotor = new CANSparkMax(RobotMap.elevatorRightMotorCANID, MotorType.kBrushless);
+   public CANSparkMax elevatorLeftMotor = new CANSparkMax(RobotMap.elevatorLeftMotorCANID, MotorType.kBrushless);
   //create encoder for elevator
-  public CANEncoder elevatorEncoder = new CANEncoder(elevatorMotor);
+  public CANEncoder elevatorEncoder = new CANEncoder(elevatorRightMotor);
 
   //PID controller
-  private CANPIDController elevatorPID = new CANPIDController(elevatorMotor);
+  private CANPIDController elevatorPID = new CANPIDController(elevatorRightMotor);
   
 
   // Put methods for controlling this subsystem
@@ -37,13 +39,16 @@ public class Elevator extends Subsystem {
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new ManualElevator());
   }
 
+  public Elevator() {
+    elevatorLeftMotor.follow(elevatorRightMotor, true);
+  }
    
   //set elevator speed at a constant
   public void setSpeed(double speed) {
-    elevatorMotor.set(speed);
+    elevatorRightMotor.set(speed);
   }
 
   public double getEncoderCount() {

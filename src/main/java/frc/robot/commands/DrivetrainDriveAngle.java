@@ -11,11 +11,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
-public class angleDrive extends Command {
+public class DrivetrainDriveAngle extends Command {
 
   private double angle;
 
-  public angleDrive(double angle) {
+  public DrivetrainDriveAngle(double angle) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.myDrivetrain);

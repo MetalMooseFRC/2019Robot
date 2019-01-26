@@ -45,6 +45,7 @@ public class RobotMap {
   public static final int reflectiveRightSensorPort = 0;
 
   /**ELEVATOR */
-  public static final int elevatorMotorCANID = 6;
+  public static final int elevatorRightMotorCANID = 6;
+  public static final int elevatorLeftMotorCANID = 7;
   
 }
