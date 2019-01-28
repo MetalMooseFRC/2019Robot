@@ -32,4 +32,9 @@ public class Constants {
     public static double elevatorI = 0.00001;
     public static double elevatorD = 0;
     public static double PIDElevatorErrorMargin = 0.1;
+
+    public static double elevatorXP = 0;
+    public static double elevatorXI = 1;
+    public static double elevatorXD = 2;
+    public static double elevatorXMargin = 2;
 }
