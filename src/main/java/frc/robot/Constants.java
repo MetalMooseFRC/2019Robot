@@ -37,4 +37,7 @@ public class Constants {
     public static double elevatorXI = 1;
     public static double elevatorXD = 2;
     public static double elevatorXMargin = 2;
+
+    public static final double encoderToDistanceCoefficient = 1;
+
 }

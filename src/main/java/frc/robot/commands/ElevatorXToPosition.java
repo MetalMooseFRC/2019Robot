@@ -7,43 +7,50 @@
 
 package frc.robot.commands;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.robot.Constants;
 
-public class VisionAngle extends Command {
 
-  private double angle;
 
-  public VisionAngle(double angle) {
+public class ElevatorXToPosition extends Command {
+
+  private double pos;
+
+  public ElevatorXToPosition(double pos) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.myDrivetrain);
-    this.angle = angle;
+    this.pos = pos;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.myDrivetrain.myAHRS.reset();
+    //turn off motor
+   Robot.myElevator.elevatorXMotor.set(ControlMode.PercentOutput, 0);
 
-    // Set point, enable elevator PID
-    Robot.myElevator.elevatorXPID.setSetpoint(angle);
-    Robot.myElevator.elevatorXPID.reset();
-    Robot.myElevator.elevatorXPID.enable();
+   //zero encoder with 30ms timeout
+   Robot.myElevator.elevatorXMotor.getSensorCollection().setQuadraturePosition(0, 30);
+   
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double xSpeed = Robot.myElevator.elevatorXPID.get();
-    Robot.myElevator.setXSpeed(xSpeed);
+
+    //approach the position translated into encoder ticks
+    Robot.myElevator.elevatorXMotor.set(ControlMode.Position, pos/Constants.encoderToDistanceCoefficient);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.myElevator.elevatorXPID.onTarget();
+    //finish when close enough to target
+    return Math.abs(Robot.myElevator.elevatorXMotor.getSelectedSensorPosition()*Constants.encoderToDistanceCoefficient - pos) < Constants.elevatorXMargin;
   }
 
   // Called once after isFinished returns true
