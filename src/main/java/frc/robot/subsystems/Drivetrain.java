@@ -32,13 +32,13 @@ import frc.robot.BlankPIDOutput;
 public class Drivetrain extends Subsystem {
 	
 	//Motor controllers
-	private CANSparkMax rightFrontDriveMotor = new CANSparkMax(RobotMap.rightFrontDriveCANID, MotorType.kBrushless);
-	//private CANSparkMax rightMiddleDriveMotor = new CANSparkMax(RobotMap.rightMiddleDriveCANID, MotorType.kBrushless);
-	//private CANSparkMax rightBackDriveMotor = new CANSparkMax(RobotMap.rightBackDriveCANID, MotorType.kBrushless);
+	public CANSparkMax rightFrontDriveMotor = new CANSparkMax(RobotMap.rightFrontDriveCANID, MotorType.kBrushless);
+	private CANSparkMax rightMiddleDriveMotor = new CANSparkMax(RobotMap.rightMiddleDriveCANID, MotorType.kBrushless);
+	private CANSparkMax rightBackDriveMotor = new CANSparkMax(RobotMap.rightBackDriveCANID, MotorType.kBrushless);
 
-	private CANSparkMax leftFrontDriveMotor = new CANSparkMax(RobotMap.leftFrontDriveCANID, MotorType.kBrushless);
-	//private CANSparkMax leftMiddleDriveMotor = new CANSparkMax(RobotMap.leftMiddleDriveCANID, MotorType.kBrushless);
-	//private CANSparkMax leftBackDriveMotor = new CANSparkMax(RobotMap.leftBackDriveCANID, MotorType.kBrushless);
+	public CANSparkMax leftFrontDriveMotor = new CANSparkMax(RobotMap.leftFrontDriveCANID, MotorType.kBrushless);
+	private CANSparkMax leftMiddleDriveMotor = new CANSparkMax(RobotMap.leftMiddleDriveCANID, MotorType.kBrushless);
+	private CANSparkMax leftBackDriveMotor = new CANSparkMax(RobotMap.leftBackDriveCANID, MotorType.kBrushless);
 
 	private CANEncoder rightSparkMaxEncoder = new CANEncoder(rightFrontDriveMotor);
 	private CANEncoder leftSparkMaxEncoder = new CANEncoder(leftFrontDriveMotor);
@@ -65,6 +65,13 @@ public class Drivetrain extends Subsystem {
 		gyroPID.setOutputRange(-0.5, 0.5);
 		gyroPID.setAbsoluteTolerance(Constants.drivetrainGyroPIDError);
 		gyroPID.setContinuous(true);
+
+		//Have one motor lead and the others follow
+		rightMiddleDriveMotor.follow(rightFrontDriveMotor);
+		rightBackDriveMotor.follow(rightFrontDriveMotor);
+
+		leftMiddleDriveMotor.follow(leftFrontDriveMotor);
+		leftBackDriveMotor.follow(leftFrontDriveMotor);
 	}
 
 
@@ -80,9 +87,9 @@ public class Drivetrain extends Subsystem {
 		leftPower += skim(rightPower);
 		rightPower += skim(leftPower);
 
-		leftFrontDriveMotor.set(leftPower);
+		leftFrontDriveMotor.set(-leftPower);
 		//Invert right motor
-		rightFrontDriveMotor.set(-rightPower);
+		rightFrontDriveMotor.set(rightPower);
 
 	}
 

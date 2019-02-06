@@ -38,28 +38,38 @@ public class DrivetrainDriveDistance extends Command {
          double currentRightCount = Robot.myDrivetrain.getRightEncoderCount();
          encoderRightSetpoint = currentRightCount + distance;
 
+		 //subtracted because the left side is inverted
          double currentLeftCount = Robot.myDrivetrain.getLeftEncoderCount();
-         encoderLeftSetpoint = currentLeftCount + distance;
+         encoderLeftSetpoint = currentLeftCount - distance;
 
 		//Set references
-         Robot.myDrivetrain.setRightPosition(encoderRightSetpoint);
-         //Robot.myDrivetrain.setLeftPosition(encoderLeftSetpoint);
+		Robot.myDrivetrain.setRightPosition(encoderRightSetpoint);
+		
+		Robot.myDrivetrain.myAHRS.reset();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
+
+
 		//Continue to approach references
-        Robot.myDrivetrain.setRightPosition(encoderRightSetpoint);
-        //Robot.myDrivetrain.setLeftPosition(encoderLeftSetpoint);
+	   Robot.myDrivetrain.setRightPosition(encoderRightSetpoint);
+	   double rightMotorSpeed = Robot.myDrivetrain.rightFrontDriveMotor.getAppliedOutput();
+		//Robot.myDrivetrain.setLeftPosition(encoderLeftSetpoint);
+	   Robot.myDrivetrain.leftFrontDriveMotor.set(-rightMotorSpeed);
+
+
+		System.out.println("angle " + Robot.myDrivetrain.myAHRS.getAngle());
+
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
 		//Finish once within a margin of error of the setpoint
-        return Math.abs(encoderRightSetpoint - Robot.myDrivetrain.getRightEncoderCount()) < Constants.PIDDriveErrorMargin; 
-        //&& Math.abs(encoderLeftSetpoint - Robot.myDrivetrain.getLeftEncoderCount()) < Constants.PIDErrorMargin;
+        return Math.abs(encoderRightSetpoint - Robot.myDrivetrain.getRightEncoderCount()) < Constants.PIDDriveErrorMargin;
+        //&& Math.abs(encoderLeftSetpoint - Robot.myDrivetrain.getLeftEncoderCount()) < Constants.PIDDriveErrorMargin;
 	}
 
 	// Called once after isFinished returns true

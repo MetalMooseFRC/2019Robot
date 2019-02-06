@@ -55,15 +55,11 @@ public class Elevator extends Subsystem {
     elevatorLeftMotor.follow(elevatorRightMotor, true);
 
     elevatorXMotor.configFactoryDefault();
+    elevatorXMotor.selectProfileSlot(0, 0);
     elevatorXMotor.setNeutralMode(NeutralMode.Brake);
     elevatorXMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
     elevatorXMotor.configPeakOutputForward(1.0);
     elevatorXMotor.configPeakOutputReverse(-1.0);
-
-    elevatorXMotor.config_kP(0, Constants.elevatorXP);
-		elevatorXMotor.config_kI(0, Constants.elevatorXI);
-		elevatorXMotor.config_kD(0, Constants.elevatorXD);
-
 
   }
 
@@ -72,13 +68,21 @@ public class Elevator extends Subsystem {
     elevatorRightMotor.set(speed);
   }
 
+  public void setXSpeed(double speed) {
+    elevatorXMotor.set(ControlMode.PercentOutput, speed);
+  }
+
   public double getEncoderCount() {
     return elevatorEncoder.getPosition();
   }
 
+  public int getXEncoderCount() {
+    return elevatorXMotor.getSelectedSensorPosition();
+  }
+
 
   //set PID reference point
-  public void setPosition(double pos) {
+  public void setHeight(double pos) {
     elevatorPID.setP(Constants.elevatorP);
     elevatorPID.setI(Constants.elevatorI);
     elevatorPID.setD(Constants.elevatorD);

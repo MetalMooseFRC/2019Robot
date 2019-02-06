@@ -33,10 +33,12 @@ public class DrivetrainManualDrive extends Command {
 		//Get the forward and backwards value of joystick
 		//Inverted because forward is negative and backwards is positive
 		double speed = -OI.driverStick.getY();
-		if (Math.abs(speed) < Constants.driveStickMinimumInput) speed = 0;
+		if (Math.abs(speed) < Constants.driveStickMinimumInput) {speed = 0;}
+		else if (speed < 0) {speed += Constants.driveStickMinimumInput;}
+		else if (speed > 0) {speed -= Constants.driveStickMinimumInput;}
 
 		//Get the twist value of joystick, inverted since left is negative
-		double turn = -OI.driverStick.getRawAxis(RobotMap.driveStickZAxisPort);
+		double turn = -OI.driverStick.getRawAxis(RobotMap.driveStickZAxisPort)/2;
 		if (Math.abs(turn) < Constants.driveStickMinimumInput) turn = 0;
 
 		Robot.myDrivetrain.arcadeDrive(speed, turn);

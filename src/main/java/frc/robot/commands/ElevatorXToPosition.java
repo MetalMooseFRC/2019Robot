@@ -18,39 +18,50 @@ import frc.robot.Constants;
 
 public class ElevatorXToPosition extends Command {
 
-  private double pos;
+  //These are measured in encoder tics
+  private double posToGo;
+  private double dist;
+  private double currentPos;
 
-  public ElevatorXToPosition(double pos) {
+  public ElevatorXToPosition(double dist) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.myDrivetrain);
-    this.pos = pos;
+    requires(Robot.myElevator);
+
+    this.dist = dist;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    //turn off motor
-   Robot.myElevator.elevatorXMotor.set(ControlMode.PercentOutput, 0);
+    currentPos = Robot.myElevator.getXEncoderCount();
+    //distance is inverted so right and left match to robot
+    posToGo = currentPos - dist;
 
-   //zero encoder with 30ms timeout
-   Robot.myElevator.elevatorXMotor.getSensorCollection().setQuadraturePosition(0, 30);
-   
+     //set PID configuration
+     Robot.myElevator.elevatorXMotor.config_kP(0, Constants.elevatorXP);
+     Robot.myElevator.elevatorXMotor.config_kI(0, Constants.elevatorXI);
+     Robot.myElevator.elevatorXMotor.config_kD(0, Constants.elevatorXD);
+
+    //turn off motor
+   //Robot.myElevator.elevatorXMotor.set(ControlMode.PercentOutput, 0);
+ 
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
 
-    //approach the position translated into encoder ticks
-    Robot.myElevator.elevatorXMotor.set(ControlMode.Position, pos/Constants.encoderToDistanceCoefficient);
+    //approach the position translated into encoder tics
+    Robot.myElevator.elevatorXMotor.set(ControlMode.Position, posToGo);
+    System.out.println("Count: " + Robot.myElevator.getXEncoderCount() + " Target: " + posToGo);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     //finish when close enough to target
-    return Math.abs(Robot.myElevator.elevatorXMotor.getSelectedSensorPosition()*Constants.encoderToDistanceCoefficient - pos) < Constants.elevatorXMargin;
+    return Math.abs(Robot.myElevator.getXEncoderCount() - posToGo) < Constants.elevatorXMargin;
   }
 
   // Called once after isFinished returns true

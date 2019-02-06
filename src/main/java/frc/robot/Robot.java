@@ -58,7 +58,8 @@ public class Robot extends TimedRobot {
 		jevoisServer.setSource(jevoisCamera);
 		
 
-
+		 //Reset elevator encoder
+		myElevator.elevatorXMotor.getSensorCollection().setQuadraturePosition(0, 30);
 	
 
 		//myChooser.addDefault("Default Auto", new ExampleCommand());

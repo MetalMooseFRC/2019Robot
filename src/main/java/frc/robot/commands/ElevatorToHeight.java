@@ -33,14 +33,14 @@ public class ElevatorToHeight extends Command {
 	@Override
 	protected void initialize() {
          //Set reference for elevator PID
-         Robot.myElevator.setPosition(height);
+         Robot.myElevator.setHeight(height);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
 		//Continue to approach references
-        Robot.myElevator.setPosition(height);
+        Robot.myElevator.setHeight(height);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

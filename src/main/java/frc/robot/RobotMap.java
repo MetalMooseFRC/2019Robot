@@ -47,7 +47,7 @@ public class RobotMap {
   /**ELEVATOR */
   public static final int elevatorRightMotorCANID = 6;
   public static final int elevatorLeftMotorCANID = 7;
-  public static final int elevatorXMotorCANID = 0;
+  public static final int elevatorXMotorCANID = 2;
 
 
 }

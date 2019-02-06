@@ -40,7 +40,8 @@ public class DrivetrainDriveAngle extends Command {
     double xSpeed = Robot.myDrivetrain.gyroPID.get();
     System.out.println("PID Speed" + xSpeed);
     System.out.println("Gyro" + Robot.myDrivetrain.myAHRS.getAngle());
-    Robot.myDrivetrain.arcadeDrive(0, xSpeed);
+    //Negatie because right is negative
+    Robot.myDrivetrain.arcadeDrive(0, -xSpeed);
   }
 
   // Make this return true when this Command no longer needs to run execute()

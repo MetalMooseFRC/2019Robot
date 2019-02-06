@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.robot.Constants;
 
 public class ManualElevator extends Command {
   public ManualElevator() {
@@ -28,7 +29,20 @@ public class ManualElevator extends Command {
   @Override
   protected void execute() {
     // speed of elevator ascending/descending depends on the joystick's y value.
-    Robot.myElevator.setSpeed(-OI.operatorStick.getY());
+    double YSpeed = -OI.operatorStick.getY();
+    if (Math.abs(YSpeed) < Constants.elevatorStickMinimumInput) YSpeed = 0;
+    Robot.myElevator.setSpeed(YSpeed);
+
+    // speed of elevator x axis depending on joydtick's x value
+    double XSpeed = -OI.operatorStick.getRawAxis(0);
+    if (Math.abs(XSpeed) < Constants.elevatorStickMinimumInput) XSpeed = 0;
+
+    //Don't make motor go past limit
+    if ( Constants.elevatorXMargin + Robot.myElevator.getXEncoderCount() > Constants.elevatorXLimit && XSpeed >0 ) XSpeed = 0;
+    if ( Robot.myElevator.getXEncoderCount() - Constants.elevatorXMargin < -Constants.elevatorXLimit && XSpeed <0 ) XSpeed = 0;
+    Robot.myElevator.setXSpeed(XSpeed/2);
+
+    //System.out.println(Robot.myElevator.getXEncoderCount());
   }
 
   // Make this return true when this Command no longer needs to run execute()
