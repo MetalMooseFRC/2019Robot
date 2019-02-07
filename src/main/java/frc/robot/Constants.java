@@ -45,7 +45,14 @@ public class Constants {
     //Range for elevatorX limit
     public static final double elevatorXLimit = 8000;
 
+    //For elvator up and down
     public static final double encoderRotationsToDistanceCoefficient = 1;
+    //For elevator side to side
     public static final double encoderTicsToDistanceCoefficient = 1;//227.556;
+
+    //vision PID
+    public static double visionP = 0.01;
+    public static double visionI = 0.00001;
+    public static double visionMargin = 5;
 
 }

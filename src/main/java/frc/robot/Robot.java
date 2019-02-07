@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
 	Command myAutonomousCommand;
 	SendableChooser<Command> myChooser = new SendableChooser<>();
 
-	SerialPort jevoisTest = new SerialPort(115200, SerialPort.Port.kMXP);
+	public static final SerialPort jevoisSerial = new SerialPort(115200, SerialPort.Port.kMXP);
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -65,6 +65,17 @@ public class Robot extends TimedRobot {
 		//myChooser.addDefault("Default Auto", new ExampleCommand());
 		//myChooser.addObject("My Auto", new MyAutoCommand());
 		//SmartDashboard.putData("Auto mode", myChooser);
+
+		SmartDashboard.putData(myDrivetrain);
+		SmartDashboard.putData(myElevator);
+
+		SmartDashboard.putNumber("Elevator P", Constants.elevatorP);
+		SmartDashboard.putNumber("Elevator I", Constants.elevatorI);
+		SmartDashboard.putNumber("Elevator D", Constants.elevatorD);
+
+		SmartDashboard.putNumber("Vision P", Constants.visionP);
+		SmartDashboard.putNumber("Vision I", Constants.visionI);
+
 	}
 
 	/**
