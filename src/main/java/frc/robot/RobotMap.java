@@ -49,5 +49,7 @@ public class RobotMap {
   public static final int elevatorLeftMotorCANID = 7;
   public static final int elevatorXMotorCANID = 2;
 
+  public static final int potAnalogPin = 0;
+
 
 }

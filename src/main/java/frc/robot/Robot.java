@@ -56,10 +56,6 @@ public class Robot extends TimedRobot {
 		jevoisCamera.setVideoMode(PixelFormat.kYUYV, 640, 480, 15);
 		MjpegServer jevoisServer = new MjpegServer("VisionServer", 1180);
 		jevoisServer.setSource(jevoisCamera);
-		
-
-		 //Reset elevator encoder
-		myElevator.elevatorXMotor.getSensorCollection().setQuadraturePosition(0, 30);
 	
 
 		//myChooser.addDefault("Default Auto", new ExampleCommand());
@@ -147,6 +143,15 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		//System.out.println(jevoisTest.readString());
+
+		//Update values from SmartDashboard
+		Constants.elevatorP = SmartDashboard.getNumber("Elevator P", 0);
+		Constants.elevatorI = SmartDashboard.getNumber("Elevator I", 0);
+		Constants.elevatorD = SmartDashboard.getNumber("Elevator D", 0);
+
+		Constants.visionP = SmartDashboard.getNumber("Vision P", 0);
+		Constants.visionI = SmartDashboard.getNumber("Vision I", 0);
+
 
 	}
 

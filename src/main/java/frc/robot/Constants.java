@@ -40,10 +40,10 @@ public class Constants {
     public static double elevatorXI = 0;
     public static double elevatorXD = 0;
     //In tics
-    public static double elevatorXMargin = 300;
+    public static double elevatorXMargin = 5;
 
     //Range for elevatorX limit
-    public static final double elevatorXLimit = 8000;
+    public static final double elevatorXLimit = 180;
 
     //For elvator up and down
     public static final double encoderRotationsToDistanceCoefficient = 1;

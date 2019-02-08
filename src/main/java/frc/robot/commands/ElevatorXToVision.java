@@ -53,7 +53,7 @@ double output;
     integral += error;
     output = Constants.visionP*error + Constants.visionI*integral;
 
-    Robot.myElevator.elevatorXMotor.set(ControlMode.PercentOutput, output);
+    Robot.myElevator.setXSpeed(output);
     
   }
 

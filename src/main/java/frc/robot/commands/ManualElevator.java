@@ -38,8 +38,8 @@ public class ManualElevator extends Command {
     if (Math.abs(XSpeed) < Constants.elevatorStickMinimumInput) XSpeed = 0;
 
     //Don't make motor go past limit
-    if ( Constants.elevatorXMargin + Robot.myElevator.getXEncoderCount() > Constants.elevatorXLimit && XSpeed >0 ) XSpeed = 0;
-    if ( Robot.myElevator.getXEncoderCount() - Constants.elevatorXMargin < -Constants.elevatorXLimit && XSpeed <0 ) XSpeed = 0;
+    if ( Constants.elevatorXMargin + Robot.myElevator.getXPotCount() > Constants.elevatorXLimit && XSpeed >0 ) XSpeed = 0;
+    if ( Robot.myElevator.getXPotCount() - Constants.elevatorXMargin < -Constants.elevatorXLimit && XSpeed <0 ) XSpeed = 0;
     Robot.myElevator.setXSpeed(XSpeed/2);
 
     //System.out.println(Robot.myElevator.getXEncoderCount());

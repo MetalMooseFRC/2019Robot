@@ -34,34 +34,33 @@ public class ElevatorXToPosition extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    currentPos = Robot.myElevator.getXEncoderCount();
-    //distance is inverted so right and left match to robot
-    posToGo = currentPos - dist;
-
-     //set PID configuration
-     Robot.myElevator.elevatorXMotor.config_kP(0, Constants.elevatorXP);
-     Robot.myElevator.elevatorXMotor.config_kI(0, Constants.elevatorXI);
-     Robot.myElevator.elevatorXMotor.config_kD(0, Constants.elevatorXD);
+    currentPos = Robot.myElevator.getXPotCount();
+    
+    //Make position relative because we want 0 to stay in the center
+    posToGo = currentPos + dist;
 
     //turn off motor
-   //Robot.myElevator.elevatorXMotor.set(ControlMode.PercentOutput, 0);
+   Robot.myElevator.setXSpeed(0);
+
+   Robot.myElevator.elevatorXPID.setSetpoint(posToGo);
+   Robot.myElevator.elevatorXPID.reset();
+   Robot.myElevator.elevatorXPID.enable();
  
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
-    //approach the position translated into encoder tics
-    Robot.myElevator.elevatorXMotor.set(ControlMode.Position, posToGo);
-    System.out.println("Count: " + Robot.myElevator.getXEncoderCount() + " Target: " + posToGo);
+    //Get PID output from analog potentiometer
+    double speed = Robot.myElevator.elevatorXPID.get();
+    Robot.myElevator.setXSpeed(speed);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     //finish when close enough to target
-    return Math.abs(Robot.myElevator.getXEncoderCount() - posToGo) < Constants.elevatorXMargin;
+    return Robot.myElevator.elevatorXPID.onTarget();
   }
 
   // Called once after isFinished returns true

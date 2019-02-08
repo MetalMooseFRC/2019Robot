@@ -7,6 +7,8 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.VictorSP;
@@ -36,11 +38,13 @@ public class Elevator extends Subsystem {
    public CANSparkMax elevatorLeftMotor = new CANSparkMax(RobotMap.elevatorLeftMotorCANID, MotorType.kBrushless);
    public TalonSRX elevatorXMotor = new TalonSRX(RobotMap.elevatorXMotorCANID);
 
-  //create encoder for elevator
+  //create sensors for elevator
   public CANEncoder elevatorEncoder = new CANEncoder(elevatorRightMotor);
+  public AnalogPotentiometer XPot = new AnalogPotentiometer(RobotMap.potAnalogPin);
 
   //PID controller
   public CANPIDController elevatorPID = new CANPIDController(elevatorRightMotor);
+  public PIDController elevatorXPID = new PIDController(Constants.elevatorXP, Constants.elevatorXI, Constants.elevatorXD, XPot, new BlankPIDOutput());
 
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
@@ -55,11 +59,10 @@ public class Elevator extends Subsystem {
     elevatorLeftMotor.follow(elevatorRightMotor, true);
 
     elevatorXMotor.configFactoryDefault();
-    elevatorXMotor.selectProfileSlot(0, 0);
     elevatorXMotor.setNeutralMode(NeutralMode.Brake);
-    elevatorXMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-    elevatorXMotor.configPeakOutputForward(1.0);
-    elevatorXMotor.configPeakOutputReverse(-1.0);
+
+    elevatorXPID.setOutputRange(-0.5, 0.5);
+    elevatorXPID.setAbsoluteTolerance(Constants.elevatorXMargin);
 
   }
 
@@ -68,6 +71,7 @@ public class Elevator extends Subsystem {
     elevatorRightMotor.set(speed);
   }
 
+  //in percent output mode
   public void setXSpeed(double speed) {
     elevatorXMotor.set(ControlMode.PercentOutput, speed);
   }
@@ -76,8 +80,8 @@ public class Elevator extends Subsystem {
     return elevatorEncoder.getPosition();
   }
 
-  public int getXEncoderCount() {
-    return elevatorXMotor.getSelectedSensorPosition();
+  public double getXPotCount() {
+    return XPot.get();
   }
 
 
