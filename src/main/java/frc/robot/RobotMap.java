@@ -51,5 +51,7 @@ public class RobotMap {
 
   public static final int potAnalogPin = 0;
 
+  /**COLLECTER */
+  public static final int collectorMotorCANID = 0;
 
 }

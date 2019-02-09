@@ -1,6 +1,10 @@
 package frc.robot;
 
 public class Constants {
+
+    /** Variables */
+    public static boolean isOffenseMode = true;
+    
      /**DRIVETRAIN */ 
     //Drive stick deadband, minimum axis input 
     public static final double driveStickMinimumInput = 0.1; 
@@ -54,5 +58,10 @@ public class Constants {
     public static double visionP = 0.01;
     public static double visionI = 0.00001;
     public static double visionMargin = 5;
+
+    /**COLLECTOR */
+    public static double intakeSpeed = -0.8;
+    public static double outtakeSpeed = 0.3;
+    public static double holdSpeed = -0.1;
 
 }

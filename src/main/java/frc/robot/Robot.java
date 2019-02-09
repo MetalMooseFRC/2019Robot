@@ -32,6 +32,7 @@ import frc.robot.subsystems.*;
 public class Robot extends TimedRobot {
 	public static final Drivetrain myDrivetrain = new Drivetrain();
 	public static final Elevator myElevator = new Elevator();
+	public static final Collector myCollector = new Collector();
 	public static OI myOI;
 
 	Command myAutonomousCommand;
@@ -64,6 +65,7 @@ public class Robot extends TimedRobot {
 
 		SmartDashboard.putData(myDrivetrain);
 		SmartDashboard.putData(myElevator);
+		SmartDashboard.putData(myCollector);
 
 		SmartDashboard.putNumber("Elevator P", Constants.elevatorP);
 		SmartDashboard.putNumber("Elevator I", Constants.elevatorI);
@@ -71,6 +73,8 @@ public class Robot extends TimedRobot {
 
 		SmartDashboard.putNumber("Vision P", Constants.visionP);
 		SmartDashboard.putNumber("Vision I", Constants.visionI);
+
+		SmartDashboard.putBoolean("Preplaced Ball", myCollector.isHoldingBall);
 
 	}
 
@@ -115,6 +119,9 @@ public class Robot extends TimedRobot {
 		if (myAutonomousCommand != null) {
 			myAutonomousCommand.start();
 		}
+
+		//Check if we are holding a ball at the beginning
+		myCollector.isHoldingBall = SmartDashboard.getBoolean("Preplaced Ball", true);
 	}
 
 	/**
