@@ -32,7 +32,7 @@ public class ManualCollector extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
+    /** 
       if (OI.inButton.get()) {
         Robot.myCollector.intake();
         Robot.myCollector.isHoldingBall = true;
@@ -44,7 +44,7 @@ public class ManualCollector extends Command {
       } else if (Robot.myCollector.isHoldingBall) {
           Robot.myCollector.hold();
 
-      }
+      } */
     
   }
 

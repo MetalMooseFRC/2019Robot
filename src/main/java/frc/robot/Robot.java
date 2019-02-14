@@ -56,7 +56,9 @@ public class Robot extends TimedRobot {
 		UsbCamera jevoisCamera = new UsbCamera("VisionCam", 0);
 		jevoisCamera.setVideoMode(PixelFormat.kYUYV, 640, 480, 15);
 		MjpegServer jevoisServer = new MjpegServer("VisionServer", 1180);
-		jevoisServer.setSource(jevoisCamera);
+		jevoisServer.setSource(jevoisCamera); 
+
+
 	
 
 		//myChooser.addDefault("Default Auto", new ExampleCommand());
@@ -70,12 +72,14 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Elevator P", Constants.elevatorP);
 		SmartDashboard.putNumber("Elevator I", Constants.elevatorI);
 		SmartDashboard.putNumber("Elevator D", Constants.elevatorD);
+		SmartDashboard.putNumber("Elevator Margin of Error", Constants.PIDDriveErrorMargin);
 
 		SmartDashboard.putNumber("Vision P", Constants.visionP);
 		SmartDashboard.putNumber("Vision I", Constants.visionI);
+		SmartDashboard.putNumber("Vision Margin of Error", Constants.visionMargin);
 
 		SmartDashboard.putBoolean("Preplaced Ball", myCollector.isHoldingBall);
-
+		SmartDashboard.putBoolean("Offense Mode", Constants.isOffenseMode);
 	}
 
 	/**

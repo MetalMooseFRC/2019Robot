@@ -19,32 +19,31 @@ import frc.robot.Constants;
 public class ElevatorXToPosition extends Command {
 
   //These are measured in encoder tics
-  private double posToGo;
-  private double dist;
-  private double currentPos;
+  private double pos;
 
-  public ElevatorXToPosition(double dist) {
+  public ElevatorXToPosition(double pos) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.myElevator);
 
-    this.dist = dist;
+    this.pos = pos;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    currentPos = Robot.myElevator.getXPotCount();
-    
-    //Make position relative because we want 0 to stay in the center
-    posToGo = currentPos + dist;
+  //Set PID values
+  Robot.myElevator.elevatorXMotor.config_kP(0, Constants.elevatorXP);
+  Robot.myElevator.elevatorXMotor.config_kI(0, Constants.elevatorXI);
+  Robot.myElevator.elevatorXMotor.config_kD(0, Constants.elevatorXD);
 
-    //turn off motor
+
+  //Turn off motor
    Robot.myElevator.setXSpeed(0);
 
-   Robot.myElevator.elevatorXPID.setSetpoint(posToGo);
-   Robot.myElevator.elevatorXPID.reset();
-   Robot.myElevator.elevatorXPID.enable();
+   //Robot.myElevator.elevatorXPID.setSetpoint(posToGo);
+   //Robot.myElevator.elevatorXPID.reset();
+  // Robot.myElevator.elevatorXPID.enable();
  
   }
 
@@ -52,15 +51,18 @@ public class ElevatorXToPosition extends Command {
   @Override
   protected void execute() {
     //Get PID output from analog potentiometer
-    double speed = Robot.myElevator.elevatorXPID.get();
-    Robot.myElevator.setXSpeed(speed);
+    //double speed = Robot.myElevator.elevatorXPID.get();
+    //Robot.myElevator.setXSpeed(speed);
+
+    Robot.myElevator.elevatorXMotor.set(ControlMode.Position, pos);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     //finish when close enough to target
-    return Robot.myElevator.elevatorXPID.onTarget();
+    //return Robot.myElevator.elevatorXPID.onTarget();
+    return Math.abs(Robot.myElevator.getEncoderXCount() - pos) < Constants.elevatorXMargin;
   }
 
   // Called once after isFinished returns true

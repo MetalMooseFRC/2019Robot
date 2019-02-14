@@ -24,7 +24,7 @@ public class ElevatorToHeight extends Command {
 
 	public ElevatorToHeight(double height) {
 		// Use requires() here to declare subsystem dependencies
-        requires(Robot.myDrivetrain);
+        requires(Robot.myElevator);
 
         this.height = height;
 	}

@@ -39,12 +39,12 @@ public class Elevator extends Subsystem {
    public TalonSRX elevatorXMotor = new TalonSRX(RobotMap.elevatorXMotorCANID);
 
   //create sensors for elevator
-  public CANEncoder elevatorEncoder = new CANEncoder(elevatorRightMotor);
-  public AnalogPotentiometer XPot = new AnalogPotentiometer(RobotMap.potAnalogPin);
+  public CANEncoder elevatorEncoder = new CANEncoder(elevatorLeftMotor);
+  //public AnalogPotentiometer XPot = new AnalogPotentiometer(RobotMap.potAnalogPin);
 
   //PID controller
-  public CANPIDController elevatorPID = new CANPIDController(elevatorRightMotor);
-  public PIDController elevatorXPID = new PIDController(Constants.elevatorXP, Constants.elevatorXI, Constants.elevatorXD, XPot, new BlankPIDOutput());
+  public CANPIDController elevatorPID = new CANPIDController(elevatorLeftMotor);
+  //public PIDController elevatorXPID = new PIDController(Constants.elevatorXP, Constants.elevatorXI, Constants.elevatorXD, XPot, new BlankPIDOutput());
 
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
@@ -56,19 +56,54 @@ public class Elevator extends Subsystem {
   }
 
   public Elevator() {
-    elevatorLeftMotor.follow(elevatorRightMotor, true);
+    elevatorRightMotor.follow(elevatorLeftMotor, true);
 
     elevatorXMotor.configFactoryDefault();
+    elevatorXMotor.selectProfileSlot(0, 0);
     elevatorXMotor.setNeutralMode(NeutralMode.Brake);
+    elevatorXMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    elevatorXMotor.configPeakOutputForward(1.0);
+    elevatorXMotor.configPeakOutputForward(-1.0);
 
-    elevatorXPID.setOutputRange(-0.5, 0.5);
-    elevatorXPID.setAbsoluteTolerance(Constants.elevatorXMargin);
+    //elevatorXPID.setOutputRange(-0.5, 0.5);
+    //elevatorXPID.setAbsoluteTolerance(Constants.elevatorXMargin);
 
   }
 
   //set elevator speed at a constant
   public void setSpeed(double speed) {
-    elevatorRightMotor.set(speed);
+    elevatorLeftMotor.set(speed);
+  }
+
+  public void hold() {
+   setSpeed(Constants.elevatorHoldSpeed);
+  }
+
+  //throttle speed to prevent elevator slamming
+  public void  throttleSpeed(double speed, double direction) {
+    double pos = getEncoderCount();
+    if (pos < 0) pos = 0;
+    if (pos > Constants.elevatorLimit) pos = Constants.elevatorLimit;
+
+
+    System.out.println(pos + " " + direction);
+
+    if (direction > 0) {
+      if (pos > 3*Constants.elevatorLimit/4) {
+        setSpeed(speed*(Constants.elevatorLimit-pos)/Constants.elevatorLimit + Constants.elevatorHoldSpeed);
+      } else {
+        setSpeed(speed);
+      }
+
+    } else if (direction < 0) {
+      if (pos < Constants.elevatorLimit/4) {
+        setSpeed(speed*pos/Constants.elevatorLimit);
+      } else {
+        setSpeed(speed);
+      }
+    } else {
+      hold();
+    }
   }
 
   //in percent output mode
@@ -81,7 +116,12 @@ public class Elevator extends Subsystem {
   }
 
   public double getXPotCount() {
-    return XPot.get();
+    //return XPot.get();
+    return 0;
+  }
+
+  public double getEncoderXCount() {
+    return elevatorXMotor.getSelectedSensorPosition();
   }
 
 

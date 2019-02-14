@@ -29,17 +29,22 @@ public class ManualElevator extends Command {
   @Override
   protected void execute() {
     // speed of elevator ascending/descending depends on the joystick's y value.
-    double YSpeed = -OI.operatorStick.getY();
+    double YSpeed = -OI.operatorStick.getRawAxis(1);
+
+    //check deadband
     if (Math.abs(YSpeed) < Constants.elevatorStickMinimumInput) YSpeed = 0;
-    Robot.myElevator.setSpeed(YSpeed);
+    
+    Robot.myElevator.throttleSpeed(YSpeed, Math.signum(YSpeed));
+
+    //System.out.println(Robot.myElevator.getEncoderCount());
 
     // speed of elevator x axis depending on joydtick's x value
-    double XSpeed = -OI.operatorStick.getRawAxis(0);
+    double XSpeed = OI.operatorStick.getRawAxis(0);
     if (Math.abs(XSpeed) < Constants.elevatorStickMinimumInput) XSpeed = 0;
 
     //Don't make motor go past limit
-    if ( Constants.elevatorXMargin + Robot.myElevator.getXPotCount() > Constants.elevatorXLimit && XSpeed >0 ) XSpeed = 0;
-    if ( Robot.myElevator.getXPotCount() - Constants.elevatorXMargin < -Constants.elevatorXLimit && XSpeed <0 ) XSpeed = 0;
+    if ( Constants.elevatorXMargin + Robot.myElevator.getEncoderXCount() > Constants.elevatorXLimit && XSpeed >0 ) XSpeed = 0;
+    if ( Robot.myElevator.getEncoderXCount() - Constants.elevatorXMargin < -Constants.elevatorXLimit && XSpeed <0 ) XSpeed = 0;
     Robot.myElevator.setXSpeed(XSpeed/2);
 
     //System.out.println(Robot.myElevator.getXEncoderCount());

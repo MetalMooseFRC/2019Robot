@@ -35,16 +35,21 @@ public class Constants {
     //Minimum joystick input
     public static final double elevatorStickMinimumInput = 0.1;
     //Elevator PID
-    public static double elevatorP = 0.01;
+    public static double elevatorP = 0.05;
     public static double elevatorI = 0.00001;
     public static double elevatorD = 0;
-    public static double PIDElevatorErrorMargin = 0.1;
+    public static double PIDElevatorErrorMargin = 0.5;
 
     public static double elevatorXP = 0.1;
     public static double elevatorXI = 0;
     public static double elevatorXD = 0;
     //In tics
     public static double elevatorXMargin = 5;
+
+    //in rotations
+    public static double elevatorLimit = 44;
+
+    public static double elevatorHoldSpeed = 0.07;
 
     //Range for elevatorX limit
     public static final double elevatorXLimit = 180;

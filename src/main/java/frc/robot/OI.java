@@ -32,9 +32,7 @@ public class OI {
 
   //Button to drive a specific distance, this is temporary
   public static final Button inButton = new JoystickButton(operatorStick, 2);
-  public static final Button outButton = new JoystickButton(operatorStick, 1);
-
-
+  
 
   // There are a few additional built in buttons you can use. Additionally,
   // by subclassing Button you can create custom triggers and bind those to
@@ -56,7 +54,7 @@ public class OI {
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
   public OI() {
-
+    inButton.whenPressed(new ElevatorToHeight(40));
   }
 }
 
