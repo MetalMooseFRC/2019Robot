@@ -66,12 +66,15 @@ public class Drivetrain extends Subsystem {
 		gyroPID.setAbsoluteTolerance(Constants.drivetrainGyroPIDError);
 		gyroPID.setContinuous(true);
 
+		resetEncoder();
+
 		//Have one motor lead and the others follow
 		rightMiddleDriveMotor.follow(rightFrontDriveMotor);
 		rightBackDriveMotor.follow(rightFrontDriveMotor);
 
 		leftMiddleDriveMotor.follow(leftFrontDriveMotor);
 		leftBackDriveMotor.follow(leftFrontDriveMotor);
+		
 	}
 
 
@@ -109,6 +112,11 @@ public class Drivetrain extends Subsystem {
 			return -((vel + 1)*Constants.turnGain);
 		}
 		return 0;
+	}
+
+	public void resetEncoder() {
+		rightSparkMaxEncoder.setPosition(0);
+		leftSparkMaxEncoder.setPosition(0);
 	}
 
 	//Set PID reference for right side

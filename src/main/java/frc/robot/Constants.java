@@ -40,11 +40,11 @@ public class Constants {
     public static double elevatorD = 0;
     public static double PIDElevatorErrorMargin = 0.5;
 
-    public static double elevatorXP = 0.1;
-    public static double elevatorXI = 0;
+    public static double elevatorXP = 0.05;
+    public static double elevatorXI = 0.0001;
     public static double elevatorXD = 0;
     //In tics
-    public static double elevatorXMargin = 5;
+    public static double elevatorXMargin = 150;
 
     //in rotations
     public static double elevatorLimit = 44;
@@ -52,7 +52,7 @@ public class Constants {
     public static double elevatorHoldSpeed = 0.07;
 
     //Range for elevatorX limit
-    public static final double elevatorXLimit = 180;
+    public static final double elevatorXLimit = 14500;
 
     //For elvator up and down
     public static final double encoderRotationsToDistanceCoefficient = 1;
@@ -68,5 +68,12 @@ public class Constants {
     public static double intakeSpeed = -0.8;
     public static double outtakeSpeed = 0.3;
     public static double holdSpeed = -0.1;
+
+    public static double armP = 0.01;
+    public static double armI = 0;
+    public static double armD = 0;
+    public static double armMargin = 50;
+
+
 
 }

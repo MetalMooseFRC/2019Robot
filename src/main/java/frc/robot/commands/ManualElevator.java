@@ -45,9 +45,9 @@ public class ManualElevator extends Command {
     //Don't make motor go past limit
     if ( Constants.elevatorXMargin + Robot.myElevator.getEncoderXCount() > Constants.elevatorXLimit && XSpeed >0 ) XSpeed = 0;
     if ( Robot.myElevator.getEncoderXCount() - Constants.elevatorXMargin < -Constants.elevatorXLimit && XSpeed <0 ) XSpeed = 0;
-    Robot.myElevator.setXSpeed(XSpeed/2);
+    Robot.myElevator.setXSpeed(XSpeed);
 
-    //System.out.println(Robot.myElevator.getXEncoderCount());
+    System.out.println(Robot.myElevator.getEncoderXCount());
   }
 
   // Make this return true when this Command no longer needs to run execute()

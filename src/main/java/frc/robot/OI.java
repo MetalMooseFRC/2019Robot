@@ -28,11 +28,22 @@ public class OI {
   //Driver Logitech joystick
   public static final Joystick driverStick = new Joystick(RobotMap.driveStickPort);
   
+  public static final Button elevatorVisionCalibrateButton = new JoystickButton(driverStick, RobotMap.elevatorVisionCalibratePort);
+                             
+  //Operator button pad
   public static final Joystick operatorStick = new Joystick(RobotMap.operatorPort);
 
-  //Button to drive a specific distance, this is temporary
-  public static final Button inButton = new JoystickButton(operatorStick, 2);
-  
+  //temporary mapping
+  public static final Button zeroElevatorXButton = new JoystickButton(operatorStick, 2),
+                             outButton = new JoystickButton(operatorStick, 3),
+                             inButton = new JoystickButton(operatorStick, 4),
+                             rocketHatch1Button = new JoystickButton(operatorStick, 5),
+                             rocketHatch2Button = new JoystickButton(operatorStick, 6),
+                             rocketHatch3Button = new JoystickButton(operatorStick, 7),
+                             rocketPort1Button = new JoystickButton(operatorStick, 8),
+                             rocketPort2Button = new JoystickButton(operatorStick, 9),
+                             rocketPort3Button = new JoystickButton(operatorStick, 10);
+
 
   // There are a few additional built in buttons you can use. Additionally,
   // by subclassing Button you can create custom triggers and bind those to
@@ -54,7 +65,9 @@ public class OI {
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
   public OI() {
-    inButton.whenPressed(new ElevatorToHeight(40));
+    elevatorVisionCalibrateButton.whenPressed(new ElevatorXToVision());
+
+    zeroElevatorXButton.whenPressed(new ElevatorXToPosition(0));
   }
 }
 

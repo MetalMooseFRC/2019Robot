@@ -40,11 +40,9 @@ public class Elevator extends Subsystem {
 
   //create sensors for elevator
   public CANEncoder elevatorEncoder = new CANEncoder(elevatorLeftMotor);
-  //public AnalogPotentiometer XPot = new AnalogPotentiometer(RobotMap.potAnalogPin);
 
   //PID controller
   public CANPIDController elevatorPID = new CANPIDController(elevatorLeftMotor);
-  //public PIDController elevatorXPID = new PIDController(Constants.elevatorXP, Constants.elevatorXI, Constants.elevatorXD, XPot, new BlankPIDOutput());
 
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
@@ -62,11 +60,9 @@ public class Elevator extends Subsystem {
     elevatorXMotor.selectProfileSlot(0, 0);
     elevatorXMotor.setNeutralMode(NeutralMode.Brake);
     elevatorXMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    elevatorXMotor.getSensorCollection().setQuadraturePosition(0, 20);
     elevatorXMotor.configPeakOutputForward(1.0);
-    elevatorXMotor.configPeakOutputForward(-1.0);
-
-    //elevatorXPID.setOutputRange(-0.5, 0.5);
-    //elevatorXPID.setAbsoluteTolerance(Constants.elevatorXMargin);
+    elevatorXMotor.configPeakOutputReverse(-1.0);
 
   }
 
@@ -85,23 +81,24 @@ public class Elevator extends Subsystem {
     if (pos < 0) pos = 0;
     if (pos > Constants.elevatorLimit) pos = Constants.elevatorLimit;
 
-
-    System.out.println(pos + " " + direction);
-
     if (direction > 0) {
       if (pos > 3*Constants.elevatorLimit/4) {
+        //proportionally slow the motor
         setSpeed(speed*(Constants.elevatorLimit-pos)/Constants.elevatorLimit + Constants.elevatorHoldSpeed);
       } else {
         setSpeed(speed);
       }
 
     } else if (direction < 0) {
+      //proportionally slow the motor
       if (pos < Constants.elevatorLimit/4) {
         setSpeed(speed*pos/Constants.elevatorLimit);
       } else {
         setSpeed(speed);
       }
-    } else {
+
+    //only hold if higher up, not needed when at the ground
+    } else if (pos > 0.5) {
       hold();
     }
   }
@@ -115,10 +112,6 @@ public class Elevator extends Subsystem {
     return elevatorEncoder.getPosition();
   }
 
-  public double getXPotCount() {
-    //return XPot.get();
-    return 0;
-  }
 
   public double getEncoderXCount() {
     return elevatorXMotor.getSelectedSensorPosition();

@@ -20,8 +20,6 @@ import frc.robot.Robot;
 public class DrivetrainDriveDistance extends Command {
 
     double distance;
-    double encoderRightSetpoint;
-    double encoderLeftSetpoint;
 
 
 	public DrivetrainDriveDistance(double distance) {
@@ -34,16 +32,10 @@ public class DrivetrainDriveDistance extends Command {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-         //no encoder reset so relative positioning must be used
-         double currentRightCount = Robot.myDrivetrain.getRightEncoderCount();
-         encoderRightSetpoint = currentRightCount + distance;
-
-		 //subtracted because the left side is inverted
-         double currentLeftCount = Robot.myDrivetrain.getLeftEncoderCount();
-         encoderLeftSetpoint = currentLeftCount - distance;
+		Robot.myDrivetrain.resetEncoder();
 
 		//Set references
-		Robot.myDrivetrain.setRightPosition(encoderRightSetpoint);
+		Robot.myDrivetrain.setRightPosition(distance);
 		
 		Robot.myDrivetrain.myAHRS.reset();
 	}
@@ -54,9 +46,9 @@ public class DrivetrainDriveDistance extends Command {
 
 
 		//Continue to approach references
-	   Robot.myDrivetrain.setRightPosition(encoderRightSetpoint);
+	   Robot.myDrivetrain.setRightPosition(distance);
 	   double rightMotorSpeed = Robot.myDrivetrain.rightFrontDriveMotor.getAppliedOutput();
-		//Robot.myDrivetrain.setLeftPosition(encoderLeftSetpoint);
+
 	   Robot.myDrivetrain.leftFrontDriveMotor.set(-rightMotorSpeed);
 
 
@@ -68,7 +60,7 @@ public class DrivetrainDriveDistance extends Command {
 	@Override
 	protected boolean isFinished() {
 		//Finish once within a margin of error of the setpoint
-        return Math.abs(encoderRightSetpoint - Robot.myDrivetrain.getRightEncoderCount()) < Constants.PIDDriveErrorMargin;
+        return Math.abs(distance - Robot.myDrivetrain.getRightEncoderCount()) < Constants.PIDDriveErrorMargin;
         //&& Math.abs(encoderLeftSetpoint - Robot.myDrivetrain.getLeftEncoderCount()) < Constants.PIDDriveErrorMargin;
 	}
 

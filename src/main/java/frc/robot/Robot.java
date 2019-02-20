@@ -78,7 +78,6 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Vision I", Constants.visionI);
 		SmartDashboard.putNumber("Vision Margin of Error", Constants.visionMargin);
 
-		SmartDashboard.putBoolean("Preplaced Ball", myCollector.isHoldingBall);
 		SmartDashboard.putBoolean("Offense Mode", Constants.isOffenseMode);
 	}
 
@@ -124,8 +123,6 @@ public class Robot extends TimedRobot {
 			myAutonomousCommand.start();
 		}
 
-		//Check if we are holding a ball at the beginning
-		myCollector.isHoldingBall = SmartDashboard.getBoolean("Preplaced Ball", true);
 	}
 
 	/**
@@ -153,7 +150,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		//System.out.println(jevoisTest.readString());
+		//System.out.println(jevoisSerial.readString());
 
 		//Update values from SmartDashboard
 		Constants.elevatorP = SmartDashboard.getNumber("Elevator P", 0);

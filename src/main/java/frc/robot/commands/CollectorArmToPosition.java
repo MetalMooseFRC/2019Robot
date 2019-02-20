@@ -7,19 +7,24 @@
 
 package frc.robot.commands;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.Constants;
 
-public class ManualCollector extends Command {
+public class CollectorArmToPosition extends Command {
+    //in encoder tics
+    private double pos;
 
-
-  public ManualCollector() {
+  public CollectorArmToPosition(double pos) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.myCollector);
+
+    this.pos = pos;
 
 
   }
@@ -27,34 +32,28 @@ public class ManualCollector extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+      //Set PID values
+    Robot.myCollector.armMotor.config_kP(1, Constants.armP);
+    Robot.myCollector.armMotor.config_kI(1, Constants.armI);
+    Robot.myCollector.armMotor.config_kD(1, Constants.armD);
+
+
+    //Turn off motor
+    Robot.myCollector.setArmSpeed(0);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double armSpeed = OI.operatorStick.getRawAxis(5);
-    Robot.myCollector.setArmSpeed(armSpeed);
 
-    if (OI.inButton.get()) {
-      Robot.myCollector.intake();
-      Robot.myCollector.isHoldingBall = true;
-
-    } else if (OI.outButton.get()) {
-      Robot.myCollector.outtake();
-      Robot.myCollector.isHoldingBall = false;
-
-    } else if (Robot.myCollector.isHoldingBall) {
-      Robot.myCollector.hold();
-    }
-
-
+    Robot.myCollector.armMotor.set(ControlMode.Position, pos);
     
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return Math.abs(pos - Robot.myCollector.getEncoderCount()) < Constants.armMargin;
   }
 
   // Called once after isFinished returns true

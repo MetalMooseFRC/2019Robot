@@ -23,15 +23,19 @@ public class RobotMap {
   	/**JOYSTICKS */
   public static final int driveStickPort = 0;
 
+  	//twist axis
+  public static final int driveStickZAxisPort = 2;
+  
+  //buttons
+  public static final int elevatorVisionCalibratePort = 1;
+
     /**Operators */
   public static final int operatorPort = 1;
 
-	//twist axis
-	public static final int driveStickZAxisPort = 2;
-
 	/**DRIVETRAIN */
-	//Drivetrain motor ports
-  public static final int rightFrontDriveCANID = 0;
+  //Drivetrain motor ports
+  //0 is unconfigured for Spark MAX via firmware v1.1.31
+  public static final int rightFrontDriveCANID = 10;
   public static final int rightMiddleDriveCANID = 1;
   public static final int rightBackDriveCANID = 2;
 
@@ -53,5 +57,6 @@ public class RobotMap {
 
   /**COLLECTER */
   public static final int collectorMotorCANID = 0;
+  public static final int collectorArmMotorCANID = 1;
 
 }

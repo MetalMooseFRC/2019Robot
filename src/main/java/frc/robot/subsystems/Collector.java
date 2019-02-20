@@ -27,9 +27,10 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
  */
 public class Collector extends Subsystem {
 
-    TalonSRX collectorMotor = new TalonSRX(RobotMap.collectorMotorCANID);
+    private TalonSRX collectorMotor = new TalonSRX(RobotMap.collectorMotorCANID);
+    public TalonSRX armMotor = new TalonSRX(RobotMap.collectorArmMotorCANID);
 
-    public boolean isHoldingBall = true;
+    public boolean isHoldingBall;
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -38,6 +39,17 @@ public class Collector extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         setDefaultCommand(new ManualCollector());
+  }
+
+  public Collector() {
+    armMotor.configFactoryDefault();
+    armMotor.selectProfileSlot(1, 0);
+    armMotor.setNeutralMode(NeutralMode.Brake);
+    armMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    armMotor.configPeakOutputForward(1.0);
+    armMotor.configPeakOutputForward(-1.0);
+
+    isHoldingBall = true;
   }
 
   public void intake() {
@@ -51,6 +63,14 @@ public class Collector extends Subsystem {
   //speed to hold ball, small intake force
   public void hold() {
     collectorMotor.set(ControlMode.PercentOutput, Constants.holdSpeed);
+  }
+
+  public double getEncoderCount() {
+    return armMotor.getSelectedSensorPosition();
+  }
+
+  public void setArmSpeed(double speed) {
+    armMotor.set(ControlMode.PercentOutput, speed);
   }
 
   

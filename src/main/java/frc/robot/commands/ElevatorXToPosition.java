@@ -37,22 +37,14 @@ public class ElevatorXToPosition extends Command {
   Robot.myElevator.elevatorXMotor.config_kI(0, Constants.elevatorXI);
   Robot.myElevator.elevatorXMotor.config_kD(0, Constants.elevatorXD);
 
-
   //Turn off motor
    Robot.myElevator.setXSpeed(0);
-
-   //Robot.myElevator.elevatorXPID.setSetpoint(posToGo);
-   //Robot.myElevator.elevatorXPID.reset();
-  // Robot.myElevator.elevatorXPID.enable();
- 
+   
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //Get PID output from analog potentiometer
-    //double speed = Robot.myElevator.elevatorXPID.get();
-    //Robot.myElevator.setXSpeed(speed);
 
     Robot.myElevator.elevatorXMotor.set(ControlMode.Position, pos);
   }
@@ -61,7 +53,6 @@ public class ElevatorXToPosition extends Command {
   @Override
   protected boolean isFinished() {
     //finish when close enough to target
-    //return Robot.myElevator.elevatorXPID.onTarget();
     return Math.abs(Robot.myElevator.getEncoderXCount() - pos) < Constants.elevatorXMargin;
   }
 
