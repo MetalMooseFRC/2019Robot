@@ -31,19 +31,29 @@ public class OI {
   public static final Button elevatorVisionCalibrateButton = new JoystickButton(driverStick, RobotMap.elevatorVisionCalibratePort);
                              
   //Operator button pad
-  public static final Joystick operatorStick = new Joystick(RobotMap.operatorPort);
+  public static final Joystick operatorLeftPad = new Joystick(RobotMap.operatorLeftPort);
+  public static final Joystick operatorRightPad = new Joystick(RobotMap.operatorRightPort);
+  public static final Joystick operatorController = new Joystick(RobotMap.operatorControllerPort);
 
-  //temporary mapping
-  public static final Button zeroElevatorXButton = new JoystickButton(operatorStick, 2),
-                             outButton = new JoystickButton(operatorStick, 3),
-                             inButton = new JoystickButton(operatorStick, 4),
-                             rocketHatch1Button = new JoystickButton(operatorStick, 5),
-                             rocketHatch2Button = new JoystickButton(operatorStick, 6),
-                             rocketHatch3Button = new JoystickButton(operatorStick, 7),
-                             rocketPort1Button = new JoystickButton(operatorStick, 8),
-                             rocketPort2Button = new JoystickButton(operatorStick, 9),
-                             rocketPort3Button = new JoystickButton(operatorStick, 10);
 
+
+  //Button Pad
+  public static final Button zeroElevatorXButton = new JoystickButton(operatorLeftPad, 5),
+                             outButton = new JoystickButton(operatorRightPad, 12),
+                             inButton = new JoystickButton(operatorRightPad, 11),
+                             rocketHatch1Button = new JoystickButton(operatorLeftPad, 7),
+                             rocketHatch2Button = new JoystickButton(operatorLeftPad, 8),
+                             rocketHatch3Button = new JoystickButton(operatorLeftPad, 9),
+                             rocketPort1Button = new JoystickButton(operatorLeftPad, 10),
+                             rocketPort2Button = new JoystickButton(operatorLeftPad, 11),
+                             rocketPort3Button = new JoystickButton(operatorLeftPad, 12);
+
+  //auxilary buttons
+  public static final Button zeroElevatorXButtonAux = new JoystickButton(operatorController, 1),
+                             outButtonAux = new JoystickButton(operatorController, 6),
+                             inButtonAux  = new JoystickButton(operatorController, 5),
+                             rocketHatchButton = new JoystickButton(operatorController, 3),
+                             rocketPortButton = new JoystickButton(operatorController, 2);
 
   // There are a few additional built in buttons you can use. Additionally,
   // by subclassing Button you can create custom triggers and bind those to
@@ -67,7 +77,37 @@ public class OI {
   public OI() {
     elevatorVisionCalibrateButton.whenPressed(new ElevatorXToVision());
 
-    zeroElevatorXButton.whenPressed(new ElevatorXToPosition(0));
+    if (Constants.operatorBoardMode == 1) {
+      //Depending on POV state, react differently when elevatorpreset button is pressed
+      if (operatorController.getRawAxis(RobotMap.POVAxisPort) == 0 && rocketHatchButton.get()) {
+        new ElevatorToHeight(Constants.hacth2Height);
+      } else if (operatorController.getRawAxis(RobotMap.POVAxisPort) == 1 && rocketHatchButton.get()) {
+        new ElevatorToHeight(Constants.hacth3Height);
+      } else if (operatorController.getRawAxis(RobotMap.POVAxisPort) == -1 && rocketHatchButton.get()) {
+        new ElevatorToHeight(Constants.hatch1Height);
+      } 
+
+      if (operatorController.getRawAxis(RobotMap.POVAxisPort) == 0 && rocketPortButton.get()) {
+        new ElevatorToHeight(Constants.port2Height);
+      } else if (operatorController.getRawAxis(RobotMap.POVAxisPort) == 1 && rocketPortButton.get()) {
+        new ElevatorToHeight(Constants.port3Height);
+      } else if (operatorController.getRawAxis(RobotMap.POVAxisPort) == -1 && rocketPortButton.get()) {
+        new ElevatorToHeight(Constants.port1Height);
+      } 
+
+      zeroElevatorXButtonAux.whenPressed(new ElevatorXToPosition(0));
+
+    } else {
+      zeroElevatorXButton.whenPressed(new ElevatorXToPosition(0));
+      rocketHatch1Button.whenPressed(new ElevatorToHeight(Constants.hatch1Height));
+      rocketHatch2Button.whenPressed(new ElevatorToHeight(Constants.hacth2Height));
+      rocketHatch3Button.whenPressed(new ElevatorToHeight(Constants.hacth3Height));
+
+      rocketPort1Button.whenPressed(new ElevatorToHeight(Constants.port1Height));
+      rocketPort2Button.whenPressed(new ElevatorToHeight(Constants.port2Height));
+      rocketPort3Button.whenPressed(new ElevatorToHeight(Constants.port3Height));
+
+    }
   }
 }
 

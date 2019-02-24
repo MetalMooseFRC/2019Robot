@@ -35,8 +35,7 @@ public class Robot extends TimedRobot {
 	public static final Collector myCollector = new Collector();
 	public static OI myOI;
 
-	Command myAutonomousCommand;
-	SendableChooser<Command> myChooser = new SendableChooser<>();
+	private SendableChooser<Integer> operatorBoardChooser = new SendableChooser<>();
 
 	public static final SerialPort jevoisSerial = new SerialPort(115200, SerialPort.Port.kMXP);
 
@@ -59,11 +58,9 @@ public class Robot extends TimedRobot {
 		jevoisServer.setSource(jevoisCamera); 
 
 
-	
-
-		//myChooser.addDefault("Default Auto", new ExampleCommand());
-		//myChooser.addObject("My Auto", new MyAutoCommand());
-		//SmartDashboard.putData("Auto mode", myChooser);
+		operatorBoardChooser.addDefault("Button Pad", 0);
+		operatorBoardChooser.addObject("Logitech Controller", 1);
+		SmartDashboard.putData("Operator Board", operatorBoardChooser);
 
 		SmartDashboard.putData(myDrivetrain);
 		SmartDashboard.putData(myElevator);
@@ -109,7 +106,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		myAutonomousCommand = myChooser.getSelected();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -117,11 +113,6 @@ public class Robot extends TimedRobot {
 		 * = new MyAutoCommand(); break; case "Default Auto": default:
 		 * autonomousCommand = new ExampleCommand(); break; }
 		 */
-
-		// schedule the autonomous command (example)
-		if (myAutonomousCommand != null) {
-			myAutonomousCommand.start();
-		}
 
 	}
 
@@ -139,9 +130,7 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (myAutonomousCommand != null) {
-			myAutonomousCommand.cancel();
-		}
+		Constants.operatorBoardMode = operatorBoardChooser.getSelected();
 	}
 
 	/**

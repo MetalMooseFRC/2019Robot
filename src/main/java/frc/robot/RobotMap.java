@@ -23,14 +23,32 @@ public class RobotMap {
   	/**JOYSTICKS */
   public static final int driveStickPort = 0;
 
-  	//twist axis
+  /**AXIS */
+  	//twistaxis
   public static final int driveStickZAxisPort = 2;
+
+  //POV Logitech Controller axis
+  public static final int POVAxisPort = 6;
+
+  //Elevator up and down axis
+  public static final int elevatorAxisPort = 1;
+  //Elevator side to side axis
+  public static final int elevatorXAxisPort = 0;
+
+  //Arm ports for each operator board
+  public static final int armAxisAuxPort = 5;
+  public static final int armAxisPort = 1;
   
-  //buttons
+  /**BUTTONS */
   public static final int elevatorVisionCalibratePort = 1;
 
     /**Operators */
-  public static final int operatorPort = 1;
+  public static final int operatorLeftPort = 2;
+  public static final int operatorRightPort = 3;
+//auxilary
+  public static final int operatorControllerPort = 1;
+
+
 
 	/**DRIVETRAIN */
   //Drivetrain motor ports

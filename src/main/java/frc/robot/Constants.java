@@ -4,10 +4,12 @@ public class Constants {
 
     /** Variables */
     public static boolean isOffenseMode = true;
+    //0 is button pad, 1 is controller
+    public static int operatorBoardMode = 0;
     
      /**DRIVETRAIN */ 
     //Drive stick deadband, minimum axis input 
-    public static final double driveStickMinimumInput = 0.1; 
+    public static final double driveStickMinimumInput = 0.05; 
      
     //turning constant for arcade drive 
     public static double turnGain = 0.5; 
@@ -63,6 +65,17 @@ public class Constants {
     public static double visionP = 0.01;
     public static double visionI = 0.00001;
     public static double visionMargin = 5;
+
+    //Heights for ports
+    public static double port1Height = 10;
+    public static double port2Height = 25;
+    public static double port3Height = 40;
+
+    //Heights for hatch holes
+    public static double hatch1Height = 5;
+    public static double hacth2Height = 20;
+    public static double hacth3Height = 35;
+
 
     /**COLLECTOR */
     public static double intakeSpeed = -0.8;

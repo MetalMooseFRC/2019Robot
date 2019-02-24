@@ -29,7 +29,14 @@ public class ManualElevator extends Command {
   @Override
   protected void execute() {
     // speed of elevator ascending/descending depends on the joystick's y value.
-    double YSpeed = -OI.operatorStick.getRawAxis(1);
+    //Depends on operator mode
+    double YSpeed = 0;
+    if (Constants.operatorBoardMode == 1) {
+      YSpeed = -OI.operatorController.getRawAxis(RobotMap.elevatorAxisPort);
+    } else {
+      YSpeed = -OI.operatorLeftPad.getRawAxis(RobotMap.elevatorAxisPort);
+
+    }
 
     //check deadband
     if (Math.abs(YSpeed) < Constants.elevatorStickMinimumInput) YSpeed = 0;
@@ -39,7 +46,14 @@ public class ManualElevator extends Command {
     //System.out.println(Robot.myElevator.getEncoderCount());
 
     // speed of elevator x axis depending on joydtick's x value
-    double XSpeed = OI.operatorStick.getRawAxis(0);
+    //Depends on operator mode
+    double XSpeed = 0;
+    if (Constants.operatorBoardMode == 1) {
+      XSpeed = OI.operatorController.getRawAxis(RobotMap.elevatorXAxisPort);
+    } else {
+      XSpeed = OI.operatorLeftPad.getRawAxis(RobotMap.elevatorXAxisPort);
+    }
+
     if (Math.abs(XSpeed) < Constants.elevatorStickMinimumInput) XSpeed = 0;
 
     //Don't make motor go past limit
@@ -47,7 +61,6 @@ public class ManualElevator extends Command {
     if ( Robot.myElevator.getEncoderXCount() - Constants.elevatorXMargin < -Constants.elevatorXLimit && XSpeed <0 ) XSpeed = 0;
     Robot.myElevator.setXSpeed(XSpeed);
 
-    System.out.println(Robot.myElevator.getEncoderXCount());
   }
 
   // Make this return true when this Command no longer needs to run execute()
