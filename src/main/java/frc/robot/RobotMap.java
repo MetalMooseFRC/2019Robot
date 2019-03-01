@@ -77,4 +77,7 @@ public class RobotMap {
   public static final int collectorMotorCANID = 0;
   public static final int collectorArmMotorCANID = 1;
 
+  public static final int encoderAPort = 0;
+  public static final int encoderBPort = 1;
+
 }

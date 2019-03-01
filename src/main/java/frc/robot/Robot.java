@@ -58,8 +58,8 @@ public class Robot extends TimedRobot {
 		jevoisServer.setSource(jevoisCamera); 
 
 
-		operatorBoardChooser.addDefault("Button Pad", 0);
-		operatorBoardChooser.addObject("Logitech Controller", 1);
+		operatorBoardChooser.addObject("Button Pad", 0);
+		operatorBoardChooser.addDefault("Logitech Controller", 1);
 		SmartDashboard.putData("Operator Board", operatorBoardChooser);
 
 		SmartDashboard.putData(myDrivetrain);
@@ -75,7 +75,13 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Vision I", Constants.visionI);
 		SmartDashboard.putNumber("Vision Margin of Error", Constants.visionMargin);
 
-		SmartDashboard.putBoolean("Offense Mode", Constants.isOffenseMode);
+		//SmartDashboard.putBoolean("Offense Mode", Constants.isOffenseMode);
+
+		SmartDashboard.putNumber("Arm P", Constants.armP);
+		SmartDashboard.putNumber("Arm I", Constants.armI);
+		SmartDashboard.putNumber("Arm D", Constants.armD);
+		SmartDashboard.putNumber("Arm Margin of Error", Constants.armMargin);
+		
 	}
 
 	/**
@@ -130,7 +136,6 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		Constants.operatorBoardMode = operatorBoardChooser.getSelected();
 	}
 
 	/**
@@ -148,6 +153,14 @@ public class Robot extends TimedRobot {
 
 		Constants.visionP = SmartDashboard.getNumber("Vision P", 0);
 		Constants.visionI = SmartDashboard.getNumber("Vision I", 0);
+
+		Constants.armP = SmartDashboard.getNumber("Arm P", 0);
+		Constants.armI = SmartDashboard.getNumber("Arm I", 0);
+		Constants.armD = SmartDashboard.getNumber("Arm D", 0);
+
+
+		//Constants.operatorBoardMode = operatorBoardChooser.getSelected();
+
 
 
 	}

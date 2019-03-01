@@ -90,9 +90,9 @@ public class Drivetrain extends Subsystem {
 		leftPower += skim(rightPower);
 		rightPower += skim(leftPower);
 
-		leftFrontDriveMotor.set(-leftPower);
+		leftFrontDriveMotor.set(leftPower);
 		//Invert right motor
-		rightFrontDriveMotor.set(rightPower);
+		rightFrontDriveMotor.set(-rightPower);
 
 	}
 

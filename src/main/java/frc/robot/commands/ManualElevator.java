@@ -39,9 +39,15 @@ public class ManualElevator extends Command {
     }
 
     //check deadband
-    if (Math.abs(YSpeed) < Constants.elevatorStickMinimumInput) YSpeed = 0;
+    if (Math.abs(YSpeed) < Constants.elevatorStickMinimumInput) {
+      YSpeed = 0; 
+      //Robot.myElevator.hold(); 
+    }
     
     Robot.myElevator.throttleSpeed(YSpeed, Math.signum(YSpeed));
+
+    //Robot.myElevator.setSpeed(YSpeed);
+
 
     //System.out.println(Robot.myElevator.getEncoderCount());
 

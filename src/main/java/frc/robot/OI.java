@@ -75,7 +75,6 @@ public class OI {
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
   public OI() {
-    elevatorVisionCalibrateButton.whenPressed(new ElevatorXToVision());
 
     if (Constants.operatorBoardMode == 1) {
       //Depending on POV state, react differently when elevatorpreset button is pressed
@@ -95,10 +94,10 @@ public class OI {
         new ElevatorToHeight(Constants.port1Height);
       } 
 
-      zeroElevatorXButtonAux.whenPressed(new ElevatorXToPosition(0));
+      //zeroElevatorXButtonAux.whenPressed(new ElevatorXToPosition(0));
 
     } else {
-      zeroElevatorXButton.whenPressed(new ElevatorXToPosition(0));
+      //zeroElevatorXButton.whenPressed(new ElevatorXToPosition(0));
       rocketHatch1Button.whenPressed(new ElevatorToHeight(Constants.hatch1Height));
       rocketHatch2Button.whenPressed(new ElevatorToHeight(Constants.hacth2Height));
       rocketHatch3Button.whenPressed(new ElevatorToHeight(Constants.hacth3Height));

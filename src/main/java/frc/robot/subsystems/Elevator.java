@@ -91,8 +91,8 @@ public class Elevator extends Subsystem {
 
     } else if (direction < 0) {
       //proportionally slow the motor
-      if (pos < Constants.elevatorLimit/4) {
-        setSpeed(speed*pos/Constants.elevatorLimit);
+      if (pos < Constants.elevatorLimit/2) {
+        setSpeed(speed*pos/Constants.elevatorLimit + Constants.elevatorHoldSpeed);
       } else {
         setSpeed(speed);
       }

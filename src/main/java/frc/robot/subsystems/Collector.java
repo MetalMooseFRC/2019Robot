@@ -7,6 +7,8 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.BlankPIDOutput;
@@ -30,6 +32,9 @@ public class Collector extends Subsystem {
     private TalonSRX collectorMotor = new TalonSRX(RobotMap.collectorMotorCANID);
     public TalonSRX armMotor = new TalonSRX(RobotMap.collectorArmMotorCANID);
 
+    private Encoder armEncoder = new Encoder(RobotMap.encoderAPort, RobotMap.encoderBPort);
+    public PIDController armPID = new PIDController(Constants.armP, Constants.armI, Constants.armD, armEncoder, new BlankPIDOutput());
+
     public boolean isHoldingBall;
 
     // Put methods for controlling this subsystem
@@ -43,11 +48,15 @@ public class Collector extends Subsystem {
 
   public Collector() {
     armMotor.configFactoryDefault();
-    armMotor.selectProfileSlot(1, 0);
+    //armMotor.selectProfileSlot(1, 0);
     armMotor.setNeutralMode(NeutralMode.Brake);
-    armMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    //armMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
     armMotor.configPeakOutputForward(1.0);
-    armMotor.configPeakOutputForward(-1.0);
+    armMotor.configPeakOutputReverse(-1.0);
+
+    armPID.setOutputRange(-1, 1);
+    armPID.setAbsoluteTolerance(Constants.armMargin);
+    armPID.reset();
 
     isHoldingBall = true;
   }

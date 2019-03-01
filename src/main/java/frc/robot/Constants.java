@@ -5,7 +5,7 @@ public class Constants {
     /** Variables */
     public static boolean isOffenseMode = true;
     //0 is button pad, 1 is controller
-    public static int operatorBoardMode = 0;
+    public static int operatorBoardMode = 1;
     
      /**DRIVETRAIN */ 
     //Drive stick deadband, minimum axis input 
@@ -51,10 +51,10 @@ public class Constants {
     //in rotations
     public static double elevatorLimit = 44;
 
-    public static double elevatorHoldSpeed = 0.07;
+    public static double elevatorHoldSpeed = 0.1;
 
     //Range for elevatorX limit
-    public static final double elevatorXLimit = 14500;
+    public static final double elevatorXLimit = 10000;
 
     //For elvator up and down
     public static final double encoderRotationsToDistanceCoefficient = 1;
@@ -78,9 +78,9 @@ public class Constants {
 
 
     /**COLLECTOR */
-    public static double intakeSpeed = -0.8;
-    public static double outtakeSpeed = 0.3;
-    public static double holdSpeed = -0.1;
+    public static double intakeSpeed = 0.7;
+    public static double outtakeSpeed = -0.5;
+    public static double holdSpeed = 0.2;
 
     public static double armP = 0.01;
     public static double armI = 0;
