@@ -33,6 +33,7 @@ public class Robot extends TimedRobot {
 	public static final Drivetrain myDrivetrain = new Drivetrain();
 	public static final Elevator myElevator = new Elevator();
 	public static final Collector myCollector = new Collector();
+	public static final Arm myArm = new Arm();
 	public static OI myOI;
 
 	private SendableChooser<Integer> operatorBoardChooser = new SendableChooser<>();
@@ -48,18 +49,18 @@ public class Robot extends TimedRobot {
 		myOI = new OI();
 		
 		//Start stream for axis camera
-		CameraServer.getInstance().addAxisCamera("10.13.91.11");
+		//CameraServer.getInstance().addAxisCamera("10.13.91.11");
 		CameraServer.getInstance().startAutomaticCapture();
 
 		//Start stream for jevois camera
-		UsbCamera jevoisCamera = new UsbCamera("VisionCam", 0);
+	/** 	UsbCamera jevoisCamera = new UsbCamera("VisionCam", 0);
 		jevoisCamera.setVideoMode(PixelFormat.kYUYV, 640, 480, 15);
 		MjpegServer jevoisServer = new MjpegServer("VisionServer", 1180);
-		jevoisServer.setSource(jevoisCamera); 
+		jevoisServer.setSource(jevoisCamera);  */
 
 
-		operatorBoardChooser.addObject("Button Pad", 0);
-		operatorBoardChooser.addDefault("Logitech Controller", 1);
+		operatorBoardChooser.addDefault("Button Pad", 0);
+		operatorBoardChooser.addObject("Logitech Controller", 1);
 		SmartDashboard.putData("Operator Board", operatorBoardChooser);
 
 		SmartDashboard.putData(myDrivetrain);
@@ -81,6 +82,13 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Arm I", Constants.armI);
 		SmartDashboard.putNumber("Arm D", Constants.armD);
 		SmartDashboard.putNumber("Arm Margin of Error", Constants.armMargin);
+
+		SmartDashboard.putNumber("Port Hole 1", Constants.port1Height);
+		SmartDashboard.putNumber("Port Hole 2", Constants.port2Height);
+		SmartDashboard.putNumber("Port Hole 3", Constants.port3Height);
+		SmartDashboard.putNumber("Hatch Hole 1", Constants.hatch1Height);
+		SmartDashboard.putNumber("Hatch Hole 2", Constants.hacth2Height);
+		SmartDashboard.putNumber("Hatch Hole 3", Constants.hacth3Height);
 		
 	}
 
@@ -158,8 +166,15 @@ public class Robot extends TimedRobot {
 		Constants.armI = SmartDashboard.getNumber("Arm I", 0);
 		Constants.armD = SmartDashboard.getNumber("Arm D", 0);
 
+		Constants.port1Height = SmartDashboard.getNumber("Port Hole 1", 0);
+		Constants.port2Height = SmartDashboard.getNumber("Port Hole 2", 0);
+		Constants.port3Height = SmartDashboard.getNumber("Port Hole 3", 0);
+		Constants.hatch1Height = SmartDashboard.getNumber("Hatch Hole 1", 0);
+		Constants.hacth2Height = SmartDashboard.getNumber("Hatch Hole 2", 0);
+		Constants.hacth3Height = SmartDashboard.getNumber("Hatch Hole 3", 0);
 
-		//Constants.operatorBoardMode = operatorBoardChooser.getSelected();
+
+		Constants.operatorBoardMode = operatorBoardChooser.getSelected();
 
 
 

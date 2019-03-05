@@ -38,7 +38,7 @@ double output;
   protected void initialize() {
     integral = 0;
     //set motor speed to 0
-   Robot.myElevator.elevatorXMotor.set(ControlMode.PercentOutput, 0);
+  // Robot.myElevator.elevatorXMotor.set(ControlMode.PercentOutput, 0);
  
   }
 

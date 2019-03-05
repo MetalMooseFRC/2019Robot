@@ -34,18 +34,17 @@ public class ManualElevator extends Command {
     if (Constants.operatorBoardMode == 1) {
       YSpeed = -OI.operatorController.getRawAxis(RobotMap.elevatorAxisPort);
     } else {
-      YSpeed = -OI.operatorLeftPad.getRawAxis(RobotMap.elevatorAxisPort);
+      YSpeed = -OI.operatorLeftPad.getRawAxis(RobotMap.elevatorAxisPort)/2;
 
     }
 
     //check deadband
     if (Math.abs(YSpeed) < Constants.elevatorStickMinimumInput) {
       YSpeed = 0; 
-      //Robot.myElevator.hold(); 
     }
     
     Robot.myElevator.throttleSpeed(YSpeed, Math.signum(YSpeed));
-
+    
     //Robot.myElevator.setSpeed(YSpeed);
 
 
@@ -57,15 +56,15 @@ public class ManualElevator extends Command {
     if (Constants.operatorBoardMode == 1) {
       XSpeed = OI.operatorController.getRawAxis(RobotMap.elevatorXAxisPort);
     } else {
-      XSpeed = OI.operatorLeftPad.getRawAxis(RobotMap.elevatorXAxisPort);
+      XSpeed = OI.operatorLeftPad.getRawAxis(RobotMap.elevatorXAxisPort)/2;
     }
 
     if (Math.abs(XSpeed) < Constants.elevatorStickMinimumInput) XSpeed = 0;
 
     //Don't make motor go past limit
-    if ( Constants.elevatorXMargin + Robot.myElevator.getEncoderXCount() > Constants.elevatorXLimit && XSpeed >0 ) XSpeed = 0;
-    if ( Robot.myElevator.getEncoderXCount() - Constants.elevatorXMargin < -Constants.elevatorXLimit && XSpeed <0 ) XSpeed = 0;
-    Robot.myElevator.setXSpeed(XSpeed);
+   // if ( Constants.elevatorXMargin + Robot.myElevator.getEncoderXCount() > Constants.elevatorXLimit && XSpeed >0 ) XSpeed = 0;
+   // if ( Robot.myElevator.getEncoderXCount() - Constants.elevatorXMargin < -Constants.elevatorXLimit && XSpeed <0 ) XSpeed = 0;
+   // Robot.myElevator.setXSpeed(XSpeed);
 
   }
 

@@ -15,7 +15,7 @@ import frc.robot.BlankPIDOutput;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.commands.ManualCollector;
+import frc.robot.commands.ManualArm;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
@@ -27,11 +27,12 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 /**
  * Add your docs here.
  */
-public class Collector extends Subsystem {
+public class Arm extends Subsystem {
 
-    private TalonSRX collectorMotor = new TalonSRX(RobotMap.collectorMotorCANID);
-  
-    public boolean isHoldingBall;
+    public TalonSRX armMotor = new TalonSRX(RobotMap.collectorArmMotorCANID);
+
+    private Encoder armEncoder = new Encoder(RobotMap.armEncoderAPort, RobotMap.armEncoderBPort);
+    public PIDController armPID = new PIDController(Constants.armP, Constants.armI, Constants.armD, armEncoder, new BlankPIDOutput());
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -39,29 +40,30 @@ public class Collector extends Subsystem {
     @Override
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new ManualCollector());
+        setDefaultCommand(new ManualArm());
   }
 
-  public Collector() {
+  public Arm() {
+    armMotor.configFactoryDefault();
+    //armMotor.selectProfileSlot(1, 0);
+    armMotor.setNeutralMode(NeutralMode.Brake);
+    //armMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    armMotor.configPeakOutputForward(1.0);
+    armMotor.configPeakOutputReverse(-1.0);
 
-    isHoldingBall = true;
+    armPID.setOutputRange(-1, 1);
+    armPID.setAbsoluteTolerance(Constants.armMargin);
+    armPID.reset();
   }
 
-  public void intake() {
-    collectorMotor.set(ControlMode.PercentOutput, Constants.intakeSpeed);
+
+  public double getEncoderCount() {
+    return armMotor.getSelectedSensorPosition();
   }
 
-  public void outtake() {
-    collectorMotor.set(ControlMode.PercentOutput, Constants.outtakeSpeed);
+  public void setArmSpeed(double speed) {
+    armMotor.set(ControlMode.PercentOutput, speed);
   }
 
-  //speed to hold ball, small intake force
-  public void hold() {
-    collectorMotor.set(ControlMode.PercentOutput, Constants.holdSpeed);
-  }
-
-  public void setSpeed(double speed) {
-    collectorMotor.set(ControlMode.PercentOutput, speed);
-  }
   
 }

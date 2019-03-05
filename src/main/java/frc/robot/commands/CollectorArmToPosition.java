@@ -22,7 +22,7 @@ public class CollectorArmToPosition extends Command {
   public CollectorArmToPosition(double pos) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.myCollector);
+    requires(Robot.myArm);
 
     this.pos = pos;
 
@@ -38,11 +38,11 @@ public class CollectorArmToPosition extends Command {
    // Robot.myCollector.armMotor.config_kD(1, Constants.armD);
 
     //Turn off motor
-    Robot.myCollector.setArmSpeed(0);
+    Robot.myArm.setArmSpeed(0);
 
     //setup PID loop
-    Robot.myCollector.armPID.setSetpoint(pos);
-    Robot.myCollector.armPID.enable();
+    Robot.myArm.armPID.setSetpoint(pos);
+    Robot.myArm.armPID.enable();
 
 
   }
@@ -50,9 +50,9 @@ public class CollectorArmToPosition extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double speed = Robot.myCollector.armPID.get();
+    double speed = Robot.myArm.armPID.get();
 
-    Robot.myCollector.armMotor.set(ControlMode.PercentOutput, speed);
+    Robot.myArm.armMotor.set(ControlMode.PercentOutput, speed);
 
     //Robot.myCollector.armMotor.set(ControlMode.Position, pos);
     
@@ -62,7 +62,7 @@ public class CollectorArmToPosition extends Command {
   @Override
   protected boolean isFinished() {
     //return Math.abs(pos - Robot.myCollector.getEncoderCount()) < Constants.armMargin;
-    return Robot.myCollector.armPID.onTarget();
+    return Robot.myArm.armPID.onTarget();
   }
 
   // Called once after isFinished returns true

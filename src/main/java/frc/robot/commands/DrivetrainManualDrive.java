@@ -43,7 +43,14 @@ public class DrivetrainManualDrive extends Command {
 		else if (turn < 0) {turn += Constants.driveStickMinimumInput;}
 		else if (turn > 0) {turn -= Constants.driveStickMinimumInput;}
 
-		Robot.myDrivetrain.arcadeDrive(speed, turn);
+		//Slow if the button is pressed else only slow when the elevator is up
+		if (OI.slowerDriveButton.get()) {
+			speed = speed/3;
+			turn = turn/3;
+			Robot.myDrivetrain.arcadeDrive(speed, turn);
+		} else {
+			Robot.myDrivetrain.throttledArcade(speed, turn);
+		}
 
 
 	}

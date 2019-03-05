@@ -32,11 +32,10 @@ public class ManualCollector extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double armSpeed;
+
     
     //Auxilary controller
     if (Constants.operatorBoardMode == 1) {
-    armSpeed = OI.operatorController.getRawAxis(RobotMap.armAxisAuxPort);
 
     if (OI.inButtonAux.get()) {
       Robot.myCollector.intake();
@@ -48,11 +47,12 @@ public class ManualCollector extends Command {
 
     } else if (Robot.myCollector.isHoldingBall) {
       Robot.myCollector.hold();
+    } else {
+      Robot.myCollector.setSpeed(0);
     }
 
     //Button pad
   } else {
-    armSpeed = OI.operatorRightPad.getRawAxis(RobotMap.armAxisPort);
 
     if (OI.inButton.get()) {
       Robot.myCollector.intake();
@@ -64,10 +64,12 @@ public class ManualCollector extends Command {
 
     } else if (Robot.myCollector.isHoldingBall) {
       Robot.myCollector.hold();
+
+    } else {
+      Robot.myCollector.setSpeed(0);
     }
   }
 
-  Robot.myCollector.setArmSpeed(armSpeed);
     
   }
 

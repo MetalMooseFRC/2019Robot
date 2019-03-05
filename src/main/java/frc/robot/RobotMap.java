@@ -67,9 +67,12 @@ public class RobotMap {
   public static final int reflectiveRightSensorPort = 0;
 
   /**ELEVATOR */
-  public static final int elevatorRightMotorCANID = 6; 
+  public static final int elevatorRightMotorCANID = 12; 
   public static final int elevatorLeftMotorCANID = 7; 
-  public static final int elevatorXMotorCANID = 2;
+ // public static final int elevatorMotorCANID = 2;
+
+  //public static final int elevatorEncoderAPort = 2;
+ // public static final int elevatorEncoderBPort = 3;
 
   public static final int potAnalogPin = 0;
 
@@ -77,7 +80,7 @@ public class RobotMap {
   public static final int collectorMotorCANID = 0;
   public static final int collectorArmMotorCANID = 1;
 
-  public static final int encoderAPort = 0;
-  public static final int encoderBPort = 1;
+  public static final int armEncoderAPort = 0;
+  public static final int armEncoderBPort = 1;
 
 }

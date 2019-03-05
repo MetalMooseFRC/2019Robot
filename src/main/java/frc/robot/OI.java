@@ -27,6 +27,10 @@ public class OI {
 
   //Driver Logitech joystick
   public static final Joystick driverStick = new Joystick(RobotMap.driveStickPort);
+
+  public static final Button armOutButton = new JoystickButton(driverStick, 9),
+                             armInButton = new JoystickButton(driverStick, 11),
+                             slowerDriveButton = new JoystickButton(driverStick, 1);
   
   public static final Button elevatorVisionCalibrateButton = new JoystickButton(driverStick, RobotMap.elevatorVisionCalibratePort);
                              
@@ -76,7 +80,7 @@ public class OI {
   // button.whenReleased(new ExampleCommand());
   public OI() {
 
-    if (Constants.operatorBoardMode == 1) {
+   /**  if (Constants.operatorBoardMode == 1) {
       //Depending on POV state, react differently when elevatorpreset button is pressed
       if (operatorController.getRawAxis(RobotMap.POVAxisPort) == 0 && rocketHatchButton.get()) {
         new ElevatorToHeight(Constants.hacth2Height);
@@ -92,21 +96,23 @@ public class OI {
         new ElevatorToHeight(Constants.port3Height);
       } else if (operatorController.getRawAxis(RobotMap.POVAxisPort) == -1 && rocketPortButton.get()) {
         new ElevatorToHeight(Constants.port1Height);
-      } 
+      }  */
 
       //zeroElevatorXButtonAux.whenPressed(new ElevatorXToPosition(0));
 
-    } else {
+   // } else {}
       //zeroElevatorXButton.whenPressed(new ElevatorXToPosition(0));
-      rocketHatch1Button.whenPressed(new ElevatorToHeight(Constants.hatch1Height));
+      
+     // rocketHatch1Button.whenPressed(new ElevatorToHeight(Constants.hatch1Height));
       rocketHatch2Button.whenPressed(new ElevatorToHeight(Constants.hacth2Height));
       rocketHatch3Button.whenPressed(new ElevatorToHeight(Constants.hacth3Height));
 
       rocketPort1Button.whenPressed(new ElevatorToHeight(Constants.port1Height));
       rocketPort2Button.whenPressed(new ElevatorToHeight(Constants.port2Height));
       rocketPort3Button.whenPressed(new ElevatorToHeight(Constants.port3Height));
+      
 
-    }
+    //}
   }
 }
 

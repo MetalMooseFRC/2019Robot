@@ -34,17 +34,20 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
  */
 public class Elevator extends Subsystem {
   //create motor controller for elevator
-   public CANSparkMax elevatorRightMotor = new CANSparkMax(RobotMap.elevatorRightMotorCANID, MotorType.kBrushless);
-   public CANSparkMax elevatorLeftMotor = new CANSparkMax(RobotMap.elevatorLeftMotorCANID, MotorType.kBrushless);
-   public TalonSRX elevatorXMotor = new TalonSRX(RobotMap.elevatorXMotorCANID);
+  public CANSparkMax leftElevatorMotor = new CANSparkMax(RobotMap.elevatorLeftMotorCANID, MotorType.kBrushless);
+  public CANSparkMax rightElevatorMotor = new CANSparkMax(RobotMap.elevatorRightMotorCANID, MotorType.kBrushless);
+
+    // public TalonSRX elevatorMotor = new TalonSRX(RobotMap.elevatorMotorCANID);
 
   //create sensors for elevator
-  public CANEncoder elevatorEncoder = new CANEncoder(elevatorLeftMotor);
+//private Encoder elevatorEncoder = new Encoder(RobotMap.elevatorEncoderAPort, RobotMap.elevatorEncoderBPort);
+private CANEncoder elevatorEncoder = new CANEncoder(leftElevatorMotor);
 
   //PID controller
-  public CANPIDController elevatorPID = new CANPIDController(elevatorLeftMotor);
+//public PIDController elevatorPID = new PIDController(Constants.elevatorP, Constants.elevatorI, Constants.elevatorD, elevatorEncoder, new BlankPIDOutput());
+private CANPIDController elevatorPID = new CANPIDController(leftElevatorMotor);
 
-  // Put methods for controlling this subsystem
+// Put methods for controlling this subsystem
   // here. Call these from Commands.
 
   @Override
@@ -54,21 +57,33 @@ public class Elevator extends Subsystem {
   }
 
   public Elevator() {
-    elevatorRightMotor.follow(elevatorLeftMotor, true);
+    rightElevatorMotor.follow(leftElevatorMotor, true);
 
-    elevatorXMotor.configFactoryDefault();
-    elevatorXMotor.selectProfileSlot(0, 0);
-    elevatorXMotor.setNeutralMode(NeutralMode.Brake);
-    elevatorXMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-    elevatorXMotor.getSensorCollection().setQuadraturePosition(0, 20);
-    elevatorXMotor.configPeakOutputForward(1.0);
-    elevatorXMotor.configPeakOutputReverse(-1.0);
+    elevatorPID.setOutputRange(-1, 1);
+    leftElevatorMotor.setEncPosition(0);
+
+    elevatorPID.setP(Constants.elevatorP);
+    elevatorPID.setI(Constants.elevatorI);
+    elevatorPID.setD(Constants.elevatorD);
+
+
+/** 
+    elevatorMotor.configFactoryDefault();
+    elevatorMotor.setNeutralMode(NeutralMode.Brake);
+    elevatorMotor.configPeakOutputForward(1.0);
+    elevatorMotor.configPeakOutputReverse(-1.0);
+
+    elevatorPID.setAbsoluteTolerance(Constants.PIDElevatorErrorMargin);
+    elevatorPID.setOutputRange(-1, 1);
+    */
 
   }
 
   //set elevator speed at a constant
   public void setSpeed(double speed) {
-    elevatorLeftMotor.set(speed);
+    //elevatorMotor.set(ControlMode.PercentOutput, speed);
+    leftElevatorMotor.set(speed);
+
   }
 
   public void hold() {
@@ -92,20 +107,21 @@ public class Elevator extends Subsystem {
     } else if (direction < 0) {
       //proportionally slow the motor
       if (pos < Constants.elevatorLimit/2) {
-        setSpeed(speed*pos/Constants.elevatorLimit + Constants.elevatorHoldSpeed);
+        //Add one to move the "zero"/ bottom of the elevator
+        setSpeed(speed*(pos+3)/Constants.elevatorLimit + Constants.elevatorHoldSpeed);
       } else {
         setSpeed(speed);
       }
 
     //only hold if higher up, not needed when at the ground
-    } else if (pos > 0.5) {
+    } else if (pos > 1) {
       hold();
-    }
+    } 
   }
 
   //in percent output mode
   public void setXSpeed(double speed) {
-    elevatorXMotor.set(ControlMode.PercentOutput, speed);
+    //elevatorXMotor.set(ControlMode.PercentOutput, speed);
   }
 
   public double getEncoderCount() {
@@ -113,17 +129,12 @@ public class Elevator extends Subsystem {
   }
 
 
-  public double getEncoderXCount() {
-    return elevatorXMotor.getSelectedSensorPosition();
+  //public double getEncoderXCount() {
+    //return elevatorXMotor.getSelectedSensorPosition();
+  //}
+
+  public void setHeight(double height) {
+    elevatorPID.setReference(height, ControlType.kPosition);
   }
 
-
-  //set PID reference point
-  public void setHeight(double pos) {
-    elevatorPID.setP(Constants.elevatorP);
-    elevatorPID.setI(Constants.elevatorI);
-    elevatorPID.setD(Constants.elevatorD);
-    elevatorPID.setOutputRange(-1, 1);
-    elevatorPID.setReference(pos, ControlType.kPosition);
-  } 
 }

@@ -8,6 +8,8 @@
 package frc.robot.commands;
 
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -26,6 +28,7 @@ public class ElevatorToHeight extends Command {
 		// Use requires() here to declare subsystem dependencies
         requires(Robot.myElevator);
 
+		//in encoder revolutions
         this.height = height;
 	}
 
@@ -33,21 +36,31 @@ public class ElevatorToHeight extends Command {
 	@Override
 	protected void initialize() {
          //Set reference for elevator PID
-         Robot.myElevator.setHeight(height);
+		// Robot.myElevator.elevatorPID.setSetpoint(height);
+		// Robot.myElevator.elevatorPID.enable();
+	System.out.println("start");
+		//Robot.myElevator.setHeight(height);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
+		Robot.myElevator.setHeight(height);
+
+		System.out.println(Robot.myElevator.getEncoderCount());
+
 		//Continue to approach references
-        Robot.myElevator.setHeight(height);
+		//double speed = Robot.myElevator.elevatorPID.get();
+
+		//Robot.myElevator.elevatorMotor.set(ControlMode.PercentOutput, speed);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
 		//Finish once within a margin of error of the setpoint
-	    return Math.abs(height - Robot.myElevator.getEncoderCount()) < Constants.PIDElevatorErrorMargin; 
+		//return Robot.myElevator.elevatorPID.onTarget(); 
+		return Math.abs(height - Robot.myElevator.getEncoderCount()) < Constants.PIDElevatorErrorMargin;
 	}
 
 	// Called once after isFinished returns true

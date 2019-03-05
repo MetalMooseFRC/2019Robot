@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.SPI;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.DrivetrainManualDrive;
 import frc.robot.BlankPIDOutput;
@@ -94,6 +95,18 @@ public class Drivetrain extends Subsystem {
 		//Invert right motor
 		rightFrontDriveMotor.set(-rightPower);
 
+	}
+
+	public void throttledArcade(double speed, double turn) {
+		double pos = Robot.myElevator.getEncoderCount();
+
+		//Throttle drivetrain when elevator is up
+		if (pos > Constants.elevatorLimit/4) {
+			speed = speed/3;
+			turn = turn/3;
+		}
+
+		arcadeDrive(speed, turn);
 	}
 
 	public double getRightEncoderCount() {

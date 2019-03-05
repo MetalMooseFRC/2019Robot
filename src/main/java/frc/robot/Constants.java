@@ -37,9 +37,10 @@ public class Constants {
     //Minimum joystick input
     public static final double elevatorStickMinimumInput = 0.1;
     //Elevator PID
-    public static double elevatorP = 0.05;
-    public static double elevatorI = 0.00001;
+    public static double elevatorP = 0.09;
+    public static double elevatorI = 0.000015;
     public static double elevatorD = 0;
+    //in encoder tics
     public static double PIDElevatorErrorMargin = 0.5;
 
     public static double elevatorXP = 0.05;
@@ -48,10 +49,10 @@ public class Constants {
     //In tics
     public static double elevatorXMargin = 150;
 
-    //in rotations
-    public static double elevatorLimit = 44;
+    //in tics
+    public static double elevatorLimit = 47;
 
-    public static double elevatorHoldSpeed = 0.1;
+    public static double elevatorHoldSpeed = 0.07;
 
     //Range for elevatorX limit
     public static final double elevatorXLimit = 10000;
@@ -67,18 +68,18 @@ public class Constants {
     public static double visionMargin = 5;
 
     //Heights for ports
-    public static double port1Height = 10;
-    public static double port2Height = 25;
-    public static double port3Height = 40;
+    public static double port1Height = 12;
+    public static double port2Height = 28;
+    public static double port3Height = 44;
 
     //Heights for hatch holes
-    public static double hatch1Height = 5;
-    public static double hacth2Height = 20;
-    public static double hacth3Height = 35;
+    public static double hatch1Height = 0;
+    public static double hacth2Height = 16.5;
+    public static double hacth3Height = 33;
 
 
     /**COLLECTOR */
-    public static double intakeSpeed = 0.7;
+    public static double intakeSpeed = 0.35;
     public static double outtakeSpeed = -0.5;
     public static double holdSpeed = 0.2;
 
@@ -86,6 +87,8 @@ public class Constants {
     public static double armI = 0;
     public static double armD = 0;
     public static double armMargin = 50;
+
+    public static double armBallCollectingPosition = 2000;
 
 
 
