@@ -31,8 +31,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
  */
 public class Lifter extends Subsystem {
 
-    private CANSparkMax leftLifterMotor = new CANSparkMax(Constants.leftLifterMotorCANID, MotorType.kBrushless);
-    private CANSparkMax rightLifterMotor = new CANSparkMax(Constants.rightLifterMotorCANID, MotorType.kBrushless);
+    private CANSparkMax leftLifterMotor = new CANSparkMax(RobotMap.leftLifterMotorCANID, MotorType.kBrushless);
+    private CANSparkMax rightLifterMotor = new CANSparkMax(RobotMap.rightLifterMotorCANID, MotorType.kBrushless);
 
     //private TalonSRX leftLifterMotor = new TalonSRX(3);
     //private TalonSRX rightLifterMotor = new TalonSRX(4);
@@ -47,12 +47,8 @@ public class Lifter extends Subsystem {
   }
 
   public Lifter() {
-
-    rightLifterMotor.follow(leftLifterMotor, true);
-
-   /**  rightLifterMotor.setInverted(true);
-    rightLifterMotor.follow(leftLifterMotor);
-
+    rightLifterMotor.setInverted(true);
+   /**
     //Configure motor controllers
     rightLifterMotor.configFactoryDefault();
     rightLifterMotor.configPeakOutputForward(1);
@@ -63,9 +59,14 @@ public class Lifter extends Subsystem {
     */
   }
 
-  public void setSpeed(double speed) {
+  public void setLeftSpeed(double speed) {
       //leftLifterMotor.set(ControlMode.PercentOutput, speed);
       leftLifterMotor.set(speed);
+  }
+
+  public void setRightSpeed(double speed) {
+      //rightLifterMotor.set(ControlMode.PercentOutput, speed);
+      rightLifterMotor.set(speed);
   }
 
 

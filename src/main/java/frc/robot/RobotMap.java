@@ -38,9 +38,7 @@ public class RobotMap {
   //Arm ports for each operator board
   public static final int armAxisAuxPort = 5;
   public static final int armAxisPort = 1;
-  
-  /**BUTTONS */
-  public static final int elevatorVisionCalibratePort = 1;
+
 
     /**Operators */
   public static final int operatorLeftPort = 2;
@@ -62,9 +60,7 @@ public class RobotMap {
   public static final int leftBackDriveCANID = 5;
 
   //Reflectance sensor
-  public static final int reflectivePowerPort = 9;
-  public static final int reflectiveLeftSensorPort = 1;
-  public static final int reflectiveRightSensorPort = 0;
+
 
   /**ELEVATOR */
   public static final int elevatorRightMotorCANID = 12; 
@@ -82,5 +78,10 @@ public class RobotMap {
 
   public static final int armEncoderAPort = 0;
   public static final int armEncoderBPort = 1;
+
+  /**LIFTER */
+  public static final int leftLifterMotorCANID = 11;
+  public static final int rightLifterMotorCANID = 13;
+
 
 }

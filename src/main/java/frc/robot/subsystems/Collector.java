@@ -48,20 +48,31 @@ public class Collector extends Subsystem {
   }
 
   public void intake() {
-    collectorMotor.set(ControlMode.PercentOutput, Constants.intakeSpeed);
+   setThrottledSpeed(Constants.intakeSpeed);
   }
 
   public void outtake() {
-    collectorMotor.set(ControlMode.PercentOutput, Constants.outtakeSpeed);
+    setSpeed(Constants.outtakeSpeed);
   }
 
   //speed to hold ball, small intake force
   public void hold() {
-    collectorMotor.set(ControlMode.PercentOutput, Constants.holdSpeed);
+    setSpeed(Constants.holdSpeed);
   }
 
   public void setSpeed(double speed) {
     collectorMotor.set(ControlMode.PercentOutput, speed);
+  }
+
+  //Make it intake faster if driving faster
+  public void setThrottledSpeed(double speed) {
+    double averageDriveSpeed = (Robot.myDrivetrain.leftFrontDriveMotor.getAppliedOutput() + Robot.myDrivetrain.rightFrontDriveMotor.getAppliedOutput())/2;
+
+    if (averageDriveSpeed > Constants.intakeSpeed) {
+      speed =+ 0.5*averageDriveSpeed;
+    }
+
+    setSpeed(speed);
   }
   
 }

@@ -47,9 +47,12 @@ public class Drivetrain extends Subsystem {
 	CANPIDController leftPID = new CANPIDController(leftFrontDriveMotor);
 
 	//Reflective sensor
-	DigitalOutput reflectanceSensorPower = new DigitalOutput(RobotMap.reflectivePowerPort);
-	AnalogInput reflectanceLeftSensor = new AnalogInput(RobotMap.reflectiveLeftSensorPort);
-	AnalogInput reflectanceRightSensor = new AnalogInput(RobotMap.reflectiveRightSensorPort);
+	//DigitalOutput reflectanceSensorPower = new DigitalOutput(RobotMap.reflectivePowerPort);
+	AnalogInput reflectanceLeftOutsideSensor = new AnalogInput(0);
+	AnalogInput reflectanceLeftInsideSensor = new AnalogInput(1);
+	AnalogInput reflectanceRightInsideSensor = new AnalogInput(2);
+	AnalogInput reflectanceRightOutsideSensor = new AnalogInput(3);
+
 	
 	//Gyro Sensors
 	public AHRS myAHRS = new AHRS(SPI.Port.kMXP);
@@ -91,9 +94,9 @@ public class Drivetrain extends Subsystem {
 		leftPower += skim(rightPower);
 		rightPower += skim(leftPower);
 
-		leftFrontDriveMotor.set(leftPower);
-		//Invert right motor
-		rightFrontDriveMotor.set(-rightPower);
+		setLeftSpeed(leftPower);
+		
+		setRightSpeed(rightPower);
 
 	}
 
@@ -105,6 +108,8 @@ public class Drivetrain extends Subsystem {
 			speed = speed/3;
 			turn = turn/3;
 		}
+
+		//INSERT LINE FOLLOW CODE HERE
 
 		arcadeDrive(speed, turn);
 	}
@@ -152,24 +157,58 @@ public class Drivetrain extends Subsystem {
 		leftPID.setReference(pos, ControlType.kPosition);
 	}
 
-	//Get voltage of reflectance sensor pin 15
-	public boolean getLeftReflectance() {
-		//convert to boolean by threshhold
-		if (reflectanceLeftSensor.getVoltage() < Constants.reflectanceThreshHold) {
-			return true;
-		}
+	public void setLeftSpeed(double speed) {
+		leftFrontDriveMotor.set(speed);
+	}
 
-		return false;
+	public void setRightSpeed(double speed) {
+		//Ivert right speed
+		rightFrontDriveMotor.set(-speed);
+	}
+
+	//Get voltage of reflectance sensor pin 15
+	public boolean getLeftOutReflectance() {
+		//convert to boolean by threshhold
+		return reflectanceLeftOutsideSensor.getVoltage() < Constants.reflectanceThreshHold;
 	}
 
 	//Get voltage of reflectance sensor pin 1
-	public boolean getRightReflectance() {
+	public boolean getLeftInReflectance() {
 		//convert to boolean by threshhold
-		if (reflectanceRightSensor.getVoltage() < Constants.reflectanceThreshHold) {
-			return true;
-		}
+		return reflectanceLeftInsideSensor.getVoltage() < Constants.reflectanceThreshHold;
 
-		return false;
+	}
+
+	public boolean getRightOutReflectance() {
+		//convert to boolean by threshhold
+		return reflectanceRightOutsideSensor.getVoltage() < Constants.reflectanceThreshHold;
+
+	}
+
+	public boolean getRightInReflectance() {
+		//convert to boolean by threshhold
+		return reflectanceRightInsideSensor.getVoltage() < Constants.reflectanceThreshHold;
+
+	}
+
+
+	public double correctLineFollowing(double speed, boolean isDoubleCorrected, boolean isReduced) {
+		//Are we making this motor go faster or slower
+		if (isReduced) {
+			//Do we need to correct it more because it is farther off
+			if (isDoubleCorrected) {
+				speed *= Constants.lineFollowDoubleCorrection;
+			} else {
+				speed *= Constants.lineFollowCorrection;
+			}
+		} else {
+			if (isDoubleCorrected) {
+				speed *= (1 - Constants.lineFollowDoubleCorrection);
+			} else {
+				speed *= (1 - Constants.lineFollowCorrection);
+			}
+		}
+		return speed;
 	}
 
 }

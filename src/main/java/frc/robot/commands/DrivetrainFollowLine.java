@@ -3,6 +3,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Constants;
+import frc.robot.OI;
 import frc.robot.Robot;
 
 
@@ -12,6 +13,7 @@ import frc.robot.Robot;
  */
 public class DrivetrainFollowLine extends Command {
 	boolean isLeftReflect;
+	boolean isMiddleReflect;
 	boolean isRightReflect;
 
 	public DrivetrainFollowLine() {
@@ -28,25 +30,23 @@ public class DrivetrainFollowLine extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		isLeftReflect = Robot.myDrivetrain.getLeftReflectance();
+		/** isLeftReflect = Robot.myDrivetrain.getLeftReflectance();
+		isMiddleReflect = Robot.myDrivetrain.getMiddleReflectance();
 		isRightReflect = Robot.myDrivetrain.getRightReflectance();
 
-		//If only the left is detecting reflectance, turn left
-		if (isLeftReflect && !isRightReflect) {
-			//turn left is positive
-			Robot.myDrivetrain.arcadeDrive(Constants.lineFollowSpeed, Constants.lineFollowSpeed);
-		
-		//If only the right is detecting refelctance, turn right
-		} else if (!isLeftReflect && isRightReflect) {
-			Robot.myDrivetrain.arcadeDrive(0, -Constants.lineFollowSpeed);
+		double speed = Math.abs(OI.driverStick.getY());
 
-		//If both are detecting reflectance, stay straight
-		} else if (isLeftReflect && isRightReflect) {
-			Robot.myDrivetrain.arcadeDrive(Constants.lineFollowSpeed, 0);
+		if (isLeftReflect) {
+		//turn left and double correct if the middle is not sensing
+			Robot.myDrivetrain.setLeftSpeed(Robot.myDrivetrain.correctLineFollowing(speed, !isMiddleReflect, true));
+			Robot.myDrivetrain.setRightSpeed(Robot.myDrivetrain.correctLineFollowing(speed, !isMiddleReflect, false));
 
-		} else {
-			Robot.myDrivetrain.arcadeDrive(0,0);
-		}
+		} else if (isRightReflect) {
+		//turn right and double correct if the middle is not sensing
+			Robot.myDrivetrain.setLeftSpeed(Robot.myDrivetrain.correctLineFollowing(speed, !isMiddleReflect, false));
+			Robot.myDrivetrain.setRightSpeed(Robot.myDrivetrain.correctLineFollowing(speed, !isMiddleReflect, true));
+			
+		} */
 	
        
 	}
@@ -55,13 +55,13 @@ public class DrivetrainFollowLine extends Command {
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-       return false;
+       return (isLeftReflect && isRightReflect && isMiddleReflect) || (!isLeftReflect && !isRightReflect && !isMiddleReflect);
 	}
 
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-       System.out.println("ended");
+       System.out.println("Lined up");
 	}
 
 	// Called when another command which requires one or more of the same

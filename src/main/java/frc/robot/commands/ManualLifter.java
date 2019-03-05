@@ -32,17 +32,25 @@ public class ManualLifter extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    /**
-     if (OI.lifterOutButton.get()) {
-        Robot.myLifter.setSpeed(0.5);
-
-     } else if (OI.lifterInButton.get()) {
-        Robot.myLifter.setSpeed(-0.5);
-
-     } else {
-        Robot.myLifter.setSpeed(0);
+    
+     if (OI.leftLifterOutButton.get()) {
+        Robot.myLifter.setLeftSpeed(0.5);
+     }  else {
+       Robot.myLifter.setLeftSpeed(0);
      }
-     */
+     
+     if (OI.rightLifterOutButton.get()) {
+        Robot.myLifter.setRightSpeed(0.5);
+     } else {
+        Robot.myLifter.setRightSpeed(0);
+     }
+
+     if (OI.lifterInButton.get()) {
+       Robot.myLifter.setLeftSpeed(-0.5);
+       Robot.myLifter.setRightSpeed(-0.5);
+
+     }
+     
     
   }
 

@@ -31,9 +31,7 @@ public class OI {
   public static final Button armOutButton = new JoystickButton(driverStick, 9),
                              armInButton = new JoystickButton(driverStick, 11),
                              slowerDriveButton = new JoystickButton(driverStick, 1);
-  
-  public static final Button elevatorVisionCalibrateButton = new JoystickButton(driverStick, RobotMap.elevatorVisionCalibratePort);
-                             
+                               
   //Operator button pad
   public static final Joystick operatorLeftPad = new Joystick(RobotMap.operatorLeftPort);
   public static final Joystick operatorRightPad = new Joystick(RobotMap.operatorRightPort);
@@ -50,7 +48,10 @@ public class OI {
                              rocketHatch3Button = new JoystickButton(operatorLeftPad, 9),
                              rocketPort1Button = new JoystickButton(operatorLeftPad, 10),
                              rocketPort2Button = new JoystickButton(operatorLeftPad, 11),
-                             rocketPort3Button = new JoystickButton(operatorLeftPad, 12);
+                             rocketPort3Button = new JoystickButton(operatorLeftPad, 12),
+                             leftLifterOutButton = new JoystickButton(operatorRightPad, 8),
+                             rightLifterOutButton = new JoystickButton(operatorRightPad, 9),
+                             lifterInButton = new JoystickButton(operatorRightPad, 10);
 
   //auxilary buttons
   public static final Button zeroElevatorXButtonAux = new JoystickButton(operatorController, 1),
@@ -100,9 +101,10 @@ public class OI {
 
       //zeroElevatorXButtonAux.whenPressed(new ElevatorXToPosition(0));
 
-   // } else {}
+   // } else {
       //zeroElevatorXButton.whenPressed(new ElevatorXToPosition(0));
       
+
      // rocketHatch1Button.whenPressed(new ElevatorToHeight(Constants.hatch1Height));
       rocketHatch2Button.whenPressed(new ElevatorToHeight(Constants.hacth2Height));
       rocketHatch3Button.whenPressed(new ElevatorToHeight(Constants.hacth3Height));

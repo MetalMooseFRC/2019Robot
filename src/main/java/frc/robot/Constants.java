@@ -23,8 +23,11 @@ public class Constants {
     //Reflectance threshhold
     public static double reflectanceThreshHold = 2.5;
 
-    //Line follow speed
-    public static double lineFollowSpeed = 0.3;
+    //Line follow correction if it sees two sensors
+    public static double lineFollowCorrection = 0.1;
+
+    //Line follow corrction if it sees one sensor
+    public static double lineFollowDoubleCorrection = 0.2;
 
     // Values and Error for the PID of gyro
     public static double drivetrainGyroP = 0.01;
