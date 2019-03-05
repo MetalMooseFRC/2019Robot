@@ -33,6 +33,7 @@ public class Robot extends TimedRobot {
 	public static final Drivetrain myDrivetrain = new Drivetrain();
 	public static final Elevator myElevator = new Elevator();
 	public static final Collector myCollector = new Collector();
+	public static final Lifter myLifter = new Lifter();
 	public static final Arm myArm = new Arm();
 	public static OI myOI;
 
@@ -66,6 +67,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData(myDrivetrain);
 		SmartDashboard.putData(myElevator);
 		SmartDashboard.putData(myCollector);
+		SmartDashboard.putData(myLifter);
 
 		SmartDashboard.putNumber("Elevator P", Constants.elevatorP);
 		SmartDashboard.putNumber("Elevator I", Constants.elevatorI);
