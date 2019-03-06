@@ -43,7 +43,7 @@ public class Constants {
     public static double elevatorP = 0.09;
     public static double elevatorI = 0.000015;
     public static double elevatorD = 0;
-    //in encoder tics
+    //in encoder rotations
     public static double PIDElevatorErrorMargin = 0.5;
 
     public static double elevatorXP = 0.05;
@@ -55,15 +55,11 @@ public class Constants {
     //in tics
     public static double elevatorLimit = 47;
 
+    //speed to hold elevator against gravity
     public static double elevatorHoldSpeed = 0.07;
 
     //Range for elevatorX limit
     public static final double elevatorXLimit = 10000;
-
-    //For elvator up and down
-    public static final double encoderRotationsToDistanceCoefficient = 1;
-    //For elevator side to side
-    public static final double encoderTicsToDistanceCoefficient = 1;//227.556;
 
     //vision PID
     public static double visionP = 0.01;
@@ -86,11 +82,13 @@ public class Constants {
     public static double outtakeSpeed = -0.5;
     public static double holdSpeed = 0.2;
 
+    //PID for arm positioning
     public static double armP = 0.01;
     public static double armI = 0;
     public static double armD = 0;
     public static double armMargin = 50;
 
+    //In encoder tics to optimal position for intaking balls
     public static double armBallCollectingPosition = 2000;
 
 

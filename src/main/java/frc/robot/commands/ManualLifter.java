@@ -33,6 +33,7 @@ public class ManualLifter extends Command {
   @Override
   protected void execute() {
     
+    //independent left and right motors for easier adjustments
      if (OI.leftLifterOutButton.get()) {
         Robot.myLifter.setLeftSpeed(0.5);
      }  else {
@@ -45,6 +46,7 @@ public class ManualLifter extends Command {
         Robot.myLifter.setRightSpeed(0);
      }
 
+     //lift both up at the same time
      if (OI.lifterInButton.get()) {
        Robot.myLifter.setLeftSpeed(-0.5);
        Robot.myLifter.setRightSpeed(-0.5);

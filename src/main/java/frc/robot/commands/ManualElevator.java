@@ -48,8 +48,6 @@ public class ManualElevator extends Command {
     //Robot.myElevator.setSpeed(YSpeed);
 
 
-    //System.out.println(Robot.myElevator.getEncoderCount());
-
     // speed of elevator x axis depending on joydtick's x value
     //Depends on operator mode
     double XSpeed = 0;

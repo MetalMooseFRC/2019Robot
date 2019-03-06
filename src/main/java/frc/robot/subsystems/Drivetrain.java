@@ -109,8 +109,6 @@ public class Drivetrain extends Subsystem {
 			turn = turn/3;
 		}
 
-		//INSERT LINE FOLLOW CODE HERE
-
 		arcadeDrive(speed, turn);
 	}
 
@@ -166,7 +164,7 @@ public class Drivetrain extends Subsystem {
 		rightFrontDriveMotor.set(-speed);
 	}
 
-	//Get voltage of reflectance sensor pin 15
+	//Get voltage of reflectance sensor pin 8
 	public boolean getLeftOutReflectance() {
 		//convert to boolean by threshhold
 		return reflectanceLeftOutsideSensor.getVoltage() < Constants.reflectanceThreshHold;
@@ -179,19 +177,21 @@ public class Drivetrain extends Subsystem {
 
 	}
 
+	//Get voltage of reflectance sensor pin 1
 	public boolean getRightOutReflectance() {
 		//convert to boolean by threshhold
 		return reflectanceRightOutsideSensor.getVoltage() < Constants.reflectanceThreshHold;
 
 	}
 
+	//Get voltage of reflectance sensor pin 8
 	public boolean getRightInReflectance() {
 		//convert to boolean by threshhold
 		return reflectanceRightInsideSensor.getVoltage() < Constants.reflectanceThreshHold;
 
 	}
 
-
+	//Use speed corrections to line up with lines
 	public double correctLineFollowing(double speed, boolean isDoubleCorrected, boolean isReduced) {
 		//Are we making this motor go faster or slower
 		if (isReduced) {

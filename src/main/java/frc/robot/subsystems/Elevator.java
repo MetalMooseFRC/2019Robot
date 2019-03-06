@@ -60,8 +60,9 @@ private CANPIDController elevatorPID = new CANPIDController(leftElevatorMotor);
     rightElevatorMotor.follow(leftElevatorMotor, true);
 
     elevatorPID.setOutputRange(-1, 1);
-    leftElevatorMotor.setEncPosition(0);
+    elevatorEncoder.setPosition(0);
 
+    //set PID values
     elevatorPID.setP(Constants.elevatorP);
     elevatorPID.setI(Constants.elevatorI);
     elevatorPID.setD(Constants.elevatorD);
@@ -86,6 +87,7 @@ private CANPIDController elevatorPID = new CANPIDController(leftElevatorMotor);
 
   }
 
+  //speed needed to hold elevator against gravity
   public void hold() {
    setSpeed(Constants.elevatorHoldSpeed);
   }
@@ -114,7 +116,7 @@ private CANPIDController elevatorPID = new CANPIDController(leftElevatorMotor);
       }
 
     //only hold if higher up, not needed when at the ground
-    } else if (pos > 1) {
+    } else if (pos > 2) {
       hold();
     } 
   }
@@ -133,6 +135,7 @@ private CANPIDController elevatorPID = new CANPIDController(leftElevatorMotor);
     //return elevatorXMotor.getSelectedSensorPosition();
   //}
 
+  //PID reference point
   public void setHeight(double height) {
     elevatorPID.setReference(height, ControlType.kPosition);
   }

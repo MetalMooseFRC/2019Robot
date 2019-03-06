@@ -38,13 +38,14 @@ public class ElevatorToHeight extends Command {
          //Set reference for elevator PID
 		// Robot.myElevator.elevatorPID.setSetpoint(height);
 		// Robot.myElevator.elevatorPID.enable();
-	System.out.println("start");
-		//Robot.myElevator.setHeight(height);
+		System.out.println("start");
+		
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
+		//Appoach desired height
 		Robot.myElevator.setHeight(height);
 
 		System.out.println(Robot.myElevator.getEncoderCount());

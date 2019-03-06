@@ -43,7 +43,7 @@ public class RobotMap {
     /**Operators */
   public static final int operatorLeftPort = 2;
   public static final int operatorRightPort = 3;
-//auxilary
+  //auxilary
   public static final int operatorControllerPort = 1;
 
 
@@ -59,7 +59,7 @@ public class RobotMap {
   public static final int leftMiddleDriveCANID = 4;
   public static final int leftBackDriveCANID = 5;
 
-  //Reflectance sensor
+  //Reflectance sensor to be added
 
 
   /**ELEVATOR */
@@ -70,12 +70,13 @@ public class RobotMap {
   //public static final int elevatorEncoderAPort = 2;
  // public static final int elevatorEncoderBPort = 3;
 
-  public static final int potAnalogPin = 0;
+  //public static final int potAnalogPin = 0;
 
   /**COLLECTER */
   public static final int collectorMotorCANID = 0;
   public static final int collectorArmMotorCANID = 1;
 
+  //Digital IO ports for arm encoder
   public static final int armEncoderAPort = 0;
   public static final int armEncoderBPort = 1;
 

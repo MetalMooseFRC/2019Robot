@@ -30,6 +30,8 @@ public class DrivetrainManualDrive extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
+		double leftSpeed;
+		double rightSpeed;
 		//Get the forward and backwards value of joystick
 		//Inverted because forward is negative and backwards is positive
 		double speed = OI.driverStick.getY();
@@ -48,6 +50,20 @@ public class DrivetrainManualDrive extends Command {
 			speed = speed/3;
 			turn = turn/3;
 			Robot.myDrivetrain.arcadeDrive(speed, turn);
+		
+		//If it sees a white line, go forward and will auto calibrate to line
+		} else if (Robot.myDrivetrain.getLeftInReflectance()){
+			leftSpeed = Robot.myDrivetrain.correctLineFollowing(speed, Robot.myDrivetrain.getLeftOutReflectance(), true);
+			rightSpeed = Robot.myDrivetrain.correctLineFollowing(speed, Robot.myDrivetrain.getLeftOutReflectance(), false);
+			Robot.myDrivetrain.setLeftSpeed(leftSpeed);
+			Robot.myDrivetrain.setRightSpeed(rightSpeed);
+		} else if (Robot.myDrivetrain.getRightInReflectance()){
+			leftSpeed = Robot.myDrivetrain.correctLineFollowing(speed, Robot.myDrivetrain.getRightOutReflectance(), false);
+			rightSpeed = Robot.myDrivetrain.correctLineFollowing(speed, Robot.myDrivetrain.getRightOutReflectance(), true);
+			Robot.myDrivetrain.setLeftSpeed(leftSpeed);
+			Robot.myDrivetrain.setRightSpeed(rightSpeed);
+		
+		//normal elevator throttled drive
 		} else {
 			Robot.myDrivetrain.throttledArcade(speed, turn);
 		}

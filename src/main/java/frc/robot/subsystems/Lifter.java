@@ -58,7 +58,7 @@ public class Lifter extends Subsystem {
     leftLifterMotor.configPeakOutputReverse(-1);
     */
   }
-
+  
   public void setLeftSpeed(double speed) {
       //leftLifterMotor.set(ControlMode.PercentOutput, speed);
       leftLifterMotor.set(speed);
