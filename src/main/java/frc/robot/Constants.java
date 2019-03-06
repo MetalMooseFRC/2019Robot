@@ -4,6 +4,8 @@ public class Constants {
 
     /** Variables */
     public static boolean isOffenseMode = true;
+    //for ease of operator driver communication
+    public static boolean isLinedUp = false;
     //0 is button pad, 1 is controller
     public static int operatorBoardMode = 1;
     

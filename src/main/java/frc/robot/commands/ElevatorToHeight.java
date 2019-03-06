@@ -45,15 +45,16 @@ public class ElevatorToHeight extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		//Appoach desired height
-		Robot.myElevator.setHeight(height);
+		if (Constants.isLinedUp) {
+			//Appoach desired height
+			Robot.myElevator.setHeight(height);
 
-		System.out.println(Robot.myElevator.getEncoderCount());
+			System.out.println(Robot.myElevator.getEncoderCount());
 
-		//Continue to approach references
-		//double speed = Robot.myElevator.elevatorPID.get();
-
-		//Robot.myElevator.elevatorMotor.set(ControlMode.PercentOutput, speed);
+			//Continue to approach references
+			//double speed = Robot.myElevator.elevatorPID.get();
+			//Robot.myElevator.elevatorMotor.set(ControlMode.PercentOutput, speed);
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -67,6 +68,7 @@ public class ElevatorToHeight extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
+	   Constants.isLinedUp = false;
        System.out.println("ended");
 	}
 

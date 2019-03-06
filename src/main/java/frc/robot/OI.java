@@ -23,7 +23,8 @@ public class OI {
 
   public static final Button armOutButton = new JoystickButton(driverStick, 9),
                              armInButton = new JoystickButton(driverStick, 11),
-                             slowerDriveButton = new JoystickButton(driverStick, 1);
+                             slowerDriveButton = new JoystickButton(driverStick, 1),
+                             confirmLineUpButton = new JoystickButton(driverStick, 2);
                                
   //Operator button pad
   public static final Joystick operatorLeftPad = new Joystick(RobotMap.operatorLeftPort);
@@ -87,6 +88,8 @@ public class OI {
       rocketPort1Button.whenPressed(new ElevatorToHeight(Constants.port1Height));
       rocketPort2Button.whenPressed(new ElevatorToHeight(Constants.port2Height));
       rocketPort3Button.whenPressed(new ElevatorToHeight(Constants.port3Height));
+
+      confirmLineUpButton.whenPressed(new ConfirmLineUp());
       
 
     //}
