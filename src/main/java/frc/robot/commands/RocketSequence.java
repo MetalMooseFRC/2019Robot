@@ -13,20 +13,15 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.Constants;
 
-public class ClimbSequence extends CommandGroup {
+public class RocketSequence extends CommandGroup {
 
-  public ClimbSequence(double height1, double height2, double liftHeight) {
-    //ignore confirmation
-     addSequential(new ConfirmLineUp());
+  public RocketSequence(double height) {
 
-     addSequential(new ElevatorToHeight(height1));
-     addSequential(new CollectorArmToPosition(-2350, 0.8));
+     addSequential(new ElevatorToHeight(height));
+     addSequential(new CollectorArmToPosition(-1500, 0.5));
+     addSequential(new DrivetrainDriveDistance(-6));
+     addSequential(new CollectorArmToPosition(0, -0.5));
 
-     addSequential(new ConfirmLineUp());
-
-     addSequential(new ElevatorToHeight(height2));
-     addSequential(new Climb(liftHeight));
-     //addSequential(new DrivetrainDriveDistance(2));
   }
 
 }

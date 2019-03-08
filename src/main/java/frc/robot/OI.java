@@ -82,9 +82,9 @@ public class OI {
       //zeroElevatorXButton.whenPressed(new ElevatorXToPosition(0));
       
 
-      rocketHatch1Button.whenPressed(new ElevatorToHeight(Constants.hatch1Height));
-      rocketHatch2Button.whenPressed(new ElevatorToHeight(Constants.hacth2Height));
-      rocketHatch3Button.whenPressed(new ElevatorToHeight(Constants.hacth3Height));
+      rocketHatch1Button.whenPressed(new RocketSequence(Constants.hatch1Height));
+      rocketHatch2Button.whenPressed(new RocketSequence(Constants.hacth2Height));
+      rocketHatch3Button.whenPressed(new RocketSequence(Constants.hacth3Height));
 
       rocketPort1Button.whenPressed(new ElevatorToHeight(Constants.port1Height));
       rocketPort2Button.whenPressed(new ElevatorToHeight(Constants.port2Height));

@@ -31,10 +31,12 @@ public class ManualElevator extends Command {
     // speed of elevator ascending/descending depends on the joystick's y value.
     //Depends on operator mode
     double YSpeed = 0;
+    double SlowSpeed = 0;
     if (Constants.operatorBoardMode == 1) {
       YSpeed = -OI.operatorController.getRawAxis(RobotMap.elevatorAxisPort);
     } else {
       YSpeed = -OI.operatorLeftPad.getRawAxis(RobotMap.elevatorAxisPort)/2;
+      SlowSpeed = OI.operatorLeftPad.getRawAxis(RobotMap.elevatorXAxisPort)/5;
 
     }
 
@@ -43,12 +45,13 @@ public class ManualElevator extends Command {
       YSpeed = 0; 
     }
     
-    //don't throttle if we climb
-    if (!Constants.isClimbing) {
-      Robot.myElevator.throttleSpeed(YSpeed, Math.signum(YSpeed));
+    
+    if (SlowSpeed > 0) {
+      Robot.myElevator.throttleSpeed(SlowSpeed, Math.signum(SlowSpeed));
     } else {
-      Robot.myElevator.setSpeed(YSpeed*0.65);      
+      Robot.myElevator.throttleSpeed(YSpeed, Math.signum(YSpeed));
     }
+
 
    // System.out.println(Robot.myElevator.getEncoderCount());
 

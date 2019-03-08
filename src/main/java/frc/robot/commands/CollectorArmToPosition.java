@@ -18,13 +18,15 @@ import frc.robot.Constants;
 public class CollectorArmToPosition extends Command {
     //in encoder tics
     private double pos;
+    private double speed;
 
-  public CollectorArmToPosition(double pos) {
+  public CollectorArmToPosition(double pos, double speed) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.myArm);
 
     this.pos = pos;
+    this.speed = speed;
 
 
   }
@@ -52,7 +54,7 @@ public class CollectorArmToPosition extends Command {
   protected void execute() {
     //double speed = Robot.myArm.armPID.get();
 
-    Robot.myArm.setArmSpeed(0.8);
+    Robot.myArm.setArmSpeed(speed);
 
     System.out.println(Robot.myArm.getEncoderCount());
 
@@ -63,14 +65,17 @@ public class CollectorArmToPosition extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.myArm.getEncoderCount() < pos + Constants.armMargin;
+    if (Math.signum(speed) > 0) {
+      return Robot.myArm.getEncoderCount() < pos + Constants.armMargin;
+    } else {
+      return Robot.myArm.getEncoderCount() > pos - Constants.armMargin;
+    }
    // return Robot.myArm.armPID.onTarget();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Constants.isLinedUp = true;
     System.out.println("finished");
   }
 

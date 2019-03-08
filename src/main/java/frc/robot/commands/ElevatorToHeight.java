@@ -65,9 +65,13 @@ public class ElevatorToHeight extends Command {
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		//Finish once within a margin of error of the setpoint
-		//return Robot.myElevator.elevatorPID.onTarget(); 
+		//Only end if confirmed line up
+		if (Constants.isLinedUp) {
+			//Finish once within a margin of error of the setpoint
 		return Math.abs(height - Robot.myElevator.getEncoderCount()) < Constants.PIDElevatorErrorMargin;
+		}
+
+		return false;
 	}
 
 	// Called once after isFinished returns true

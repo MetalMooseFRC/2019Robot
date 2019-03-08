@@ -52,7 +52,7 @@ public class DrivetrainDriveDistance extends Command {
 	   Robot.myDrivetrain.leftFrontDriveMotor.set(-rightMotorSpeed);
 
 
-		System.out.println("angle " + Robot.myDrivetrain.myAHRS.getAngle());
+		//System.out.println("angle " + Robot.myDrivetrain.myAHRS.getAngle());
 
 	}
 

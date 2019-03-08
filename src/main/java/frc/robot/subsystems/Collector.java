@@ -44,7 +44,7 @@ public class Collector extends Subsystem {
 
   public Collector() {
 
-    isHoldingBall = true;
+    isHoldingBall = false;
   }
 
   public void intake() {
