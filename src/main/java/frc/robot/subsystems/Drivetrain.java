@@ -47,11 +47,13 @@ public class Drivetrain extends Subsystem {
 	CANPIDController leftPID = new CANPIDController(leftFrontDriveMotor);
 
 	//Reflective sensor
-	//DigitalOutput reflectanceSensorPower = new DigitalOutput(RobotMap.reflectivePowerPort);
-	AnalogInput reflectanceLeftOutsideSensor = new AnalogInput(0);
-	AnalogInput reflectanceLeftInsideSensor = new AnalogInput(1);
-	AnalogInput reflectanceRightInsideSensor = new AnalogInput(2);
-	AnalogInput reflectanceRightOutsideSensor = new AnalogInput(3);
+	DigitalOutput leftReflectanceSensorPower = new DigitalOutput(RobotMap.leftRelfectancePowerPort);
+	DigitalOutput rightReflectanceSensorPower = new DigitalOutput(RobotMap.rightRelfectancePowerPort);
+
+	public AnalogInput reflectanceLeftOutsideSensor = new AnalogInput(3);
+	public AnalogInput reflectanceLeftInsideSensor = new AnalogInput(2);
+	public AnalogInput reflectanceRightInsideSensor = new AnalogInput(1);
+	public AnalogInput reflectanceRightOutsideSensor = new AnalogInput(0);
 
 	
 	//Gyro Sensors
@@ -79,6 +81,10 @@ public class Drivetrain extends Subsystem {
 		leftMiddleDriveMotor.follow(leftFrontDriveMotor);
 		leftBackDriveMotor.follow(leftFrontDriveMotor);
 		
+		//Turn on sensors
+		leftReflectanceSensorPower.set(true);
+		rightReflectanceSensorPower.set(true);
+
 	}
 
 
@@ -86,6 +92,10 @@ public class Drivetrain extends Subsystem {
 	//turn is the turning speed
 	//We cannot have differential drive and autonomous SparkMax motors
 	public void arcadeDrive(double speed, double turn) {
+		//Turn on sensors
+		leftReflectanceSensorPower.set(true);
+		rightReflectanceSensorPower.set(true);
+
 		//Arcade drive algorithem
 		double leftPower = speed - turn;
 		double rightPower = speed + turn;

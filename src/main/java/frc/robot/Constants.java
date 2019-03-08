@@ -6,6 +6,10 @@ public class Constants {
     public static boolean isOffenseMode = true;
     //for ease of operator driver communication
     public static boolean isLinedUp = false;
+    //only search for line when cued elevator
+    public static boolean isSearchingForLine = false;
+    //changes elevator behavior for climb
+    public static boolean isClimbing = false;
     //0 is button pad, 1 is controller
     public static int operatorBoardMode = 1;
     
@@ -23,7 +27,7 @@ public class Constants {
     public static double PIDDriveErrorMargin = 0.1; 
 
     //Reflectance threshhold
-    public static double reflectanceThreshHold = 2.5;
+    public static double reflectanceThreshHold = 1.2;
 
     //Line follow correction if it sees two sensors
     public static double lineFollowCorrection = 0.1;
@@ -46,7 +50,7 @@ public class Constants {
     public static double elevatorI = 0.000015;
     public static double elevatorD = 0;
     //in encoder rotations
-    public static double PIDElevatorErrorMargin = 0.5;
+    public static double PIDElevatorErrorMargin = 0.8;
 
     public static double elevatorXP = 0.05;
     public static double elevatorXI = 0.0001;
@@ -84,15 +88,20 @@ public class Constants {
     public static double outtakeSpeed = -0.5;
     public static double holdSpeed = 0.2;
 
+    /**ARM */
     //PID for arm positioning
-    public static double armP = 0.01;
+    public static double armP = 0.001;
     public static double armI = 0;
     public static double armD = 0;
-    public static double armMargin = 50;
+    public static double armMargin = 10;
 
-    //In encoder tics to optimal position for intaking balls
-    public static double armBallCollectingPosition = 2000;
+    //In encoder tics for two inches
+    public static double armTwoInchInTics = 520;
 
+    /**LIFTER and CLIMBING */
+
+    public static double climbLifterDistance = 230;
+    public static double climbElevatorDistance = 11.1;
 
 
 }

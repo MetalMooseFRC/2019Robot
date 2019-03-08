@@ -43,9 +43,14 @@ public class ManualElevator extends Command {
       YSpeed = 0; 
     }
     
-    Robot.myElevator.throttleSpeed(YSpeed, Math.signum(YSpeed));
-    
-    //Robot.myElevator.setSpeed(YSpeed);
+    //don't throttle if we climb
+    if (!Constants.isClimbing) {
+      Robot.myElevator.throttleSpeed(YSpeed, Math.signum(YSpeed));
+    } else {
+      Robot.myElevator.setSpeed(YSpeed*0.65);      
+    }
+
+   // System.out.println(Robot.myElevator.getEncoderCount());
 
 
     // speed of elevator x axis depending on joydtick's x value
@@ -81,5 +86,6 @@ public class ManualElevator extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+
   }
 }

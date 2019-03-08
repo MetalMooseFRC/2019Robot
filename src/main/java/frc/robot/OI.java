@@ -43,9 +43,10 @@ public class OI {
                              rocketPort1Button = new JoystickButton(operatorLeftPad, 10),
                              rocketPort2Button = new JoystickButton(operatorLeftPad, 11),
                              rocketPort3Button = new JoystickButton(operatorLeftPad, 12),
-                             leftLifterOutButton = new JoystickButton(operatorRightPad, 8),
-                             rightLifterOutButton = new JoystickButton(operatorRightPad, 9),
-                             lifterInButton = new JoystickButton(operatorRightPad, 10);
+                             HAB3ClimbButton = new JoystickButton(operatorRightPad, 8),
+                             lifterOutButton = new JoystickButton(operatorRightPad, 10),
+                             lifterInButton = new JoystickButton(operatorRightPad, 9),
+                             armAssistButton = new JoystickButton(operatorLeftPad, 5);
 
   //auxilary controller buttons
   public static final Button zeroElevatorXButtonAux = new JoystickButton(operatorController, 1),
@@ -81,7 +82,7 @@ public class OI {
       //zeroElevatorXButton.whenPressed(new ElevatorXToPosition(0));
       
 
-     // rocketHatch1Button.whenPressed(new ElevatorToHeight(Constants.hatch1Height));
+      rocketHatch1Button.whenPressed(new ElevatorToHeight(Constants.hatch1Height));
       rocketHatch2Button.whenPressed(new ElevatorToHeight(Constants.hacth2Height));
       rocketHatch3Button.whenPressed(new ElevatorToHeight(Constants.hacth3Height));
 
@@ -90,6 +91,9 @@ public class OI {
       rocketPort3Button.whenPressed(new ElevatorToHeight(Constants.port3Height));
 
       confirmLineUpButton.whenPressed(new ConfirmLineUp());
+      HAB3ClimbButton.whenPressed(new ClimbSequence(15, 11.1, 230));
+
+      armAssistButton.whileHeld(new CollectorArmClimbAssist());
       
 
     //}

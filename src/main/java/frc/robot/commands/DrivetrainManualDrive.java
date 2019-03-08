@@ -51,21 +51,31 @@ public class DrivetrainManualDrive extends Command {
 			turn = turn/3;
 			Robot.myDrivetrain.arcadeDrive(speed, turn);
 		
-		//If it sees a white line, go forward and will auto calibrate to line
-		} else if (Robot.myDrivetrain.getLeftInReflectance()){
-			leftSpeed = Robot.myDrivetrain.correctLineFollowing(speed, Robot.myDrivetrain.getLeftOutReflectance(), true);
-			rightSpeed = Robot.myDrivetrain.correctLineFollowing(speed, Robot.myDrivetrain.getLeftOutReflectance(), false);
-			Robot.myDrivetrain.setLeftSpeed(leftSpeed);
-			Robot.myDrivetrain.setRightSpeed(rightSpeed);
-		} else if (Robot.myDrivetrain.getRightInReflectance()){
-			leftSpeed = Robot.myDrivetrain.correctLineFollowing(speed, Robot.myDrivetrain.getRightOutReflectance(), false);
-			rightSpeed = Robot.myDrivetrain.correctLineFollowing(speed, Robot.myDrivetrain.getRightOutReflectance(), true);
-			Robot.myDrivetrain.setLeftSpeed(leftSpeed);
-			Robot.myDrivetrain.setRightSpeed(rightSpeed);
-		
 		//normal elevator throttled drive
 		} else {
+			/**
+			if (Constants.isSearchingForLine) {
+				//If it sees a white line, go forward and will auto calibrate to line
+				if (Robot.myDrivetrain.getLeftInReflectance()){
+					leftSpeed = Robot.myDrivetrain.correctLineFollowing(speed, Robot.myDrivetrain.getLeftOutReflectance(), true);
+					rightSpeed = Robot.myDrivetrain.correctLineFollowing(speed, Robot.myDrivetrain.getLeftOutReflectance(), false);
+					Robot.myDrivetrain.setLeftSpeed(leftSpeed);
+					Robot.myDrivetrain.setRightSpeed(rightSpeed);
+				} else if (Robot.myDrivetrain.getRightInReflectance()){
+					leftSpeed = Robot.myDrivetrain.correctLineFollowing(speed, Robot.myDrivetrain.getRightOutReflectance(), false);
+					rightSpeed = Robot.myDrivetrain.correctLineFollowing(speed, Robot.myDrivetrain.getRightOutReflectance(), true);
+					Robot.myDrivetrain.setLeftSpeed(leftSpeed);
+					Robot.myDrivetrain.setRightSpeed(rightSpeed); 
+				} else {
+					Robot.myDrivetrain.throttledArcade(speed, turn);
+				}
+			} else {
 			Robot.myDrivetrain.throttledArcade(speed, turn);
+			} */
+
+			System.out.println(" LO " + Robot.myDrivetrain.reflectanceLeftOutsideSensor.getVoltage() + " LI " + Robot.myDrivetrain.reflectanceLeftInsideSensor.getVoltage() + " RI " + Robot.myDrivetrain.reflectanceRightInsideSensor.getVoltage() + " RO " + Robot.myDrivetrain.reflectanceRightOutsideSensor.getVoltage());
+			Robot.myDrivetrain.throttledArcade(speed, turn);
+
 		}
 
 

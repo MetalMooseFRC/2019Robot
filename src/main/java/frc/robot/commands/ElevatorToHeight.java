@@ -39,12 +39,15 @@ public class ElevatorToHeight extends Command {
 		// Robot.myElevator.elevatorPID.setSetpoint(height);
 		// Robot.myElevator.elevatorPID.enable();
 		System.out.println("start");
+		//start line searching
+		Constants.isSearchingForLine = true;
 		
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
+		//only go up if the driver is ready
 		if (Constants.isLinedUp) {
 			//Appoach desired height
 			Robot.myElevator.setHeight(height);
@@ -55,6 +58,8 @@ public class ElevatorToHeight extends Command {
 			//double speed = Robot.myElevator.elevatorPID.get();
 			//Robot.myElevator.elevatorMotor.set(ControlMode.PercentOutput, speed);
 		}
+
+		System.out.println(Constants.isLinedUp);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -69,6 +74,7 @@ public class ElevatorToHeight extends Command {
 	@Override
 	protected void end() {
 	   Constants.isLinedUp = false;
+	   Constants.isSearchingForLine = false;
        System.out.println("ended");
 	}
 

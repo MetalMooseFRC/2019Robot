@@ -46,11 +46,11 @@ public class ManualArm extends Command {
     //Auxilary controller if no driver input
     if (Constants.operatorBoardMode == 1) {
 
-    if (!OI.armInButton.get() && !OI.armOutButton.get()) armSpeed = -OI.operatorController.getRawAxis(RobotMap.armAxisAuxPort)/2;
+    if (!OI.armInButton.get() && !OI.armOutButton.get()) armSpeed = -OI.operatorController.getRawAxis(RobotMap.armAxisAuxPort)*0.6;
 
     //Button pad if no driver input
   } else {
-    if (!OI.armInButton.get() && !OI.armOutButton.get()) armSpeed = OI.operatorRightPad.getRawAxis(RobotMap.armAxisPort)/2;
+    if (!OI.armInButton.get() && !OI.armOutButton.get()) armSpeed = OI.operatorRightPad.getRawAxis(RobotMap.armAxisPort)*0.6;
   }
 
   Robot.myArm.setArmSpeed(armSpeed);

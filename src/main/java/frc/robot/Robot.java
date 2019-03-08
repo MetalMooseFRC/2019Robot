@@ -78,7 +78,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Vision I", Constants.visionI);
 		SmartDashboard.putNumber("Vision Margin of Error", Constants.visionMargin);
 
-		//SmartDashboard.putBoolean("Offense Mode", Constants.isOffenseMode);
+		SmartDashboard.putNumber("Light Threshhold", Constants.reflectanceThreshHold);
 
 		SmartDashboard.putNumber("Arm P", Constants.armP);
 		SmartDashboard.putNumber("Arm I", Constants.armI);
@@ -146,6 +146,8 @@ public class Robot extends TimedRobot {
 		Constants.armP = SmartDashboard.getNumber("Arm P", 0);
 		Constants.armI = SmartDashboard.getNumber("Arm I", 0);
 		Constants.armD = SmartDashboard.getNumber("Arm D", 0);
+
+		Constants.reflectanceThreshHold = SmartDashboard.getNumber("Light Threshhold", 2.5);
 
 		Constants.port1Height = SmartDashboard.getNumber("Port Hole 1", 0);
 		Constants.port2Height = SmartDashboard.getNumber("Port Hole 2", 0);

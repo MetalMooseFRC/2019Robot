@@ -15,63 +15,62 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.Constants;
 
-public class CollectorArmToPosition extends Command {
+public class CollectorArmClimbAssist extends Command {
     //in encoder tics
-    private double pos;
+    private double posToGo;
+    private boolean isExtending;
 
-  public CollectorArmToPosition(double pos) {
+  public CollectorArmClimbAssist() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.myArm);
-
-    this.pos = pos;
-
-
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-      //Set PID values
-    //Robot.myCollector.armMotor.config_kP(1, Constants.armP);
-    //Robot.myCollector.armMotor.config_kI(1, Constants.armI);
-   // Robot.myCollector.armMotor.config_kD(1, Constants.armD);
-
-    //Turn off motor
-    Robot.myArm.setArmSpeed(0);
-
-    //setup PID loop
-    //Robot.myArm.armPID.setSetpoint(pos);
-    //Robot.myArm.armPID.enable();
-
+    Robot.myArm.armEncoder.reset();
+    isExtending = true;
 
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //double speed = Robot.myArm.armPID.get();
+    //System.out.println(-Robot.myArm.getEncoderCount() + " " + isExtending);
+    double currentPos = -Robot.myArm.getEncoderCount();
 
-    Robot.myArm.setArmSpeed(0.8);
+    //Go out when exteding at fast speed
+    if (currentPos < Constants.armTwoInchInTics - Constants.armMargin && isExtending) {
+        Robot.myArm.setArmSpeed(0.8);
+    } else if (currentPos >= Constants.armTwoInchInTics - Constants.armMargin) {
+      isExtending = false;
+    } else {
+      Robot.myArm.setArmSpeed(0);
+    }
+    
+    //Retract slowly
+    if (currentPos > 0 + Constants.armMargin && !isExtending) {
+        Robot.myArm.setArmSpeed(-0.4);
+    } else if (currentPos < 0 + Constants.armTwoInchInTics) {
+      isExtending = true;
+    } else {
+      Robot.myArm.setArmSpeed(0);
+    } 
 
-    System.out.println(Robot.myArm.getEncoderCount());
-
-    //Robot.myCollector.armMotor.set(ControlMode.Position, pos);
     
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.myArm.getEncoderCount() < pos + Constants.armMargin;
-   // return Robot.myArm.armPID.onTarget();
+    //finishes when the button is released
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Constants.isLinedUp = true;
-    System.out.println("finished");
   }
 
   // Called when another command which requires one or more of the same

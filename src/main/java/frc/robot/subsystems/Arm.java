@@ -31,7 +31,7 @@ public class Arm extends Subsystem {
 
     public TalonSRX armMotor = new TalonSRX(RobotMap.collectorArmMotorCANID);
 
-    private Encoder armEncoder = new Encoder(RobotMap.armEncoderAPort, RobotMap.armEncoderBPort);
+    public Encoder armEncoder = new Encoder(RobotMap.armEncoderAPort, RobotMap.armEncoderBPort);
     public PIDController armPID = new PIDController(Constants.armP, Constants.armI, Constants.armD, armEncoder, new BlankPIDOutput());
 
     // Put methods for controlling this subsystem
@@ -45,9 +45,9 @@ public class Arm extends Subsystem {
 
   public Arm() {
     armMotor.configFactoryDefault();
-    //armMotor.selectProfileSlot(1, 0);
+   // armMotor.selectProfileSlot(1, 0);
     armMotor.setNeutralMode(NeutralMode.Brake);
-    //armMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+   // armMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
     armMotor.configPeakOutputForward(1.0);
     armMotor.configPeakOutputReverse(-1.0);
 
@@ -58,7 +58,7 @@ public class Arm extends Subsystem {
 
 
   public double getEncoderCount() {
-    return armMotor.getSelectedSensorPosition();
+    return armEncoder.getDistance();
   }
 
   public void setArmSpeed(double speed) {

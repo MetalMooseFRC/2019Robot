@@ -18,6 +18,7 @@ import frc.robot.RobotMap;
 import frc.robot.commands.ManualCollector;
 import frc.robot.commands.ManualLifter;
 
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -34,6 +35,10 @@ public class Lifter extends Subsystem {
     private CANSparkMax leftLifterMotor = new CANSparkMax(RobotMap.leftLifterMotorCANID, MotorType.kBrushless);
     private CANSparkMax rightLifterMotor = new CANSparkMax(RobotMap.rightLifterMotorCANID, MotorType.kBrushless);
 
+    private CANEncoder leftEncoder = new CANEncoder(leftLifterMotor);
+    private CANEncoder rightEncoder = new CANEncoder(rightLifterMotor);
+
+
     //private TalonSRX leftLifterMotor = new TalonSRX(3);
     //private TalonSRX rightLifterMotor = new TalonSRX(4);
 
@@ -47,7 +52,6 @@ public class Lifter extends Subsystem {
   }
 
   public Lifter() {
-    rightLifterMotor.setInverted(true);
    /**
     //Configure motor controllers
     rightLifterMotor.configFactoryDefault();
@@ -57,6 +61,10 @@ public class Lifter extends Subsystem {
     leftLifterMotor.configPeakOutputForward(1);
     leftLifterMotor.configPeakOutputReverse(-1);
     */
+
+    leftEncoder.setPosition(0);
+    rightEncoder.setPosition(0);
+
   }
   
   public void setLeftSpeed(double speed) {
@@ -66,7 +74,15 @@ public class Lifter extends Subsystem {
 
   public void setRightSpeed(double speed) {
       //rightLifterMotor.set(ControlMode.PercentOutput, speed);
-      rightLifterMotor.set(speed);
+      rightLifterMotor.set(-speed);
+  }
+
+  public double getLeftEncoder() {
+    return leftEncoder.getPosition();
+  }
+
+  public double getRightEncoder() {
+    return rightEncoder.getPosition();
   }
 
 
