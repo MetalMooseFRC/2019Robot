@@ -13,22 +13,19 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.Constants;
 
-public class ClimbSequence extends CommandGroup {
+public class CargoSequence extends CommandGroup {
 
-  public ClimbSequence(double height1, double height2, double liftHeight) {
-    //ignore confirmation
-     addSequential(new ConfirmLineUp());
+  public CargoSequence(double height, boolean isCargoShip) {
 
-     //Go up and extend arm
-     addSequential(new ElevatorToHeight(height1), 2);
-     addSequential(new CollectorArmToPosition(-2400, 0.8));
+    //go up
+    addSequential(new ElevatorToHeight(height));
+    addSequential(new DrivetrainDriveDistance(2), 0.8);
+    //release
+    addSequential(new CollectorOuttake(0.5));
 
-     addSequential(new ConfirmLineUp());
-
-     //Start climbing after the elevator hits the HAB
-     addSequential(new ElevatorToHeight(height2));
-     addSequential(new Climb(liftHeight));
-     //addSequential(new DrivetrainDriveDistance(2));
+    addSequential(new DrivetrainDriveDistance(-4), 1);
+    //go down
+    addSequential(new ElevatorDown());
   }
 
 }

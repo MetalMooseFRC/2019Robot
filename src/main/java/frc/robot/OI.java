@@ -24,6 +24,8 @@ public class OI {
   public static final Button armOutButton = new JoystickButton(driverStick, 9),
                              armInButton = new JoystickButton(driverStick, 11),
                              slowerDriveButton = new JoystickButton(driverStick, 1),
+                             lifterOutButton = new JoystickButton(driverStick, 10),
+                             lifterInButton = new JoystickButton(driverStick, 12),
                              confirmLineUpButton = new JoystickButton(driverStick, 2);
                                
   //Operator button pad
@@ -44,9 +46,11 @@ public class OI {
                              rocketPort2Button = new JoystickButton(operatorLeftPad, 11),
                              rocketPort3Button = new JoystickButton(operatorLeftPad, 12),
                              HAB3ClimbButton = new JoystickButton(operatorRightPad, 8),
-                             lifterOutButton = new JoystickButton(operatorRightPad, 10),
-                             lifterInButton = new JoystickButton(operatorRightPad, 9),
-                             armAssistButton = new JoystickButton(operatorLeftPad, 5);
+                             HAB2ClimbButton = new JoystickButton(operatorRightPad, 9),
+                             HAB23ClimbButton = new JoystickButton(operatorRightPad, 10),
+                             cargoShipButton = new JoystickButton(operatorLeftPad, 5),
+                             abortButton = new JoystickButton(operatorLeftPad, 6);
+
 
   //auxilary controller buttons
   public static final Button zeroElevatorXButtonAux = new JoystickButton(operatorController, 1),
@@ -86,14 +90,18 @@ public class OI {
       rocketHatch2Button.whenPressed(new RocketSequence(Constants.hacth2Height));
       rocketHatch3Button.whenPressed(new RocketSequence(Constants.hacth3Height));
 
-      rocketPort1Button.whenPressed(new ElevatorToHeight(Constants.port1Height));
-      rocketPort2Button.whenPressed(new ElevatorToHeight(Constants.port2Height));
-      rocketPort3Button.whenPressed(new ElevatorToHeight(Constants.port3Height));
+      rocketPort1Button.whenPressed(new CargoSequence(Constants.port1Height, false));
+      rocketPort2Button.whenPressed(new CargoSequence(Constants.port2Height, false));
+      rocketPort3Button.whenPressed(new CargoSequence(Constants.port3Height, false));
+
+      cargoShipButton.whenPressed(new CargoSequence(Constants.cargoShipHeight, true));
+
+      abortButton.whenPressed(new AbortAuto());
 
       confirmLineUpButton.whenPressed(new ConfirmLineUp());
       HAB3ClimbButton.whenPressed(new ClimbSequence(15, 11.1, 230));
-
-      armAssistButton.whileHeld(new CollectorArmClimbAssist());
+      HAB2ClimbButton.whenPressed(new ClimbSequence(6, 3.2, 115));
+      HAB23ClimbButton.whenPressed(new ClimbSequence(10, 8, 190));
       
 
     //}

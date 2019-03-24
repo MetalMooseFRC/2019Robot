@@ -13,22 +13,18 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.Constants;
 
-public class ClimbSequence extends CommandGroup {
+public class AbortAuto extends CommandGroup {
 
-  public ClimbSequence(double height1, double height2, double liftHeight) {
-    //ignore confirmation
-     addSequential(new ConfirmLineUp());
+  public AbortAuto() {
+ 
+    //Recall all defaults to override any auto
+    addParallel(new DrivetrainManualDrive());
+    addParallel(new ManualElevator());
+    addParallel(new ManualArm());
+    addParallel(new ManualCollector());
+    addParallel(new ManualLifter());
+    System.out.println("SELF DESTRUCT");
 
-     //Go up and extend arm
-     addSequential(new ElevatorToHeight(height1), 2);
-     addSequential(new CollectorArmToPosition(-2400, 0.8));
-
-     addSequential(new ConfirmLineUp());
-
-     //Start climbing after the elevator hits the HAB
-     addSequential(new ElevatorToHeight(height2));
-     addSequential(new Climb(liftHeight));
-     //addSequential(new DrivetrainDriveDistance(2));
   }
 
 }

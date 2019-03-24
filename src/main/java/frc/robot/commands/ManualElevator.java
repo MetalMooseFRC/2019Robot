@@ -47,13 +47,13 @@ public class ManualElevator extends Command {
     
     
     if (SlowSpeed > 0) {
-      Robot.myElevator.throttleSpeed(SlowSpeed, Math.signum(SlowSpeed));
+      Robot.myElevator.setSpeed(SlowSpeed);
     } else {
       Robot.myElevator.throttleSpeed(YSpeed, Math.signum(YSpeed));
     }
 
 
-   // System.out.println(Robot.myElevator.getEncoderCount());
+   System.out.println("E " + Robot.myElevator.getEncoderCount());
 
 
     // speed of elevator x axis depending on joydtick's x value

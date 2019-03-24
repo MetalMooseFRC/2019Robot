@@ -41,14 +41,20 @@ public class ManualLifter extends Command {
 
      //lift both up at the same time
       else if (OI.lifterInButton.get()) {
+        if (Robot.myLifter.getLeftEncoder() > 50 && Robot.myLifter.getLeftEncoder() < 160) {
        Robot.myLifter.setLeftSpeed(-0.5);
-       Robot.myLifter.setRightSpeed(-0.5);
+       Robot.myLifter.setRightSpeed(-0.5); 
+      }
+       else  {
+        Robot.myLifter.setLeftSpeed(-0.35);
+        Robot.myLifter.setRightSpeed(-0.35); 
+       }
      } else {
       Robot.myLifter.setLeftSpeed(0);
       Robot.myLifter.setRightSpeed(0);
      }
 
-    // System.out.println("L " + Robot.myLifter.getLeftEncoder() + " R " + Robot.myLifter.getRightEncoder());
+    //System.out.println("L " + Robot.myLifter.getLeftEncoder() + " R " + Robot.myLifter.getRightEncoder());
      
     
   }

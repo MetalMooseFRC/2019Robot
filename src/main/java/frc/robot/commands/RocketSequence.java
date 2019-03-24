@@ -16,11 +16,14 @@ import frc.robot.Constants;
 public class RocketSequence extends CommandGroup {
 
   public RocketSequence(double height) {
-
+    //Go up and extend arm
      addSequential(new ElevatorToHeight(height));
-     addSequential(new CollectorArmToPosition(-1500, 0.5));
-     addSequential(new DrivetrainDriveDistance(-6));
+     addSequential(new CollectorArmToPosition(-1500, 0.5), 1.2);
+
+     //Drive back a bit then retract all parts
+     addSequential(new DrivetrainDriveDistance(-6), 2.2);
      addSequential(new CollectorArmToPosition(0, -0.5));
+     addSequential(new ElevatorDown());
 
   }
 

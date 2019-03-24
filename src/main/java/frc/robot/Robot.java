@@ -19,6 +19,8 @@ import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoMode.PixelFormat;
 import edu.wpi.first.cameraserver.CameraServer;
+import frc.robot.commands.ElevatorToHeight;
+import frc.robot.commands.RocketSequence;
 import frc.robot.subsystems.*;
 
 
@@ -158,6 +160,7 @@ public class Robot extends TimedRobot {
 
 
 		Constants.operatorBoardMode = operatorBoardChooser.getSelected();
+
 
 
 

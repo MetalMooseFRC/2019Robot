@@ -21,10 +21,10 @@ public class Constants {
     public static double turnGain = 0.5; 
  
     //Drive PID 
-    public static double driveP = 0.015; 
+    public static double driveP = 0.02; 
     public static double driveI = 0.00001; 
     public static double driveD = 0; 
-    public static double PIDDriveErrorMargin = 0.1; 
+    public static double PIDDriveErrorMargin = 0.8; 
 
     //Reflectance threshhold
     public static double reflectanceThreshHold = 1.2;
@@ -82,10 +82,13 @@ public class Constants {
     public static double hacth2Height = 16.5;
     public static double hacth3Height = 33;
 
+    //cargo height
+    public static double cargoShipHeight = 20.8;
+
 
     /**COLLECTOR */
-    public static double intakeSpeed = 0.35;
-    public static double outtakeSpeed = -0.5;
+    public static double intakeSpeed = 0.5;
+    public static double outtakeSpeed = -0.7;
     public static double holdSpeed = 0.2;
 
     /**ARM */
@@ -93,7 +96,7 @@ public class Constants {
     public static double armP = 0.001;
     public static double armI = 0;
     public static double armD = 0;
-    public static double armMargin = 10;
+    public static double armMargin = 50;
 
     //In encoder tics for two inches
     public static double armTwoInchInTics = 520;

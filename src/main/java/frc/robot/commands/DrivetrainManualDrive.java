@@ -73,7 +73,7 @@ public class DrivetrainManualDrive extends Command {
 			Robot.myDrivetrain.throttledArcade(speed, turn);
 			} */
 
-			System.out.println(" LO " + Robot.myDrivetrain.reflectanceLeftOutsideSensor.getVoltage() + " LI " + Robot.myDrivetrain.reflectanceLeftInsideSensor.getVoltage() + " RI " + Robot.myDrivetrain.reflectanceRightInsideSensor.getVoltage() + " RO " + Robot.myDrivetrain.reflectanceRightOutsideSensor.getVoltage());
+			//System.out.println(" LO " + Robot.myDrivetrain.reflectanceLeftOutsideSensor.getVoltage() + " LI " + Robot.myDrivetrain.reflectanceLeftInsideSensor.getVoltage() + " RI " + Robot.myDrivetrain.reflectanceRightInsideSensor.getVoltage() + " RO " + Robot.myDrivetrain.reflectanceRightOutsideSensor.getVoltage());
 			Robot.myDrivetrain.throttledArcade(speed, turn);
 
 		}

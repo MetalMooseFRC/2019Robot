@@ -13,42 +13,37 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.Constants;
 
-public class Climb extends Command {
-  //Rotations for lifters
-  double pos;
+public class CollectorOuttake extends Command {
+    double time;
 
-  public Climb(double pos) {
-      requires(Robot.myLifter);
+  public CollectorOuttake(double time) {
+    requires(Robot.myCollector);
 
-      this.pos = pos;
+    this.time = time;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+      setTimeout(time);
 
-      
-  }
+}
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //Activate both lifters and the elevator
-      Robot.myLifter.setLeftSpeed(1);
-      Robot.myLifter.setRightSpeed(1);
-      Robot.myElevator.setSpeed(-0.085);
-
-      
+      Robot.myCollector.outtake();
   }
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.myLifter.getLeftEncoder() > pos;
+    return isTimedOut();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.myCollector.setSpeed(0);
 
   }
 

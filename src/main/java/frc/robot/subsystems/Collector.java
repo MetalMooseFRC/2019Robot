@@ -69,7 +69,7 @@ public class Collector extends Subsystem {
     double averageDriveSpeed = (Robot.myDrivetrain.leftFrontDriveMotor.getAppliedOutput() + Robot.myDrivetrain.rightFrontDriveMotor.getAppliedOutput())/2;
 
     if (averageDriveSpeed > Constants.intakeSpeed) {
-      speed =+ 0.5*averageDriveSpeed;
+      speed =+ (1-Constants.intakeSpeed)*averageDriveSpeed;
     }
 
     setSpeed(speed);
