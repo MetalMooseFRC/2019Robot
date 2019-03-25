@@ -3,15 +3,20 @@ package frc.robot;
 public class Constants {
 
     /** Variables */
-    public static boolean isOffenseMode = true;
     //for ease of operator driver communication
     public static boolean isLinedUp = false;
-    //only search for line when cued elevator
-    public static boolean isSearchingForLine = false;
-    //changes elevator behavior for climb
-    public static boolean isClimbing = false;
+    //change driver stick for lining up
+    public static boolean isApproachMode = false;
+    //is going for a rocket hatch
+    public static boolean isRocketHatch = false;
     //0 is button pad, 1 is controller
     public static int operatorBoardMode = 1;
+
+    //0 is manual, 1-3 are L, M , R respectively
+    public static int startingPosition = 0;
+    //0-3 are the sandstorm possible scoring targets
+    public static int startingCommand = 1;
+
     
      /**DRIVETRAIN */ 
     //Drive stick deadband, minimum axis input 
@@ -39,7 +44,7 @@ public class Constants {
     public static double drivetrainGyroP = 0.01;
     public static double drivetrainGyroI = 0;
     public static double drivetrainGyroD = 0;
-    public static double drivetrainGyroPIDError = 3.5;
+    public static double drivetrainGyroPIDError = 3;
 
 
     /**ELEVATOR */

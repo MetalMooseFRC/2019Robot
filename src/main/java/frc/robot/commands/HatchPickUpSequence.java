@@ -13,22 +13,25 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.Constants;
 
-public class CargoSequence extends CommandGroup {
+public class HatchPickUpSequence extends CommandGroup {
 
-  public CargoSequence(double height, boolean isCargoShip) {
+  public HatchPickUpSequence() {
 
-    if (!isCargoShip) {
-      addSequential(new WaitForLineUp());
-      addSequential(new DrivetrainDriveDistance(-4), 0.5);
-    }
-    //go up
-    addSequential(new ElevatorToHeight(height), 1);
+    addSequential(new ArmsIn(), 0.5);
 
-    if (!isCargoShip) {
-      addSequential(new CollectorArmToPosition(-1500, 0.5));
-      addSequential(new CollectorOuttake(0.4));
-    }
+    addSequential(new WaitForLineUp());
+    
+    addParallel(new CollectorArmToPosition(-100, 0.4), 0.3);
+    addSequential(new DrivetrainDriveTime(0.1, -0.3));
+    
+    addSequential(new ElevatorToHeight(3), 0.5);
+    addSequential(new CollectorArmToPosition(0, -0.4));
 
+    addSequential(new DrivetrainDriveTime(0.4, 0.2));
+    addSequential(new ElevatorDown());
+
+    //(new DrivetrainDriveAngle(360));
+     
   }
 
 }

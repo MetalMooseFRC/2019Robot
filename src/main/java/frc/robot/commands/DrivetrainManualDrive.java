@@ -17,6 +17,18 @@ import frc.robot.RobotMap;
  * An example command.  You can replace me with your own command.
  */
 public class DrivetrainManualDrive extends Command {
+
+	private boolean isShiftingRight;
+	private boolean isShifting = false;
+	//private int shiftCueCount = 1;
+	private int leftShiftCount = 0;
+	private int rightShiftCount = 0;
+	private int shiftCount = 0;
+	private double moveDirection;
+
+	private double angles[] = {-90, 0, 90, 180, -180};
+	private double rocketAngles[] = {-150, -30, 30, 150};
+
 	public DrivetrainManualDrive() {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.myDrivetrain);
@@ -25,15 +37,17 @@ public class DrivetrainManualDrive extends Command {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
+
+		Robot.myDrivetrain.gyroPID.enable();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
+
 		double leftSpeed;
 		double rightSpeed;
 		//Get the forward and backwards value of joystick
-		//Inverted because forward is negative and backwards is positive
 		double speed = OI.driverStick.getY();
 		if (Math.abs(speed) < Constants.driveStickMinimumInput) {speed = 0;}
 		else if (speed < 0) {speed += Constants.driveStickMinimumInput;}
@@ -45,38 +59,89 @@ public class DrivetrainManualDrive extends Command {
 		else if (turn < 0) {turn += Constants.driveStickMinimumInput;}
 		else if (turn > 0) {turn -= Constants.driveStickMinimumInput;}
 
-		//Slow if the button is pressed else only slow when the elevator is up
-		if (OI.slowerDriveButton.get()) {
-			speed = speed/3;
-			turn = turn/3;
-			Robot.myDrivetrain.arcadeDrive(speed, turn);
+		//auto angle presets
+		double navAngle = Robot.myDrivetrain.myAHRS.getAngle();
+		double angle = navAngle;
 		
-		//normal elevator throttled drive
+		if (Constants.isRocketHatch) {
+			for (double presets : rocketAngles) {
+				if (Math.abs(presets - navAngle) <= 30) {
+				  angle = presets;
+				}
+		  }
 		} else {
-			/**
-			if (Constants.isSearchingForLine) {
-				//If it sees a white line, go forward and will auto calibrate to line
-				if (Robot.myDrivetrain.getLeftInReflectance()){
-					leftSpeed = Robot.myDrivetrain.correctLineFollowing(speed, Robot.myDrivetrain.getLeftOutReflectance(), true);
-					rightSpeed = Robot.myDrivetrain.correctLineFollowing(speed, Robot.myDrivetrain.getLeftOutReflectance(), false);
-					Robot.myDrivetrain.setLeftSpeed(leftSpeed);
-					Robot.myDrivetrain.setRightSpeed(rightSpeed);
-				} else if (Robot.myDrivetrain.getRightInReflectance()){
-					leftSpeed = Robot.myDrivetrain.correctLineFollowing(speed, Robot.myDrivetrain.getRightOutReflectance(), false);
-					rightSpeed = Robot.myDrivetrain.correctLineFollowing(speed, Robot.myDrivetrain.getRightOutReflectance(), true);
-					Robot.myDrivetrain.setLeftSpeed(leftSpeed);
-					Robot.myDrivetrain.setRightSpeed(rightSpeed); 
+			for (double presets : angles) {
+		  		if (Math.abs(presets - navAngle) <= 30) {
+					angle = presets;
+		  		}
+			}
+		}
+
+		Robot.myDrivetrain.gyroPID.setSetpoint(angle);
+		double auxTurn = Robot.myDrivetrain.gyroPID.get();
+
+		//approach mode
+		if (OI.approachButton.get()) {
+			Constants.isApproachMode = true;
+
+			
+			double shiftDirection = OI.driverStick.getX();
+			if (Math.abs(shiftDirection) < 0.25) {shiftDirection = 0;}
+
+			if (!isShifting) {
+				moveDirection = Math.signum(speed);
+				if (moveDirection == 0) moveDirection = -1;
+
+				if (shiftDirection > 0) {
+					isShiftingRight = true;
+					leftShiftCount = 20;
+					rightShiftCount = 20;
+					isShifting = true;
+
+				} else if (shiftDirection < 0) {
+					isShiftingRight = false;
+					rightShiftCount = 20;
+					leftShiftCount = 20;
+					isShifting = true;
 				} else {
-					Robot.myDrivetrain.throttledArcade(speed, turn);
+					Robot.myDrivetrain.arcadeDrive(-0.1, auxTurn);
 				}
 			} else {
-			Robot.myDrivetrain.throttledArcade(speed, turn);
-			} */
 
-			//System.out.println(" LO " + Robot.myDrivetrain.reflectanceLeftOutsideSensor.getVoltage() + " LI " + Robot.myDrivetrain.reflectanceLeftInsideSensor.getVoltage() + " RI " + Robot.myDrivetrain.reflectanceRightInsideSensor.getVoltage() + " RO " + Robot.myDrivetrain.reflectanceRightOutsideSensor.getVoltage());
-			Robot.myDrivetrain.throttledArcade(speed, turn);
+				if (leftShiftCount > 0 && !isShiftingRight) {
+					leftShiftCount--;
+					System.out.println("GO RIGHT MOTOR");
+					Robot.myDrivetrain.setRightSpeed(moveDirection*0.2);
+					Robot.myDrivetrain.setLeftSpeed(0);
 
+				} else if (leftShiftCount <= 0 && !isShiftingRight){
+					isShiftingRight = true;
+				} else if (rightShiftCount > 0 && isShiftingRight) {
+					rightShiftCount--;
+					System.out.println("GO LEFT MOTOR");
+					Robot.myDrivetrain.setLeftSpeed(moveDirection*0.2);
+					Robot.myDrivetrain.setRightSpeed(0); 
+
+				} else if (rightShiftCount <= 0 && isShiftingRight){
+					isShiftingRight = false;
+				} 
+			}
+
+			if (rightShiftCount == 0 && leftShiftCount == 0) {
+				isShifting = false;
+			}
+				
+		} else {
+			//reset approach mode after button press
+			Constants.isApproachMode = false;
+			rightShiftCount = 0;
+			leftShiftCount = 0;
+			isShifting = false;
+			Robot.myDrivetrain.throttledArcade(speed, turn);
 		}
+		
+
+		
 
 
 	}

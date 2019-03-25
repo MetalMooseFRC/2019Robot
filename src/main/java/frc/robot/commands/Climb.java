@@ -36,8 +36,9 @@ public class Climb extends Command {
     //Activate both lifters and the elevator
       Robot.myLifter.setLeftSpeed(1);
       Robot.myLifter.setRightSpeed(1);
-      Robot.myElevator.setSpeed(-0.085);
+      Robot.myElevator.setSpeed(-0.15);
 
+      
       
   }
   // Make this return true when this Command no longer needs to run execute()

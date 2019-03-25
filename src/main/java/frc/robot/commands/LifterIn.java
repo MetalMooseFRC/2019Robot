@@ -13,40 +13,46 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.Constants;
 
-public class ToggleOffenseMode extends Command {
-    boolean isDone = false;
+public class LifterIn extends Command {
+  //Rotations for lifters
+  double pos;
 
-  public ToggleOffenseMode() {
+  public LifterIn(double pos) {
+      requires(Robot.myLifter);
 
+      this.pos = pos;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+
+      
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (Constants.isOffenseMode) {
-        Constants.isOffenseMode = false;
-        isDone = true;
-
+    //Activate both lifters
+    if (Robot.myLifter.getLeftEncoder() > 75) {
+      Robot.myLifter.setLeftSpeed(-0.3);
+      Robot.myLifter.setRightSpeed(-0.3);
     } else {
-        Constants.isOffenseMode = true;
-        isDone = true;
-
+      Robot.myLifter.setLeftSpeed(-0.5);
+      Robot.myLifter.setRightSpeed(-0.5);
     }
+      
   }
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return isDone;
+    return Robot.myLifter.getLeftEncoder() < pos;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+
   }
 
   // Called when another command which requires one or more of the same

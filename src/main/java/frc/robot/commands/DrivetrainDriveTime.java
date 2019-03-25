@@ -8,8 +8,6 @@
 package frc.robot.commands;
 
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -19,63 +17,48 @@ import frc.robot.Robot;
 /**
  * An example command.  You can replace me with your own command.
  */
-public class ElevatorToHeight extends Command {
+public class DrivetrainDriveTime extends Command {
 
-    double height;
+    double time;
+    double speed;
 
 
-	public ElevatorToHeight(double height) {
+	public DrivetrainDriveTime(double time, double speed) {
 		// Use requires() here to declare subsystem dependencies
-        requires(Robot.myElevator);
+        //requires(Robot.myDrivetrain);
 
-		//in encoder revolutions
-        this.height = height;
+        this.time = time;
+        this.speed = speed;
 	}
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-         //Set reference for elevator PID
-		// Robot.myElevator.elevatorPID.setSetpoint(height);
-		// Robot.myElevator.elevatorPID.enable();
-		System.out.println("start elevator");
-		
+        setTimeout(time);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-
-			//Appoach desired height
-			Robot.myElevator.setHeight(height);
-
-			//Continue to approach references
-			//double speed = Robot.myElevator.elevatorPID.get();
-			//Robot.myElevator.elevatorMotor.set(ControlMode.PercentOutput, speed);
-
+        Robot.myDrivetrain.throttledArcade(speed, 0);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-
-			//Finish once within a margin of error of the setpoint
-		return Math.abs(height - Robot.myElevator.getEncoderCount()) < Constants.PIDElevatorErrorMargin;
-
+        return isTimedOut();
 	}
 
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-	   Constants.isLinedUp = false;
-       System.out.println("ended elevator");
+		Constants.isLinedUp = false;
+       		System.out.println("ended");
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		Constants.isLinedUp = false;
-
 	}
 }

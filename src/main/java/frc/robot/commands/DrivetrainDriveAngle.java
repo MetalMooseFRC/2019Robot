@@ -14,18 +14,36 @@ import frc.robot.RobotMap;
 public class DrivetrainDriveAngle extends Command {
 
   private double angle;
+  private double navXAngle;
+  private double angles[] = {-90, 0, 90};
 
   public DrivetrainDriveAngle(double angle) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.myDrivetrain);
+    //requires(Robot.myDrivetrain);
     this.angle = angle;
+  }
+
+  public DrivetrainDriveAngle() {
+    requires(Robot.myDrivetrain);
+
+    double navAngle = Robot.myDrivetrain.myAHRS.getAngle();
+    angle = navAngle;
+
+    for (double presets : angles) {
+      if (Math.abs(presets - navAngle) <= 30) {
+        angle = presets;
+      }
+      
+    }
+
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.myDrivetrain.myAHRS.reset();
+    //All relative to starting angle
+    //Robot.myDrivetrain.myAHRS.reset();
 
     // Set point, enable gyro PID
     Robot.myDrivetrain.gyroPID.setSetpoint(angle);

@@ -22,7 +22,7 @@ public class OI {
   public static final Joystick driverStick = new Joystick(RobotMap.driveStickPort);
 
   public static final Button armOutButton = new JoystickButton(driverStick, 9),
-                             armInButton = new JoystickButton(driverStick, 11),
+                             approachButton = new JoystickButton(driverStick, 11),
                              slowerDriveButton = new JoystickButton(driverStick, 1),
                              lifterOutButton = new JoystickButton(driverStick, 10),
                              lifterInButton = new JoystickButton(driverStick, 12),
@@ -48,8 +48,12 @@ public class OI {
                              HAB3ClimbButton = new JoystickButton(operatorRightPad, 8),
                              HAB2ClimbButton = new JoystickButton(operatorRightPad, 9),
                              HAB23ClimbButton = new JoystickButton(operatorRightPad, 10),
-                             cargoShipButton = new JoystickButton(operatorLeftPad, 5),
-                             abortButton = new JoystickButton(operatorLeftPad, 6);
+                             cargoShipButton = new JoystickButton(operatorLeftPad, 6),
+                             cargoShipHatchButton = new JoystickButton(operatorLeftPad, 5),
+                             hatchPickUpButton = new JoystickButton(operatorRightPad, 5),
+                             ballPickUpButton = new JoystickButton(operatorRightPad, 4),
+                             retractButton = new JoystickButton(operatorLeftPad, 4),
+                             abortButton = new JoystickButton(operatorLeftPad, 3);
 
 
   //auxilary controller buttons
@@ -62,49 +66,34 @@ public class OI {
   
   public OI() {
 
-   /**  if (Constants.operatorBoardMode == 1) {
-      //Depending on POV state, react differently when elevatorpreset button is pressed
-      if (operatorController.getRawAxis(RobotMap.POVAxisPort) == 0 && rocketHatchButton.get()) {
-        new ElevatorToHeight(Constants.hacth2Height);
-      } else if (operatorController.getRawAxis(RobotMap.POVAxisPort) == 1 && rocketHatchButton.get()) {
-        new ElevatorToHeight(Constants.hacth3Height);
-      } else if (operatorController.getRawAxis(RobotMap.POVAxisPort) == -1 && rocketHatchButton.get()) {
-        new ElevatorToHeight(Constants.hatch1Height);
-      } 
-
-      if (operatorController.getRawAxis(RobotMap.POVAxisPort) == 0 && rocketPortButton.get()) {
-        new ElevatorToHeight(Constants.port2Height);
-      } else if (operatorController.getRawAxis(RobotMap.POVAxisPort) == 1 && rocketPortButton.get()) {
-        new ElevatorToHeight(Constants.port3Height);
-      } else if (operatorController.getRawAxis(RobotMap.POVAxisPort) == -1 && rocketPortButton.get()) {
-        new ElevatorToHeight(Constants.port1Height);
-      }  */
-
-      //zeroElevatorXButtonAux.whenPressed(new ElevatorXToPosition(0));
-
-   // } else {
-      //zeroElevatorXButton.whenPressed(new ElevatorXToPosition(0));
-      
-
-      rocketHatch1Button.whenPressed(new RocketSequence(Constants.hatch1Height));
-      rocketHatch2Button.whenPressed(new RocketSequence(Constants.hacth2Height));
-      rocketHatch3Button.whenPressed(new RocketSequence(Constants.hacth3Height));
+      rocketHatch1Button.whenPressed(new HatchSequence(Constants.hatch1Height, false));
+      rocketHatch2Button.whenPressed(new HatchSequence(Constants.hacth2Height, false));
+      rocketHatch3Button.whenPressed(new HatchSequence(Constants.hacth3Height, false));
 
       rocketPort1Button.whenPressed(new CargoSequence(Constants.port1Height, false));
       rocketPort2Button.whenPressed(new CargoSequence(Constants.port2Height, false));
       rocketPort3Button.whenPressed(new CargoSequence(Constants.port3Height, false));
 
       cargoShipButton.whenPressed(new CargoSequence(Constants.cargoShipHeight, true));
+      cargoShipHatchButton.whenPressed(new HatchSequence(Constants.hatch1Height, true));
+
+      hatchPickUpButton.whenPressed(new HatchPickUpSequence());
+      ballPickUpButton.whenPressed(new CollectorArmToPosition(-1000, 0.4));
 
       abortButton.whenPressed(new AbortAuto());
+      retractButton.whenPressed(new ArmsIn());
 
       confirmLineUpButton.whenPressed(new ConfirmLineUp());
-      HAB3ClimbButton.whenPressed(new ClimbSequence(15, 11.1, 230));
+
+      HAB3ClimbButton.whenPressed(new ClimbSequence(15, 11.1, 120));
+      HAB2ClimbButton.whenPressed(new ClimbSequence(6, 3.2, 40));
+      HAB23ClimbButton.whenPressed(new ClimbSequence(10, 8, 100));
+      /**
+       HAB3ClimbButton.whenPressed(new ClimbSequence(15, 11.1, 230));
       HAB2ClimbButton.whenPressed(new ClimbSequence(6, 3.2, 115));
       HAB23ClimbButton.whenPressed(new ClimbSequence(10, 8, 190));
+       */
       
-
-    //}
   }
 }
 

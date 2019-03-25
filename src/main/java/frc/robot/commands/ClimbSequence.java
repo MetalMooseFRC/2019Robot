@@ -16,19 +16,17 @@ import frc.robot.Constants;
 public class ClimbSequence extends CommandGroup {
 
   public ClimbSequence(double height1, double height2, double liftHeight) {
-    //ignore confirmation
-     addSequential(new ConfirmLineUp());
 
      //Go up and extend arm
-     addSequential(new ElevatorToHeight(height1), 2);
+     addSequential(new ElevatorToHeight(height1), 1.75);
      addSequential(new CollectorArmToPosition(-2400, 0.8));
-
-     addSequential(new ConfirmLineUp());
 
      //Start climbing after the elevator hits the HAB
      addSequential(new ElevatorToHeight(height2));
      addSequential(new Climb(liftHeight));
-     //addSequential(new DrivetrainDriveDistance(2));
+     //addParallel(new DrivetrainDriveTime(10, -0.1));
+     //addSequential(new LifterIn(2));
+     
   }
 
 }

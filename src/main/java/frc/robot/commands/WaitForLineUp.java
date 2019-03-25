@@ -13,61 +13,33 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.Constants;
 
-public class ManualLifter extends Command {
+public class WaitForLineUp extends Command {
 
-
-  public ManualLifter() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(Robot.myLifter);
-
+  public WaitForLineUp() {
 
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+      
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-     
-     //bring both down at the same time
-     if (OI.lifterOutButton.get()) {
-      Robot.myLifter.setLeftSpeed(0.5);
-      Robot.myLifter.setRightSpeed(0.5);
-    }
-
-     //lift both up at the same time
-      else if (OI.lifterInButton.get()) {
-        if (Robot.myLifter.getLeftEncoder() > 50 && Robot.myLifter.getLeftEncoder() < 160) {
-       Robot.myLifter.setLeftSpeed(-0.5);
-       Robot.myLifter.setRightSpeed(-0.5); 
-      }
-       else  {
-        Robot.myLifter.setLeftSpeed(-0.35);
-        Robot.myLifter.setRightSpeed(-0.35); 
-       }
-     } else {
-      Robot.myLifter.setLeftSpeed(0);
-      Robot.myLifter.setRightSpeed(0);
-     }
-
-    System.out.println("L " + Robot.myLifter.getLeftEncoder() + " R " + Robot.myLifter.getRightEncoder());
-     
-    
+      
   }
-
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return Constants.isLinedUp;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+
   }
 
   // Called when another command which requires one or more of the same

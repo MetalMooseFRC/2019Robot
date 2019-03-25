@@ -13,17 +13,15 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.Constants;
 
-public class RocketSequence extends CommandGroup {
+public class SandstormSequence extends CommandGroup {
 
-  public RocketSequence(double height) {
-    //Go up and extend arm
-     addSequential(new ElevatorToHeight(height));
-     addSequential(new CollectorArmToPosition(-1500, 0.5), 1.2);
-
-     //Drive back a bit then retract all parts
-     addSequential(new DrivetrainDriveDistance(-6), 2.2);
-     addSequential(new CollectorArmToPosition(0, -0.5));
-     addSequential(new ElevatorDown());
+  public SandstormSequence(double time1, double turn1, double time2, double turn2) {
+    addSequential(new WaitForLineUp());
+    
+    addSequential(new DrivetrainDriveTime(time1, -0.4));
+    addSequential(new DrivetrainDriveAngle(turn1));
+    addSequential(new DrivetrainDriveTime(time2, -0.4));
+    addSequential(new DrivetrainDriveAngle(turn2));
 
   }
 
