@@ -40,7 +40,7 @@ public class ElevatorDown extends Command {
 	protected void execute() {
 
         //Bring elevator down but throttled
-        Robot.myElevator.throttleSpeed(-1, -1);
+        Robot.myElevator.throttleSpeed(-0.85, -1);
 
     }
 

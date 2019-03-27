@@ -21,7 +21,7 @@ public class OI {
   //Driver Logitech joystick
   public static final Joystick driverStick = new Joystick(RobotMap.driveStickPort);
 
-  public static final Button armOutButton = new JoystickButton(driverStick, 9),
+  public static final Button switchCamButton = new JoystickButton(driverStick, 9),
                              approachButton = new JoystickButton(driverStick, 11),
                              slowerDriveButton = new JoystickButton(driverStick, 1),
                              lifterOutButton = new JoystickButton(driverStick, 10),
@@ -78,7 +78,7 @@ public class OI {
       cargoShipHatchButton.whenPressed(new HatchSequence(Constants.hatch1Height, true));
 
       hatchPickUpButton.whenPressed(new HatchPickUpSequence());
-      ballPickUpButton.whenPressed(new CollectorArmToPosition(-1000, 0.4));
+      ballPickUpButton.whenPressed(new CollectorArmToPosition(-1200, 0.4));
 
       abortButton.whenPressed(new AbortAuto());
       retractButton.whenPressed(new ArmsIn());

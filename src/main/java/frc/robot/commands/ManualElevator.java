@@ -53,7 +53,7 @@ public class ManualElevator extends Command {
     }
 
 
-   System.out.println("E " + Robot.myElevator.getEncoderCount());
+   //System.out.println("E " + Robot.myElevator.getEncoderCount());
 
 
     // speed of elevator x axis depending on joydtick's x value

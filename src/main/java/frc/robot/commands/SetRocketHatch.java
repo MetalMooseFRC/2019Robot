@@ -13,33 +13,37 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.Constants;
 
-public class WaitForLineUp extends Command {
+public class SetRocketHatch extends Command {
 
-  public WaitForLineUp() {
+  private boolean isDone;
+
+  public SetRocketHatch() {
 
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+      isDone = false;
+      Constants.isRocketHatch = true;
       
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+      isDone = true;
       
   }
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Constants.isLinedUp;
+    return isDone;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Constants.isRocketHatch = false;
 
   }
 

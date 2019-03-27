@@ -54,7 +54,7 @@ public class ManualLifter extends Command {
       Robot.myLifter.setRightSpeed(0);
      }
 
-    System.out.println("L " + Robot.myLifter.getLeftEncoder() + " R " + Robot.myLifter.getRightEncoder());
+    //System.out.println("L " + Robot.myLifter.getLeftEncoder() + " R " + Robot.myLifter.getRightEncoder());
      
     
   }

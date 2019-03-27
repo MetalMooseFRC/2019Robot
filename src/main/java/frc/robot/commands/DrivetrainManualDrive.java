@@ -60,22 +60,29 @@ public class DrivetrainManualDrive extends Command {
 		else if (turn > 0) {turn -= Constants.driveStickMinimumInput;}
 
 		//auto angle presets
-		double navAngle = Robot.myDrivetrain.myAHRS.getAngle();
+		double navAngle = Robot.myDrivetrain.myAHRS.getYaw();
+
 		double angle = navAngle;
+		System.out.println("A " + navAngle);
 		
+		System.out.println(Constants.isRocketHatch);
 		if (Constants.isRocketHatch) {
 			for (double presets : rocketAngles) {
-				if (Math.abs(presets - navAngle) <= 30) {
+				if (Math.abs(presets - navAngle) < 30) {
 				  angle = presets;
 				}
 		  }
+
+
 		} else {
 			for (double presets : angles) {
-		  		if (Math.abs(presets - navAngle) <= 30) {
+		  		if (Math.abs(presets - navAngle) <= 40) {
 					angle = presets;
 		  		}
 			}
 		}
+
+		System.out.println("Predicted A " + angle);
 
 		Robot.myDrivetrain.gyroPID.setSetpoint(angle);
 		double auxTurn = Robot.myDrivetrain.gyroPID.get();
@@ -137,7 +144,11 @@ public class DrivetrainManualDrive extends Command {
 			rightShiftCount = 0;
 			leftShiftCount = 0;
 			isShifting = false;
-			Robot.myDrivetrain.throttledArcade(speed, turn);
+			if (OI.slowerDriveButton.get()) {
+				Robot.myDrivetrain.arcadeDrive(speed/3, turn/3);
+			} else {
+				Robot.myDrivetrain.throttledArcade(speed, turn);
+			}
 		}
 		
 

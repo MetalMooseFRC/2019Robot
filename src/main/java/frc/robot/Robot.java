@@ -15,12 +15,15 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drivetrain;
+
+import org.opencv.video.Video;
+
 import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoSink;
+import edu.wpi.cscore.VideoSource;
 import edu.wpi.cscore.VideoMode.PixelFormat;
 import edu.wpi.first.cameraserver.CameraServer;
-import frc.robot.commands.ElevatorToHeight;
-import frc.robot.commands.HatchSequence;
 import frc.robot.commands.SandstormSequence;
 import frc.robot.subsystems.*;
 
@@ -46,6 +49,10 @@ public class Robot extends TimedRobot {
 
 	Command autoCommand;
 
+	public static UsbCamera bottomCam;
+	public static UsbCamera topCam;
+	public static VideoSink cameraServer;
+
 	public static final SerialPort jevoisSerial = new SerialPort(115200, SerialPort.Port.kMXP);
 
 	/**
@@ -58,7 +65,10 @@ public class Robot extends TimedRobot {
 		
 		//Start stream for axis camera
 		//CameraServer.getInstance().addAxisCamera("10.13.91.11");
-		CameraServer.getInstance().startAutomaticCapture();
+
+		//start USB cameras
+		bottomCam = CameraServer.getInstance().startAutomaticCapture(0);
+		topCam = CameraServer.getInstance().startAutomaticCapture(1);
 
 		//Start stream for jevois camera
 	/** 	UsbCamera jevoisCamera = new UsbCamera("VisionCam", 0);
@@ -120,6 +130,9 @@ public class Robot extends TimedRobot {
 		myDrivetrain.myAHRS.reset();
 		myArm.armEncoder.reset();
 
+		Constants.isRocketHatch = false;
+		Constants.isLinedUp = false;
+
 	}
 
 	@Override
@@ -130,6 +143,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
+
 		Constants.startingPosition = startingPositionChooser.getSelected();
 		Constants.startingCommand = startingCommandChooser.getSelected();
 

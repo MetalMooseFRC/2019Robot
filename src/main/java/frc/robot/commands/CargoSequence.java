@@ -22,11 +22,11 @@ public class CargoSequence extends CommandGroup {
       addSequential(new DrivetrainDriveDistance(-4), 0.5);
     }
     //go up
-    addSequential(new ElevatorToHeight(height), 1);
+    addSequential(new ElevatorToHeight(height), 2);
 
     if (!isCargoShip) {
-      addSequential(new CollectorArmToPosition(-1500, 0.5));
-      addSequential(new CollectorOuttake(0.4));
+      addSequential(new CollectorArmToPosition(-1500, 0.4));
+      addSequential(new CollectorOuttake(0.5));
     }
 
   }
