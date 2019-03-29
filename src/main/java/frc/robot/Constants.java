@@ -11,6 +11,8 @@ public class Constants {
     public static boolean isRocketHatch = false;
     //0 is button pad, 1 is controller
     public static int operatorBoardMode = 1;
+    //0 is neutral, 1 is no, 2 is yes
+    public static int areLegsUp = 0;
 
     //0 is manual, 1-3 are L, M , R respectively
     public static int startingPosition = 0;

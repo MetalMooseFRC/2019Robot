@@ -35,8 +35,8 @@ public class Lifter extends Subsystem {
     private CANSparkMax leftLifterMotor = new CANSparkMax(RobotMap.leftLifterMotorCANID, MotorType.kBrushless);
     private CANSparkMax rightLifterMotor = new CANSparkMax(RobotMap.rightLifterMotorCANID, MotorType.kBrushless);
 
-    private CANEncoder leftEncoder = new CANEncoder(leftLifterMotor);
-    private CANEncoder rightEncoder = new CANEncoder(rightLifterMotor);
+    public CANEncoder leftEncoder = new CANEncoder(leftLifterMotor);
+    public CANEncoder rightEncoder = new CANEncoder(rightLifterMotor);
 
 
     //private TalonSRX leftLifterMotor = new TalonSRX(3);

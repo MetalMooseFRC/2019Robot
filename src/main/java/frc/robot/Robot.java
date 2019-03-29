@@ -129,6 +129,8 @@ public class Robot extends TimedRobot {
 	public void disabledInit() {
 		myDrivetrain.myAHRS.reset();
 		myArm.armEncoder.reset();
+		myLifter.rightEncoder.setPosition(0);
+		myLifter.leftEncoder.setPosition(0);
 
 		Constants.isRocketHatch = false;
 		Constants.isLinedUp = false;

@@ -78,16 +78,16 @@ public class OI {
       cargoShipHatchButton.whenPressed(new HatchSequence(Constants.hatch1Height, true));
 
       hatchPickUpButton.whenPressed(new HatchPickUpSequence());
-      ballPickUpButton.whenPressed(new CollectorArmToPosition(-1200, 0.4));
+      ballPickUpButton.whenPressed(new CollectorArmToPosition(-1500, 0.4));
 
       abortButton.whenPressed(new AbortAuto());
       retractButton.whenPressed(new ArmsIn());
 
       confirmLineUpButton.whenPressed(new ConfirmLineUp());
 
-      HAB3ClimbButton.whenPressed(new ClimbSequence(15, 11.1, 120));
-      HAB2ClimbButton.whenPressed(new ClimbSequence(6, 3.2, 40));
-      HAB23ClimbButton.whenPressed(new ClimbSequence(10, 8, 100));
+      HAB3ClimbButton.whenPressed(new ClimbSequence(15, 11.1, 120, 3));
+      HAB2ClimbButton.whenPressed(new ClimbSequence(6, 3.2, 50, 1));
+      HAB23ClimbButton.whenPressed(new ClimbSequence(10, 8, 100, 2));
       /**
        HAB3ClimbButton.whenPressed(new ClimbSequence(15, 11.1, 230));
       HAB2ClimbButton.whenPressed(new ClimbSequence(6, 3.2, 115));

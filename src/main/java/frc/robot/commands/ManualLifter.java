@@ -45,16 +45,19 @@ public class ManualLifter extends Command {
        Robot.myLifter.setLeftSpeed(-0.5);
        Robot.myLifter.setRightSpeed(-0.5); 
       }
-       else  {
-        Robot.myLifter.setLeftSpeed(-0.35);
-        Robot.myLifter.setRightSpeed(-0.35); 
+       else if (Robot.myLifter.getLeftEncoder() > 10 || Robot.myLifter.getLeftEncoder() < 200) {
+        Robot.myLifter.setLeftSpeed(-0.3);
+        Robot.myLifter.setRightSpeed(-0.3); 
+       } else {
+        Robot.myLifter.setLeftSpeed(0);
+        Robot.myLifter.setRightSpeed(0);
        }
      } else {
       Robot.myLifter.setLeftSpeed(0);
       Robot.myLifter.setRightSpeed(0);
      }
 
-    //System.out.println("L " + Robot.myLifter.getLeftEncoder() + " R " + Robot.myLifter.getRightEncoder());
+    System.out.println("L " + Robot.myLifter.getLeftEncoder() + " R " + Robot.myLifter.getRightEncoder());
      
     
   }

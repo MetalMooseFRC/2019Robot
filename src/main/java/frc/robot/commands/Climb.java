@@ -16,8 +16,9 @@ import frc.robot.Constants;
 public class Climb extends Command {
   //Rotations for lifters
   double pos;
+  int HABLevel;
 
-  public Climb(double pos) {
+  public Climb(double pos, int HABLevel) {
       requires(Robot.myLifter);
 
       this.pos = pos;
@@ -26,7 +27,7 @@ public class Climb extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-
+    Constants.areLegsUp = 1;
       
   }
 
@@ -36,21 +37,24 @@ public class Climb extends Command {
     //Activate both lifters and the elevator
       Robot.myLifter.setLeftSpeed(1);
       Robot.myLifter.setRightSpeed(1);
-      Robot.myElevator.setSpeed(-0.15);
+      Robot.myElevator.setSpeed(-0.155);
 
-      
-      
+      if (Robot.myLifter.getLeftEncoder() > 30* HABLevel) Constants.areLegsUp = 2;
+
+
   }
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.myLifter.getLeftEncoder() > pos;
+    return Robot.myLifter.getLeftEncoder() > pos || Robot.myLifter.getRightEncoder() > pos;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-
+    Constants.areLegsUp = 0;
+    Robot.myLifter.setLeftSpeed(0);
+    Robot.myLifter.setRightSpeed(0);
   }
 
   // Called when another command which requires one or more of the same

@@ -63,9 +63,10 @@ public class DrivetrainManualDrive extends Command {
 		double navAngle = Robot.myDrivetrain.myAHRS.getYaw();
 
 		double angle = navAngle;
-		System.out.println("A " + navAngle);
+		//System.out.println("A " + navAngle);
 		
-		System.out.println(Constants.isRocketHatch);
+		//System.out.println(Constants.isRocketHatch);
+		
 		if (Constants.isRocketHatch) {
 			for (double presets : rocketAngles) {
 				if (Math.abs(presets - navAngle) < 30) {
@@ -82,7 +83,7 @@ public class DrivetrainManualDrive extends Command {
 			}
 		}
 
-		System.out.println("Predicted A " + angle);
+		//System.out.println("Predicted A " + angle);
 
 		Robot.myDrivetrain.gyroPID.setSetpoint(angle);
 		double auxTurn = Robot.myDrivetrain.gyroPID.get();
@@ -93,7 +94,7 @@ public class DrivetrainManualDrive extends Command {
 
 			
 			double shiftDirection = OI.driverStick.getX();
-			if (Math.abs(shiftDirection) < 0.25) {shiftDirection = 0;}
+			if (Math.abs(shiftDirection) < 0.4) {shiftDirection = 0;}
 
 			if (!isShifting) {
 				moveDirection = Math.signum(speed);
@@ -101,24 +102,26 @@ public class DrivetrainManualDrive extends Command {
 
 				if (shiftDirection > 0) {
 					isShiftingRight = true;
-					leftShiftCount = 20;
-					rightShiftCount = 20;
+					leftShiftCount = 10;
+					rightShiftCount = 10;
 					isShifting = true;
 
 				} else if (shiftDirection < 0) {
 					isShiftingRight = false;
-					rightShiftCount = 20;
-					leftShiftCount = 20;
+					rightShiftCount = 10;
+					leftShiftCount = 10;
 					isShifting = true;
 				} else {
-					Robot.myDrivetrain.arcadeDrive(-0.1, auxTurn);
+					if (speed < -0.2) {Robot.myDrivetrain.arcadeDrive(-0.25, auxTurn);}
+					else if (speed > 0.2) {Robot.myDrivetrain.arcadeDrive(0.03, auxTurn);}
+					else {Robot.myDrivetrain.arcadeDrive(-0.1, auxTurn);}
 				}
 			} else {
 
 				if (leftShiftCount > 0 && !isShiftingRight) {
 					leftShiftCount--;
 					System.out.println("GO RIGHT MOTOR");
-					Robot.myDrivetrain.setRightSpeed(moveDirection*0.2);
+					Robot.myDrivetrain.setRightSpeed(moveDirection*0.3);
 					Robot.myDrivetrain.setLeftSpeed(0);
 
 				} else if (leftShiftCount <= 0 && !isShiftingRight){
@@ -126,7 +129,7 @@ public class DrivetrainManualDrive extends Command {
 				} else if (rightShiftCount > 0 && isShiftingRight) {
 					rightShiftCount--;
 					System.out.println("GO LEFT MOTOR");
-					Robot.myDrivetrain.setLeftSpeed(moveDirection*0.2);
+					Robot.myDrivetrain.setLeftSpeed(moveDirection*0.3);
 					Robot.myDrivetrain.setRightSpeed(0); 
 
 				} else if (rightShiftCount <= 0 && isShiftingRight){

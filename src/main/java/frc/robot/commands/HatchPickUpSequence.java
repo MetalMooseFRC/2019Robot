@@ -24,13 +24,13 @@ public class HatchPickUpSequence extends CommandGroup {
     addParallel(new CollectorArmToPosition(-100, 0.4), 0.3);
     addSequential(new DrivetrainDriveTime(0.1, -0.3));
     
-    addSequential(new ElevatorToHeight(3), 0.5);
+    addSequential(new ElevatorToHeight(5), 0.6);
     addSequential(new CollectorArmToPosition(0, -0.4));
 
-    addSequential(new DrivetrainDriveTime(0.4, 0.2));
+    addSequential(new DrivetrainDriveTime(0.4, 0.15));
     addSequential(new ElevatorDown());
 
-    //(new DrivetrainDriveAngle(360));
+    //addSequential(new DrivetrainDriveAngle(0));
      
   }
 

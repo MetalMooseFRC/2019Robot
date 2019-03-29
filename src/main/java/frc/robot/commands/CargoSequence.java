@@ -19,14 +19,17 @@ public class CargoSequence extends CommandGroup {
 
     if (!isCargoShip) {
       addSequential(new WaitForLineUp());
-      addSequential(new DrivetrainDriveDistance(-4), 0.5);
+      //drive back more for level 3
+      if (height > 35) {addSequential(new DrivetrainDriveTime(0.5, 0.1));} 
+      else {addSequential(new DrivetrainDriveDistance(-4), 0.5);}
     }
     //go up
     addSequential(new ElevatorToHeight(height), 2);
 
     if (!isCargoShip) {
       addSequential(new CollectorArmToPosition(-1500, 0.4));
-      addSequential(new CollectorOuttake(0.5));
+      addSequential(new CollectorOuttake(0.4));
+      addSequential(new ArmsIn());
     }
 
   }
