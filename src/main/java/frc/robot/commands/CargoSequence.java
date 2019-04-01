@@ -17,6 +17,8 @@ public class CargoSequence extends CommandGroup {
 
   public CargoSequence(double height, boolean isCargoShip) {
 
+    addSequential(new SetNotRocketHatch());
+
     if (!isCargoShip) {
       addSequential(new WaitForLineUp());
       //drive back more for level 3
@@ -27,7 +29,7 @@ public class CargoSequence extends CommandGroup {
     addSequential(new ElevatorToHeight(height), 2);
 
     if (!isCargoShip) {
-      addSequential(new CollectorArmToPosition(-1500, 0.4));
+      addSequential(new CollectorArmToPosition(-1500, 0.4), 0.5);
       addSequential(new CollectorOuttake(0.4));
       addSequential(new ArmsIn());
     }

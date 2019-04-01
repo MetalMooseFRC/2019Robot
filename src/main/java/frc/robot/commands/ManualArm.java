@@ -46,7 +46,7 @@ public class ManualArm extends Command {
   }
 
 
-  if (Math.abs(armSpeed) < 0.1 && Robot.myArm.getEncoderCount() < -30 && Robot.myArm.getEncoderCount() > -500) {
+  if (Math.abs(armSpeed) < 0.1 && Robot.myArm.getEncoderCount() < -30 && Robot.myArm.getEncoderCount() > -700) {
 
     armSpeed = -0.5;
   }

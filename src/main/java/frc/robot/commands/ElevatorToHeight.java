@@ -68,6 +68,7 @@ public class ElevatorToHeight extends Command {
 	@Override
 	protected void end() {
 	   Constants.isLinedUp = false;
+	   Constants.isRocketHatch = false;
        System.out.println("ended elevator");
 	}
 
@@ -76,6 +77,7 @@ public class ElevatorToHeight extends Command {
 	@Override
 	protected void interrupted() {
 		Constants.isLinedUp = false;
+		Constants.isRocketHatch = false;
 
 	}
 }

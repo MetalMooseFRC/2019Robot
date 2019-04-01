@@ -16,15 +16,16 @@ import frc.robot.Constants;
 public class HatchPickUpSequence extends CommandGroup {
 
   public HatchPickUpSequence() {
+    //addSequential(new SetNotRocketHatch());
 
     addSequential(new ArmsIn(), 0.5);
 
-    addSequential(new WaitForLineUp());
+    //addSequential(new WaitForLineUp());
     
-    addParallel(new CollectorArmToPosition(-100, 0.4), 0.3);
-    addSequential(new DrivetrainDriveTime(0.1, -0.3));
+    addSequential(new CollectorArmToPosition(-100, 0.4), 0.1);
+    //addSequential(new DrivetrainDriveTime(0.1, -0.3));
     
-    addSequential(new ElevatorToHeight(5), 0.6);
+    addSequential(new ElevatorToHeight(5), 0.5);
     addSequential(new CollectorArmToPosition(0, -0.4));
 
     addSequential(new DrivetrainDriveTime(0.4, 0.15));

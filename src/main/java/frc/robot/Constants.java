@@ -80,7 +80,7 @@ public class Constants {
     public static double visionMargin = 5;
 
     //Heights for ports
-    public static double port1Height = 12;
+    public static double port1Height = 12.5;
     public static double port2Height = 28;
     public static double port3Height = 44;
 

@@ -37,7 +37,7 @@ public class Climb extends Command {
     //Activate both lifters and the elevator
       Robot.myLifter.setLeftSpeed(1);
       Robot.myLifter.setRightSpeed(1);
-      Robot.myElevator.setSpeed(-0.155);
+      Robot.myElevator.setSpeed(-0.152);
 
       if (Robot.myLifter.getLeftEncoder() > 30* HABLevel) Constants.areLegsUp = 2;
 
@@ -46,7 +46,7 @@ public class Climb extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.myLifter.getLeftEncoder() > pos || Robot.myLifter.getRightEncoder() > pos;
+    return Robot.myLifter.getLeftEncoder() > pos;
   }
 
   // Called once after isFinished returns true
@@ -55,6 +55,8 @@ public class Climb extends Command {
     Constants.areLegsUp = 0;
     Robot.myLifter.setLeftSpeed(0);
     Robot.myLifter.setRightSpeed(0);
+    System.out.println("L " + Robot.myLifter.getLeftEncoder() + " R " + Robot.myLifter.getRightEncoder());
+
   }
 
   // Called when another command which requires one or more of the same

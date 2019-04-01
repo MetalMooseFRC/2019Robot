@@ -13,61 +13,38 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.Constants;
 
-public class ManualLifter extends Command {
+public class SetNotRocketHatch extends Command {
 
+  private boolean isDone;
 
-  public ManualLifter() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(Robot.myLifter);
-
+  public SetNotRocketHatch() {
 
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+      isDone = false;
+      Constants.isRocketHatch = false;
+      
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-     
-     //bring both down at the same time
-     if (OI.lifterOutButton.get()) {
-      Robot.myLifter.setLeftSpeed(0.5);
-      Robot.myLifter.setRightSpeed(0.5);
-    }
-
-     //lift both up at the same time
-      else if (OI.lifterInButton.get()) {
-        if (Robot.myLifter.getLeftEncoder() > 50 && Robot.myLifter.getLeftEncoder() < 160) {
-       Robot.myLifter.setLeftSpeed(-0.5);
-       Robot.myLifter.setRightSpeed(-0.5); 
-      }
-       else if (Robot.myLifter.getLeftEncoder() > 5 || Robot.myLifter.getRightEncoder() > 5) {
-        Robot.myLifter.setLeftSpeed(-0.25);
-        Robot.myLifter.setRightSpeed(-0.25); 
-       } 
-     } else {
-      Robot.myLifter.setLeftSpeed(0);
-      Robot.myLifter.setRightSpeed(0);
-     }
-
-    //System.out.println("L " + Robot.myLifter.getLeftEncoder() + " R " + Robot.myLifter.getRightEncoder());
-     
-    
+      isDone = true;
+      
   }
-
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return isDone;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+
   }
 
   // Called when another command which requires one or more of the same

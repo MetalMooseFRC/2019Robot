@@ -43,7 +43,7 @@ public class CollectorOuttake extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.myCollector.outtake();;
+    //Robot.myCollector.outtake();;
 
   }
 

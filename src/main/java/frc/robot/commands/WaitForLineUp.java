@@ -27,7 +27,8 @@ public class WaitForLineUp extends Command {
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
+  protected void execute() {  
+    System.out.println("WAITING");
       
   }
   // Make this return true when this Command no longer needs to run execute()
@@ -47,5 +48,6 @@ public class WaitForLineUp extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Constants.isRocketHatch = false;
   }
 }

@@ -19,12 +19,12 @@ public class ClimbSequence extends CommandGroup {
 
      //Go up and extend arm
      addSequential(new ElevatorToHeight(height1), 1.75);
-     addSequential(new CollectorArmToPosition(-2400, 0.8));
+     addSequential(new CollectorArmToPosition(-2400, 0.8), 0.5);
 
      //Start climbing after the elevator hits the HAB
-     addSequential(new ElevatorToHeight(height2));
-     addParallel(new Climb(liftHeight, HABLevel));
-     addSequential(new DrivetrainDriveTime(3, -0.2));
+     addSequential(new ElevatorToHeight(height2), 0.6);
+     addSequential(new Climb(liftHeight, HABLevel));
+     //addSequential(new DrivetrainDriveTime(3, -0.2));
      
      //addSequential(new LifterIn(0));
      

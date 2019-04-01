@@ -42,7 +42,7 @@ public class DrivetrainDriveTime extends Command {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-	if (Constants.areLegsUp == 1) time += 5;
+	//if (Constants.areLegsUp == 1) time += 5;
         setTimeout(time);
 	}
 

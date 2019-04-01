@@ -17,7 +17,9 @@ public class HatchSequence extends CommandGroup {
 
   public HatchSequence(double height, boolean isCargoShip) {
 
-    if (!isCargoShip) addSequential(new SetRocketHatch());
+    if (!isCargoShip) {addSequential(new SetRocketHatch());}
+    else {addSequential(new SetNotRocketHatch());}
+
     addSequential(new WaitForLineUp());
     
     if (isCargoShip) {
@@ -40,6 +42,8 @@ public class HatchSequence extends CommandGroup {
 
     addSequential(new CollectorArmToPosition(0, -0.5), 0.5);
     addSequential(new ElevatorDown(), 0.8);
+    
+    addSequential(new SetNotRocketHatch());
     //Constants.isRocketHatch = false;
 
     /**
