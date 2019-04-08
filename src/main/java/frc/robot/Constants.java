@@ -22,7 +22,7 @@ public class Constants {
     
      /**DRIVETRAIN */ 
     //Drive stick deadband, minimum axis input 
-    public static final double driveStickMinimumInput = 0.05; 
+    public static final double driveStickMinimumInput = 0.07; 
      
     //turning constant for arcade drive 
     public static double turnGain = 0.5; 
@@ -86,7 +86,7 @@ public class Constants {
 
     //Heights for hatch holes
     public static double hatch1Height = 0;
-    public static double hacth2Height = 16.5;
+    public static double hacth2Height = 17;
     public static double hacth3Height = 33;
 
     //cargo height

@@ -212,7 +212,7 @@ public class Robot extends TimedRobot {
 
 		Constants.operatorBoardMode = operatorBoardChooser.getSelected();
 
-		System.out.println("ROcket Angle " + Constants.isRocketHatch);
+		//System.out.println("ROcket Angle " + Constants.isRocketHatch);
 
 
 	}

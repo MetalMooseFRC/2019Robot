@@ -18,18 +18,20 @@ public class HatchPickUpSequence extends CommandGroup {
   public HatchPickUpSequence() {
     //addSequential(new SetNotRocketHatch());
 
-    addSequential(new ArmsIn(), 0.5);
+    addSequential(new ArmsIn(), 0.2);
 
     //addSequential(new WaitForLineUp());
     
-    addSequential(new CollectorArmToPosition(-100, 0.4), 0.1);
-    //addSequential(new DrivetrainDriveTime(0.1, -0.3));
+    addSequential(new DrivetrainDriveTime(0.1, -0.3));
     
-    addSequential(new ElevatorToHeight(5), 0.5);
-    addSequential(new CollectorArmToPosition(0, -0.4));
+    addSequential(new ElevatorToHeight(5, true), 0.7);
+    //secure velcro
+    addSequential(new DrivetrainDriveTime(0.1, -0.2));
+    
+    addSequential(new CollectorArmToPosition(0, -0.4), 0.2);
 
     addSequential(new DrivetrainDriveTime(0.4, 0.15));
-    addSequential(new ElevatorDown());
+    addSequential(new ElevatorDown(), 0.5);
 
     //addSequential(new DrivetrainDriveAngle(0));
      

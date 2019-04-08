@@ -86,8 +86,8 @@ public class OI {
       confirmLineUpButton.whenPressed(new ConfirmLineUp());
 
       HAB3ClimbButton.whenPressed(new ClimbSequence(15, 11.1, 120, 3));
-      HAB2ClimbButton.whenPressed(new ClimbSequence(6, 3.2, 50, 1));
-      HAB23ClimbButton.whenPressed(new ClimbSequence(10, 8, 100, 2));
+      HAB2ClimbButton.whenPressed(new ClimbSequence(7, 3.2, 50, 1));
+      HAB23ClimbButton.whenPressed(new ClimbSequence(12, 8, 100, 2));
       /**
        HAB3ClimbButton.whenPressed(new ClimbSequence(15, 11.1, 230));
       HAB2ClimbButton.whenPressed(new ClimbSequence(6, 3.2, 115));

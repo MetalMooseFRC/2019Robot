@@ -76,6 +76,7 @@ public class CollectorArmToPosition extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.myArm.setArmSpeed(0);
     System.out.println("finished");
   }
 
@@ -83,6 +84,7 @@ public class CollectorArmToPosition extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.myArm.setArmSpeed(0);
     Constants.isRocketHatch = false;
   }
 }

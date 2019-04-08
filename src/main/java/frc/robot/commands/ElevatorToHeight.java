@@ -21,7 +21,9 @@ import frc.robot.Robot;
  */
 public class ElevatorToHeight extends Command {
 
-    double height;
+	double height;
+	int backUpCount;
+	boolean backUp = false;
 
 
 	public ElevatorToHeight(double height) {
@@ -29,7 +31,17 @@ public class ElevatorToHeight extends Command {
         requires(Robot.myElevator);
 
 		//in encoder revolutions
-        this.height = height;
+		this.height = height;
+		backUp = false;
+	}
+
+	public ElevatorToHeight(double height, boolean backUpIfTImeOut) {
+		// Use requires() here to declare subsystem dependencies
+        requires(Robot.myElevator);
+
+		//in encoder revolutions
+		this.height = height;
+		backUp = backUpIfTImeOut;
 	}
 
 	// Called just before this Command runs the first time
@@ -40,6 +52,7 @@ public class ElevatorToHeight extends Command {
 		// Robot.myElevator.elevatorPID.enable();
 		System.out.println("start elevator");
 		
+		setTimeout(0.45);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -53,6 +66,10 @@ public class ElevatorToHeight extends Command {
 			//double speed = Robot.myElevator.elevatorPID.get();
 			//Robot.myElevator.elevatorMotor.set(ControlMode.PercentOutput, speed);
 
+			if (isTimedOut() && backUp) {
+				Robot.myDrivetrain.arcadeDrive(0.05, 0);
+			}
+
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -60,7 +77,8 @@ public class ElevatorToHeight extends Command {
 	protected boolean isFinished() {
 
 			//Finish once within a margin of error of the setpoint
-		return Math.abs(height - Robot.myElevator.getEncoderCount()) < Constants.PIDElevatorErrorMargin;
+		if (backUp) {return Math.abs(height - Robot.myElevator.getEncoderCount()) < Constants.PIDElevatorErrorMargin + 0.5;}
+		else {return Math.abs(height - Robot.myElevator.getEncoderCount()) < Constants.PIDElevatorErrorMargin;}
 
 	}
 

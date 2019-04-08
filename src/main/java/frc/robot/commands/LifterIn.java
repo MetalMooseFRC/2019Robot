@@ -52,12 +52,15 @@ public class LifterIn extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-
+    Robot.myLifter.setLeftSpeed(0);
+      Robot.myLifter.setRightSpeed(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.myLifter.setLeftSpeed(0);
+      Robot.myLifter.setRightSpeed(0);
   }
 }

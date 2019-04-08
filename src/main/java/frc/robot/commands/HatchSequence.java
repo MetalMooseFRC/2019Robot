@@ -23,25 +23,28 @@ public class HatchSequence extends CommandGroup {
     addSequential(new WaitForLineUp());
     
     if (isCargoShip) {
-      addSequential(new ElevatorToHeight(height));
-      addSequential(new CollectorArmToPosition(-500, 0.6), 0.2);
-      addParallel(new CollectorArmToPosition(-2000, 0.6), 1.2);
-      addSequential(new DrivetrainDriveTime(0.7, 0.2));
+      //addSequential(new ElevatorToHeight(height));
+      addSequential(new CollectorArmToPosition(-700, 0.8), 0.4);
+      addParallel(new CollectorArmToPosition(-2000, 0.8), 1.2);
+      addSequential(new DrivetrainDriveTime(0.7, 0.15));
 
     } else {
-    //only drive forward for highest hole
-     if (height > 40) addSequential(new DrivetrainDriveDistance(-2), 1);
+    //drive backwards to avoid ripping hatches
 
-     addSequential(new ElevatorToHeight(height));
-     addSequential(new CollectorArmToPosition(-1600, 0.5), 1.2);
-     //Go slower if high up
-     if (height < 5) { addSequential(new DrivetrainDriveTime(0.4, 0.25)); }
-     else {addSequential(new DrivetrainDriveTime(0.5, 6/height));}
+     addSequential(new ElevatorToHeight(height), 1.8);
+     addSequential(new CollectorArmToPosition(-1600, 0.8), 0.5);
+
+     addParallel(new CollectorArmToPosition(-2000, 0.9), 0.2);
+     //drive back
+      if (height == Constants.hatch1Height) { addSequential(new DrivetrainDriveTime(0.4, 0.25));}
+      else if (height == Constants.hacth2Height) { addSequential(new DrivetrainDriveTime(0.5, 0.5));}
+      else if (height == Constants.hacth3Height) { addSequential(new DrivetrainDriveTime(0.8, 0.4));}
+
      
     }
 
     addSequential(new CollectorArmToPosition(0, -0.5), 0.5);
-    addSequential(new ElevatorDown(), 0.8);
+    addSequential(new ElevatorDown(), 1);
     
     addSequential(new SetNotRocketHatch());
     //Constants.isRocketHatch = false;
