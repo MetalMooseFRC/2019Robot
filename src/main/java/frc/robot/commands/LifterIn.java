@@ -33,7 +33,7 @@ public class LifterIn extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //Activate both lifters
+    //Activate both lifters, throttled by height
     if (Robot.myLifter.getLeftEncoder() > 75) {
       Robot.myLifter.setLeftSpeed(-0.3);
       Robot.myLifter.setRightSpeed(-0.3);
@@ -46,6 +46,7 @@ public class LifterIn extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
+    //stop once the left side is high enough
     return Robot.myLifter.getLeftEncoder() < pos;
   }
 

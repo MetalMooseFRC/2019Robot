@@ -17,12 +17,13 @@ public class AbortAuto extends CommandGroup {
 
   public AbortAuto() {
  
-    //Recall all defaults to override any auto
+    //Recall all defaults to override any autonomous
     addParallel(new DrivetrainManualDrive());
     addParallel(new ManualElevator());
     addParallel(new ManualArm());
     addParallel(new ManualCollector());
     addParallel(new ManualLifter());
+    
     System.out.println("SELF DESTRUCT");
 
   }

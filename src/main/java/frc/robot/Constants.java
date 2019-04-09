@@ -11,8 +11,6 @@ public class Constants {
     public static boolean isRocketHatch = false;
     //0 is button pad, 1 is controller
     public static int operatorBoardMode = 1;
-    //0 is neutral, 1 is no, 2 is yes
-    public static int areLegsUp = 0;
 
     //0 is manual, 1-3 are L, M , R respectively
     public static int startingPosition = 0;
@@ -59,20 +57,11 @@ public class Constants {
     //in encoder rotations
     public static double PIDElevatorErrorMargin = 0.8;
 
-    public static double elevatorXP = 0.05;
-    public static double elevatorXI = 0.0001;
-    public static double elevatorXD = 0;
-    //In tics
-    public static double elevatorXMargin = 150;
-
     //in tics
     public static double elevatorLimit = 47;
 
     //speed to hold elevator against gravity
     public static double elevatorHoldSpeed = 0.07;
-
-    //Range for elevatorX limit
-    public static final double elevatorXLimit = 10000;
 
     //vision PID
     public static double visionP = 0.01;
@@ -104,14 +93,5 @@ public class Constants {
     public static double armI = 0;
     public static double armD = 0;
     public static double armMargin = 50;
-
-    //In encoder tics for two inches
-    public static double armTwoInchInTics = 520;
-
-    /**LIFTER and CLIMBING */
-
-    public static double climbLifterDistance = 230;
-    public static double climbElevatorDistance = 11.1;
-
 
 }

@@ -8,39 +8,28 @@
 package frc.robot;
 
 
-/**
- * The RobotMap is a mapping from the ports sensors and actuators are wired into
- * to a variable name. This provides flexibility changing wiring, makes checking
- * the wiring easier and significantly reduces the number of magic numbers
- * floating around.
- */
 public class RobotMap {
-  // For example to map the left and right motors, you could define the
-  // following variables to use with your drivetrain subsystem.
-  // public static int leftMotor = 1;
-  // public static int rightMotor = 2;
 
-  	/**JOYSTICKS */
+    /**JOYSTICKS */
+    //driver joystick
   public static final int driveStickPort = 0;
 
   /**AXIS */
-  	//twistaxis
+  //twist axis for driver
   public static final int driveStickZAxisPort = 2;
 
-  //POV Logitech Controller axis
-  public static final int POVAxisPort = 6;
-
-  //Elevator up and down axis
+  //Elevator up and down axis (left joystick)
   public static final int elevatorAxisPort = 1;
-  //Elevator side to side axis
+  //Elevator slower speed (left joystick)
   public static final int elevatorXAxisPort = 0;
 
-  //Arm ports for each operator board
+  //Arm ports for each operator board (right joystick)
   public static final int armAxisAuxPort = 5;
   public static final int armAxisPort = 1;
 
 
     /**Operators */
+  //button board ports
   public static final int operatorLeftPort = 2;
   public static final int operatorRightPort = 3;
   //auxilary
@@ -59,19 +48,13 @@ public class RobotMap {
   public static final int leftMiddleDriveCANID = 4;
   public static final int leftBackDriveCANID = 5;
 
-  //Reflectance sensor to be added
+  //Reflectance sensor unused
   public static final int leftRelfectancePowerPort = 7;
   public static final int rightRelfectancePowerPort = 6;
 
   /**ELEVATOR */
   public static final int elevatorRightMotorCANID = 12; 
   public static final int elevatorLeftMotorCANID = 7; 
- // public static final int elevatorMotorCANID = 2;
-
-  //public static final int elevatorEncoderAPort = 2;
- // public static final int elevatorEncoderBPort = 3;
-
-  //public static final int potAnalogPin = 0;
 
   /**COLLECTER */
   public static final int collectorMotorCANID = 0;

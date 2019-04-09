@@ -15,8 +15,6 @@ import frc.robot.RobotMap;
 public class DrivetrainDriveAngle extends Command {
 
   private double angle;
-  private double navXAngle;
-  private double angles[] = {-90, 0, 90};
 
   public DrivetrainDriveAngle(double angle) {
     // Use requires() here to declare subsystem dependencies
@@ -25,20 +23,6 @@ public class DrivetrainDriveAngle extends Command {
     this.angle = angle;
   }
 
-  public DrivetrainDriveAngle() {
-    requires(Robot.myDrivetrain);
-
-    double navAngle = Robot.myDrivetrain.myAHRS.getAngle();
-    angle = navAngle;
-
-    for (double presets : angles) {
-      if (Math.abs(presets - navAngle) <= 30) {
-        angle = presets;
-      }
-      
-    }
-
-  }
 
   // Called just before this Command runs the first time
   @Override
@@ -57,7 +41,7 @@ public class DrivetrainDriveAngle extends Command {
   //keep adjusting the motors, depending on the output of PID.
   @Override
   protected void execute() {
-   
+   //not using PID because speed is the priority
     Robot.myDrivetrain.arcadeDrive(0, -0.4);
   }
 
@@ -65,6 +49,7 @@ public class DrivetrainDriveAngle extends Command {
   //check if gyro is on target or not.
   @Override
   protected boolean isFinished() {
+    //finish once in a certain margin of the setpoint
     return Math.abs(Robot.myDrivetrain.myAHRS.getYaw() - angle) < Constants.drivetrainGyroPIDError ;
   }
 

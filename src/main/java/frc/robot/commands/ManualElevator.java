@@ -29,6 +29,7 @@ public class ManualElevator extends Command {
   @Override
   protected void execute() {
     // speed of elevator ascending/descending depends on the joystick's y value.
+
     //Depends on operator mode
     double YSpeed = 0;
     double SlowSpeed = 0;
@@ -45,7 +46,7 @@ public class ManualElevator extends Command {
       YSpeed = 0; 
     }
     
-    
+    //if joystick is going to the side, raise the elevator at a constant slower speed
     if (SlowSpeed > 0) {
       Robot.myElevator.setSpeed(SlowSpeed);
     } else {
@@ -54,23 +55,6 @@ public class ManualElevator extends Command {
 
 
    //System.out.println("E " + Robot.myElevator.getEncoderCount());
-
-
-    // speed of elevator x axis depending on joydtick's x value
-    //Depends on operator mode
-    double XSpeed = 0;
-    if (Constants.operatorBoardMode == 1) {
-      XSpeed = OI.operatorController.getRawAxis(RobotMap.elevatorXAxisPort);
-    } else {
-      XSpeed = OI.operatorLeftPad.getRawAxis(RobotMap.elevatorXAxisPort)/2;
-    }
-
-    if (Math.abs(XSpeed) < Constants.elevatorStickMinimumInput) XSpeed = 0;
-
-    //Don't make motor go past limit
-   // if ( Constants.elevatorXMargin + Robot.myElevator.getEncoderXCount() > Constants.elevatorXLimit && XSpeed >0 ) XSpeed = 0;
-   // if ( Robot.myElevator.getEncoderXCount() - Constants.elevatorXMargin < -Constants.elevatorXLimit && XSpeed <0 ) XSpeed = 0;
-   // Robot.myElevator.setXSpeed(XSpeed);
 
   }
 

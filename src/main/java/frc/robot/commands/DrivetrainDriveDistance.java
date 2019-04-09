@@ -32,6 +32,7 @@ public class DrivetrainDriveDistance extends Command {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
+		//zero drivetrain encoders
 		Robot.myDrivetrain.resetEncoder();
 
 		//Set references
@@ -49,11 +50,10 @@ public class DrivetrainDriveDistance extends Command {
 	   Robot.myDrivetrain.setRightPosition(distance);
 	   double rightMotorSpeed = Robot.myDrivetrain.rightFrontDriveMotor.getAppliedOutput();
 
+	   //have the left mirror the right motor speed (not accurate but Spark PID is weird)
 	   Robot.myDrivetrain.leftFrontDriveMotor.set(-rightMotorSpeed);
 
-		System.out.println("D E " + Robot.myDrivetrain.getRightEncoderCount());
-		//System.out.println("angle " + Robot.myDrivetrain.myAHRS.getAngle());
-
+		//System.out.println("D E " + Robot.myDrivetrain.getRightEncoderCount());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -61,7 +61,6 @@ public class DrivetrainDriveDistance extends Command {
 	protected boolean isFinished() {
 		//Finish once within a margin of error of the setpoint
         return Math.abs(distance - Robot.myDrivetrain.getRightEncoderCount()) < Constants.PIDDriveErrorMargin;
-        //&& Math.abs(encoderLeftSetpoint - Robot.myDrivetrain.getLeftEncoderCount()) < Constants.PIDDriveErrorMargin;
 	}
 
 	// Called once after isFinished returns true

@@ -35,18 +35,18 @@ public class ManualArm extends Command {
     double armSpeed;
 
     
-    //Auxilary controller if no driver input
+    //Auxilary controller
     if (Constants.operatorBoardMode == 1) {
 
     armSpeed = -OI.operatorController.getRawAxis(RobotMap.armAxisAuxPort)*0.75;
 
-    //Button pad if no driver input
+    //Button pad
   } else {
     armSpeed = OI.operatorRightPad.getRawAxis(RobotMap.armAxisPort)*0.75;
     if (armSpeed < 0) armSpeed = OI.operatorRightPad.getRawAxis(RobotMap.armAxisPort)*0.5;
   }
 
-
+  //bring the arm in if it falls out from inertia
   if (Math.abs(armSpeed) < 0.1 && Robot.myArm.getEncoderCount() < -20 && Robot.myArm.getEncoderCount() > -700) {
 
     armSpeed = -0.5;

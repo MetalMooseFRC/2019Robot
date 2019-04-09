@@ -21,8 +21,8 @@ public class OI {
   //Driver Logitech joystick
   public static final Joystick driverStick = new Joystick(RobotMap.driveStickPort);
 
-  public static final Button switchCamButton = new JoystickButton(driverStick, 9),
-                             approachButton = new JoystickButton(driverStick, 11),
+  //Driver buttons
+  public static final Button approachButton = new JoystickButton(driverStick, 11),
                              slowerDriveButton = new JoystickButton(driverStick, 1),
                              lifterOutButton = new JoystickButton(driverStick, 10),
                              lifterInButton = new JoystickButton(driverStick, 12),
@@ -65,35 +65,35 @@ public class OI {
 
   
   public OI() {
+    /** DRIVER */
+    //execute button (thumb button)
+    confirmLineUpButton.whenPressed(new ConfirmLineUp());
 
+    /** OPERATOR */
+    //rocket hatch buttons (left side of left joystick)
       rocketHatch1Button.whenPressed(new HatchSequence(Constants.hatch1Height, false));
       rocketHatch2Button.whenPressed(new HatchSequence(Constants.hacth2Height, false));
       rocketHatch3Button.whenPressed(new HatchSequence(Constants.hacth3Height, false));
-
+    //rocket port buttons (right side of left joystick)
       rocketPort1Button.whenPressed(new CargoSequence(Constants.port1Height, false));
       rocketPort2Button.whenPressed(new CargoSequence(Constants.port2Height, false));
       rocketPort3Button.whenPressed(new CargoSequence(Constants.port3Height, false));
-
+    //cargo ship buttons (bottom two of left joystick)
       cargoShipButton.whenPressed(new CargoSequence(Constants.cargoShipHeight, true));
       cargoShipHatchButton.whenPressed(new HatchSequence(Constants.hatch1Height, true));
-
+    //pickup buttons (left side and right side of right joystick)
       hatchPickUpButton.whenPressed(new HatchPickUpSequence());
       ballPickUpButton.whenPressed(new CollectorArmToPosition(-1500, 0.4));
 
+    //self destruct button (bottom of middle strip labeled "!")
       abortButton.whenPressed(new AbortAuto());
+    //retract button (right below the left joystick)
       retractButton.whenPressed(new ArmsIn());
 
-      confirmLineUpButton.whenPressed(new ConfirmLineUp());
-
+    //HAB climb buttons (top of right joystick)
       HAB3ClimbButton.whenPressed(new ClimbSequence(15, 11.1, 120, 3));
       HAB2ClimbButton.whenPressed(new ClimbSequence(7, 3.2, 50, 1));
       HAB23ClimbButton.whenPressed(new ClimbSequence(12, 8, 100, 2));
-      /**
-       HAB3ClimbButton.whenPressed(new ClimbSequence(15, 11.1, 230));
-      HAB2ClimbButton.whenPressed(new ClimbSequence(6, 3.2, 115));
-      HAB23ClimbButton.whenPressed(new ClimbSequence(10, 8, 190));
-       */
-      
   }
 }
 

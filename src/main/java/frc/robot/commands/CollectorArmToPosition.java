@@ -34,43 +34,32 @@ public class CollectorArmToPosition extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-      //Set PID values
-    //Robot.myCollector.armMotor.config_kP(1, Constants.armP);
-    //Robot.myCollector.armMotor.config_kI(1, Constants.armI);
-   // Robot.myCollector.armMotor.config_kD(1, Constants.armD);
 
     //Turn off motor
     Robot.myArm.setArmSpeed(0);
-
-    //setup PID loop
-    //Robot.myArm.armPID.setSetpoint(pos);
-    //Robot.myArm.armPID.enable();
-
 
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //double speed = Robot.myArm.armPID.get();
 
+    //speed is a priority, not accuracy
     Robot.myArm.setArmSpeed(speed);
 
-    System.out.println(Robot.myArm.getEncoderCount());
-
-    //Robot.myCollector.armMotor.set(ControlMode.Position, pos);
+    //System.out.println(Robot.myArm.getEncoderCount());
     
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
+    //based on direction, determine if in a certain margin of the setpoint
     if (Math.signum(speed) > 0) {
       return Robot.myArm.getEncoderCount() < pos + Constants.armMargin;
     } else {
       return Robot.myArm.getEncoderCount() > pos - Constants.armMargin;
     }
-   // return Robot.myArm.armPID.onTarget();
   }
 
   // Called once after isFinished returns true

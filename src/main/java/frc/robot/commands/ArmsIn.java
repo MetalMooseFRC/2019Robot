@@ -16,6 +16,7 @@ import frc.robot.Constants;
 public class ArmsIn extends CommandGroup {
 
   public ArmsIn() {
+    //turn off collector
     Robot.myCollector.setSpeed(0);
     //collector arm in
     addParallel(new CollectorArmToPosition(0, -0.5));

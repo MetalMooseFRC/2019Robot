@@ -55,6 +55,7 @@ public class ManualCollector extends Command {
   } else {
 
     if (OI.inButton.get()) {
+      //assume we are holding a ball after intaking
       Robot.myCollector.intake();
       Robot.myCollector.isHoldingBall = true;
 

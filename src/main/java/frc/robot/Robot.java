@@ -76,45 +76,43 @@ public class Robot extends TimedRobot {
 		MjpegServer jevoisServer = new MjpegServer("VisionServer", 1180);
 		jevoisServer.setSource(jevoisCamera);  */
 
-		//Smart Dashboard widgets
+		/**SMART DASHBOARD */
+
+		//operator controller selection
 		operatorBoardChooser.addDefault("Button Pad", 0);
 		operatorBoardChooser.addObject("Logitech Controller", 1);
 		SmartDashboard.putData("Operator Board", operatorBoardChooser);
 
+		//starting position selection
 		startingPositionChooser.addDefault("Manual", 0);
 		startingPositionChooser.addObject("Left", 1);
 		startingPositionChooser.addObject("Middle", 2);
 		startingPositionChooser.addObject("Right", 3);
 		SmartDashboard.putData("Starting Position", startingPositionChooser);
 
+		//autonomous target selection
 		startingCommandChooser.addObject("Left Rocket", 0);
 		startingCommandChooser.addDefault("Left Cargo", 1);
 		startingCommandChooser.addObject("Right Cargo", 2);
 		startingCommandChooser.addObject("Right Rocket", 3);
 		SmartDashboard.putData("Starting Command", startingCommandChooser);
 
-
+		//subsystems
 		SmartDashboard.putData(myDrivetrain);
 		SmartDashboard.putData(myElevator);
 		SmartDashboard.putData(myCollector);
 		SmartDashboard.putData(myLifter);
 
+		//elevator PID
 		SmartDashboard.putNumber("Elevator P", Constants.elevatorP);
 		SmartDashboard.putNumber("Elevator I", Constants.elevatorI);
 		SmartDashboard.putNumber("Elevator D", Constants.elevatorD);
 		SmartDashboard.putNumber("Elevator Margin of Error", Constants.PIDDriveErrorMargin);
 
-	/*	SmartDashboard.putNumber("Vision P", Constants.visionP);
-		SmartDashboard.putNumber("Vision I", Constants.visionI);
-		SmartDashboard.putNumber("Vision Margin of Error", Constants.visionMargin); */
-
+		//Reflectance threshold
 		SmartDashboard.putNumber("Light Threshhold", Constants.reflectanceThreshHold);
 
-		/** SmartDashboard.putNumber("Arm P", Constants.armP);
-		SmartDashboard.putNumber("Arm I", Constants.armI);
-		SmartDashboard.putNumber("Arm D", Constants.armD);
-		SmartDashboard.putNumber("Arm Margin of Error", Constants.armMargin); */
-
+		//elevator presets
 		SmartDashboard.putNumber("Port Hole 1", Constants.port1Height);
 		SmartDashboard.putNumber("Port Hole 2", Constants.port2Height);
 		SmartDashboard.putNumber("Port Hole 3", Constants.port3Height);
@@ -127,6 +125,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledInit() {
+		//reset gyro, encoders, and booleans on disable
 		myDrivetrain.myAHRS.reset();
 		myArm.armEncoder.reset();
 		myLifter.rightEncoder.setPosition(0);
@@ -145,7 +144,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
-
+		//Get autonomous selections
 		Constants.startingPosition = startingPositionChooser.getSelected();
 		Constants.startingCommand = startingCommandChooser.getSelected();
 
@@ -192,14 +191,6 @@ public class Robot extends TimedRobot {
 		Constants.elevatorI = SmartDashboard.getNumber("Elevator I", 0);
 		Constants.elevatorD = SmartDashboard.getNumber("Elevator D", 0);
 
-		/** Constants.visionP = SmartDashboard.getNumber("Vision P", 0);
-		Constants.visionI = SmartDashboard.getNumber("Vision I", 0);
-
-		Constants.armP = SmartDashboard.getNumber("Arm P", 0);
-		Constants.armI = SmartDashboard.getNumber("Arm I", 0);
-		Constants.armD = SmartDashboard.getNumber("Arm D", 0);
-		*/
-
 		Constants.reflectanceThreshHold = SmartDashboard.getNumber("Light Threshhold", 2.5);
 
 		Constants.port1Height = SmartDashboard.getNumber("Port Hole 1", 0);
@@ -211,10 +202,6 @@ public class Robot extends TimedRobot {
 
 
 		Constants.operatorBoardMode = operatorBoardChooser.getSelected();
-
-		//System.out.println("ROcket Angle " + Constants.isRocketHatch);
-
-
 	}
 
 	/**

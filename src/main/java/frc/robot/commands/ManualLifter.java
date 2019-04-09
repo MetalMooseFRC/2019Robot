@@ -39,15 +39,16 @@ public class ManualLifter extends Command {
       Robot.myLifter.setRightSpeed(0.5);
     }
 
-     //lift both up at the same time
+     //lift both up at the same time but compensate if the encoders go out of sync between sides
       else if (OI.lifterInButton.get()) {
+        //left lifter
         if (Robot.myLifter.getLeftEncoder() > 15 && Robot.myLifter.getLeftEncoder() < 160) {
        Robot.myLifter.setLeftSpeed(-0.5);
       }
        else if (Robot.myLifter.getLeftEncoder() > 5) {
         Robot.myLifter.setLeftSpeed(-0.25);
        } 
-
+       //right lifter
        if (Robot.myLifter.getRightEncoder() < -15 && Robot.myLifter.getRightEncoder() > -160) {
         Robot.myLifter.setRightSpeed(-0.5);
        }

@@ -20,10 +20,8 @@ public class DrivetrainManualDrive extends Command {
 
 	private boolean isShiftingRight;
 	private boolean isShifting = false;
-	//private int shiftCueCount = 1;
 	private int leftShiftCount = 0;
 	private int rightShiftCount = 0;
-	private int shiftCount = 0;
 	private double moveDirection;
 
 	private double angles[] = {-90, 0, 90, 180, -180};
@@ -45,8 +43,6 @@ public class DrivetrainManualDrive extends Command {
 	@Override
 	protected void execute() {
 
-		double leftSpeed;
-		double rightSpeed;
 		//Get the forward and backwards value of joystick
 		double speed = OI.driverStick.getY();
 		if (Math.abs(speed) < Constants.driveStickMinimumInput) {speed = 0;}
@@ -63,10 +59,8 @@ public class DrivetrainManualDrive extends Command {
 		double navAngle = Robot.myDrivetrain.myAHRS.getYaw();
 
 		double angle = navAngle;
-		//System.out.println("A " + navAngle);
 		
-		//System.out.println(Constants.isRocketHatch);
-		
+		//find nearest angle
 		if (Constants.isRocketHatch) {
 			for (double presets : rocketAngles) {
 				if (Math.abs(presets - navAngle) < 30) {
@@ -74,7 +68,7 @@ public class DrivetrainManualDrive extends Command {
 				}
 		  }
 
-
+		//find nearest angle
 		} else {
 			for (double presets : angles) {
 		  		if (Math.abs(presets - navAngle) <= 40) {
@@ -83,7 +77,6 @@ public class DrivetrainManualDrive extends Command {
 			}
 		}
 
-		//System.out.println("Predicted A " + angle);
 
 		Robot.myDrivetrain.gyroPID.setSetpoint(angle);
 		double auxTurn = Robot.myDrivetrain.gyroPID.get();
@@ -92,11 +85,12 @@ public class DrivetrainManualDrive extends Command {
 		if (OI.approachButton.get()) {
 			Constants.isApproachMode = true;
 
-			
 			double shiftDirection = OI.driverStick.getX();
+			//shift deadband
 			if (Math.abs(shiftDirection) < 0.4) {shiftDirection = 0;}
 
 			if (!isShifting) {
+				//when it is not shifting, wait until the joystick is jerked in a direction
 				moveDirection = Math.signum(speed);
 				if (moveDirection == 0) moveDirection = -1;
 
@@ -112,12 +106,13 @@ public class DrivetrainManualDrive extends Command {
 					leftShiftCount = 10;
 					isShifting = true;
 				} else {
+					//move straight at a constant speed forwards or backwards
 					if (speed < -0.2) {Robot.myDrivetrain.arcadeDrive(-0.25, auxTurn);}
 					else if (speed > 0.2) {Robot.myDrivetrain.arcadeDrive(0.03, auxTurn);}
 					else {Robot.myDrivetrain.arcadeDrive(-0.1, auxTurn);}
 				}
 			} else {
-
+				//when it is shifting, decrease the shift counts one side at a time
 				if (leftShiftCount > 0 && !isShiftingRight) {
 					leftShiftCount--;
 					System.out.println("GO RIGHT MOTOR");
@@ -136,7 +131,7 @@ public class DrivetrainManualDrive extends Command {
 					isShiftingRight = false;
 				} 
 			}
-
+			//end shift
 			if (rightShiftCount == 0 && leftShiftCount == 0) {
 				isShifting = false;
 			}
@@ -147,6 +142,8 @@ public class DrivetrainManualDrive extends Command {
 			rightShiftCount = 0;
 			leftShiftCount = 0;
 			isShifting = false;
+
+			//if the slower button is pressed, no need to "double throttle"
 			if (OI.slowerDriveButton.get()) {
 				Robot.myDrivetrain.arcadeDrive(speed/3, turn/3);
 			} else {

@@ -25,6 +25,7 @@ public class SetRocketHatch extends Command {
   @Override
   protected void initialize() {
       isDone = false;
+      //start searching for rocket hatch angles
       Constants.isRocketHatch = true;
       
   }

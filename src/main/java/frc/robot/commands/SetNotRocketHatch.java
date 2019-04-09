@@ -25,6 +25,7 @@ public class SetNotRocketHatch extends Command {
   @Override
   protected void initialize() {
       isDone = false;
+      //start searching for normal angles
       Constants.isRocketHatch = false;
       
   }

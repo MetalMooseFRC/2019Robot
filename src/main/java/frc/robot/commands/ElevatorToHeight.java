@@ -35,6 +35,7 @@ public class ElevatorToHeight extends Command {
 		backUp = false;
 	}
 
+	//back up constructor for if the elevator is caught on something and can't go up
 	public ElevatorToHeight(double height, boolean backUpIfTImeOut) {
 		// Use requires() here to declare subsystem dependencies
         requires(Robot.myElevator);
@@ -47,9 +48,7 @@ public class ElevatorToHeight extends Command {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-         //Set reference for elevator PID
-		// Robot.myElevator.elevatorPID.setSetpoint(height);
-		// Robot.myElevator.elevatorPID.enable();
+
 		System.out.println("start elevator");
 		
 		setTimeout(0.45);
@@ -62,10 +61,7 @@ public class ElevatorToHeight extends Command {
 			//Appoach desired height
 			Robot.myElevator.setHeight(height);
 
-			//Continue to approach references
-			//double speed = Robot.myElevator.elevatorPID.get();
-			//Robot.myElevator.elevatorMotor.set(ControlMode.PercentOutput, speed);
-
+			//start backing up if it appears stuck
 			if (isTimedOut() && backUp) {
 				Robot.myDrivetrain.arcadeDrive(0.05, 0);
 			}
